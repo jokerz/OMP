@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>中カテゴリ管理</title>
+<link rel="stylesheet" href="/style.css" type="text/css" charset="Shift_JIS" />
+<link rel="stylesheet" type="text/css" href="/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" href="/build/container/assets/skins/sam/container.css" />
+<script src="/js/prototype.js" type="text/javascript"></script>
+<script src="/build/utilities/utilities.js" type="text/javascript"></script>
+<script src="/build/container/container.js" type="text/javascript"></script>
+<script src="/js/myIndicator.js" type="text/javascript"></script>
+<script src="/js/popuphint.js" type="text/javascript"></script>
+<script src="/js/scriptaculous.js?load=effects" type="text/javascript"></script>
+</head>
+<body>
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1>UPSTAIR  </h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞<strong>小カテゴリ新規登録</strong>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>小カテゴリ新規登録%&BENCH_TIME&%</h2>
+		</div>
+
+		<div id="list">
+
+
+__IfInputCheckError__
+<div id="error">
+	<ul><li>%&ERROR_MSG&%</li></ul>
+</div>
+__IfInputCheckError__
+
+<br />
+__IfRegistSmallCategoryForm__
+
+	<!-- 商品中カテゴリ詳細編集フォーム BEGIN -->
+<font size="-2" color="red">※</font>は必須項目です。
+<form action="/app.mpl" method="post" name="modifySubCategory" id="modifySubCategory">
+<table border="0" cellspacing="0" cellpadding="2" width="100%" rules="all" class="datagrid">
+<tr><th align="center" colspan="3">小カテゴリ新規登録フォーム</th></tr>
+	<tr>
+		<th width="25%">小カテゴリID</th>
+		<td>自動割り振り</td>
+		<td rowspan="8"><br /></td>
+	</tr>
+
+				<tr>
+				    <th>カテゴリ※</th>
+				    <td>
+					    <select name="category_id">
+	    				<option value="0">--【カテゴリ名&gt;中カテゴリ】選択してください--</option>
+__LoopCategorySubCategoryList__
+						<option value="%&category_id&%;%&subcategory_id&%;%&EncodedCategoryName&%;%&EncodedSubCategoryName&%">【%&category_name&%&gt;%&subcategory_name&%】</option>
+__LoopCategorySubCategoryList__
+						</select>
+				    </td>
+				</tr>
+	
+	<tr>
+	    <th>小カテゴリ名 <font  color="red">※</font></th>
+	    <td><input type="text" name="smallcategory_name" value="%&smallcategory_name&%" size="70" maxlength="20" style="ime-mode:active" /></td>
+	</tr>
+	<tr>
+	<tr>
+	    <th>状態</th>
+	    <td width="25%">
+	    <label for="status_flag2">
+	    <input type="radio" name="status_flag" value="2"__IfStatusflag2__ checked__IfStatusflag2__ id="status_flag2" /> 有効
+	    </label> &nbsp;
+	    <label for="status_flag1">
+	    <input type="radio" name="status_flag" value="1"__IfStatusflag1__ checked__IfStatusflag1__ id="status_flag1" /> 無効
+	    </label>
+		</td>
+	</tr>
+	<tr>
+    	<th>説明<br /><img src="/images/tagok.gif" width="21" height="22" /></th>
+	    <td><textarea cols="60" name="description" rows="8" style="font-size:11px;">%&description&%</textarea></td>
+	</tr>
+	<tr> 
+    	<th>説明詳細<br /><img src="/images/tagok.gif" width="21" height="22" /></th>
+	    <td><textarea cols="60" name="description_detail" rows="8" style="font-size:11px;">%&description_detail&%</textarea></td>
+	</tr>
+	<tr>
+	    <th>登録日</th>
+	    <td>%&registration_date&%</td>
+	</tr>
+<tr><td colspan="2"><div align="center"><input type="submit" name="modifyCategory" value="　確　認　画　面　" onclick="init();" id="content" /></div></td></tr>
+<input type="hidden" name="app" value="AppProduct" />
+<input type="hidden" name="action" value="registSmallCategory" />
+<input type="hidden" name="md5key" value="%&md5key&%" />
+
+</table>
+</form>
+	<!-- 中カテゴリ詳細編集フォーム END -->
+__IfRegistSmallCategoryForm__
+
+
+__IfConfirmSmallCategoryForm__
+	<!-- 更新内容確認フォーム BEGIN -->
+<div id="error">
+<ul>
+<li><font size="-2">下記内容で登録する場合は画面下の「小カテゴリ登録」ボタンを押下して登録を完了してください。</font></li>
+<li><font size="-2">下記内容を修正する場合は画面下の「修正」ボタンを押下し内容を修正してください。</font></li>
+</ul>
+</div>
+<form action="/app.mpl" method="post">
+
+<table border="0" cellspacing="0" cellpadding="2" width="60%" rules="all" class="datagrid">
+	<tr><th align="center" colspan="2"> 商品小カテゴリ新規登録情報確認</th></tr>
+	<tr>
+	    <th width="25%">小カテゴリID</th>
+	    <td>自動割り振り</td>
+	</tr>
+	<tr>
+	    <th>カテゴリ名&gt;中カテゴリ名</th>
+	    <td>
+	    	&nbsp;
+	    	%&category_name&%&gt;%&subcategory_name&%
+	    </td>
+	</tr>
+	<tr>
+	    <th>中カテゴリ名</th>
+	    <td>
+	    	&nbsp;
+	    	%&smallcategory_name&%
+	    </td>
+	</tr>
+	<tr>
+	    <th>状態</th>
+	    <td width="25%">
+	     __IfStatusFlagIsActive__ <font style="color:#0000ff;">有効</font>__IfStatusFlagIsActive__
+	     __IfStatusFlagIsNotActive__ <font style="color:#ff0000">無効</font>__IfStatusFlagIsNotActive__
+		</td>
+	</tr>
+	<tr>
+    	<th>説明<br /><img src="/images/tagok.gif" width="21" height="22" /></th>
+	    <td><textarea cols="60" name="description" rows="8" style="font-size:11px;" readonly>%&description&%</textarea></td>
+	</tr>
+	<tr> 
+    	<th>説明詳細<br /><img src="/images/tagok.gif" width="21" height="22" /></th>
+	    <td><textarea cols="60" name="description_detail" rows="8" style="font-size:11px;" readonly>%&description_detail&%</textarea></td>
+	</tr>
+	<tr>
+	    <th>登録日</th>
+	    <td>%&registration_date&%</td>
+	</tr>
+<tr>
+	<td colspan="2">
+		<div align="center">
+		<input type="submit" name="modifySmallCategory" value="　小カテゴリ　登録　" onclick="init();" id="content" />
+		<br /><br />
+		<input type="button" value="　修　正　" onClick="history.back()" />
+		</div>
+	</td>
+</tr>
+</table>
+<input type="hidden" name="app" value="AppProduct" />
+<input type="hidden" name="action" value="modifySmallCategory" />
+<input type="hidden" name="md5key" value="%&md5key&%" />
+</form>
+
+	<!-- 更新内容確認フォーム END -->
+__IfConfirmSmallCategoryForm__
+	
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+
+</body>
+</html>

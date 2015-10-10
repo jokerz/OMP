@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>会員管理</title>
+<link rel="stylesheet" type="text/css" href="/style.css" charset="Shift_JIS" />
+<!--
+<link rel="stylesheet" type="text/css" href="build/fonts/fonts-min.css" />
+-->
+<link rel="stylesheet" type="text/css" href="build/container/assets/skins/sam/container.css" />
+<script type="text/javascript" src="/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="/build/connection/connection-min.js"></script>
+<script type="text/javascript" src="/build/animation/animation-min.js"></script>
+<script type="text/javascript" src="/build/dragdrop/dragdrop-min.js"></script>
+<script type="text/javascript" src="/build/container/container-min.js"></script>
+<script src="/js/scriptaculous.js?load=effects" type="text/javascript"></script>
+<script src="/js/popuphint.js" type="text/javascript"></script>
+<script src="/js/jkl-form.js" type="text/JavaScript"></script>
+<script src="/js/jkl-opacity.js" type="text/JavaScript"></script>
+<script src="/js/jkl-calendar.js" type="text/JavaScript"></script>
+<!--<script src="/js/jkl-calender.js" type="text/JavaScript"></script>-->
+<script type="text/javascript">//<![CDATA[
+	var cal1 = new JKL.Calender("cal_frsdate","setwhere","frsdate");
+	cal1.setStyle("month_color ", "#ccff00" );
+	cal1.setFormValue();
+
+	var cal2 = new JKL.Calender("cal_fredate","setwhere","fredate");
+	if ( ! cal2.getFormValue() ) cal2.setFormValue();
+	cal2.setStyle( "frame_color", "#CC3333" );
+
+	var cal3 = new JKL.Calender("cal_fdsdate","setwhere","fdsdate");
+	if ( ! cal3.getFormValue() ) cal3.setFormValue();
+	cal3.setStyle( "frame_color", "#3333CC" );
+
+	var cal4 = new JKL.Calender("cal_fdedate","setwhere","fdedate");
+	if ( ! cal4.getFormValue() ) cal4.setFormValue();
+	cal4.setStyle( "frame_color", "#CC3333" );
+
+//]]></script>
+</head>
+<body class="yui-skin-sam">
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1>UPSTAIR  </h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞<strong>会員ポイントランキング</strong>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>会員ポイントランキング%&BENCH_TIME&%</h2>
+		</div>
+
+		<div id="list">
+<br />
+
+			<div id="content"></div>
+			<script src="/js/myIndicator.js" type="text/javascript"></script>
+			<form action="/app.mpl" name="setwhere" method="post" id="setwhere">
+
+			<input type="hidden" name="app" value="AppMember" />
+			<input type="hidden" name="action" value="pointRanking" />
+			<table border="0" cellpadding="2" cellspacing="0" bgcolor="#999999" rules="all" class="datagrid">
+				<tr>
+					<th align="center" colspan="3">集計期間指定</th>
+				</tr>
+				<tr>
+					<th colspan="2">対象日次</th>
+					<td bgcolor=#ffffff>
+						<input type="text" name="frsdate" size="12" maxlength="12" onClick="cal1.write(); cal2.hide();" onChange="cal1.getFormValue(); cal1.hide();" />
+						<span id="cal_frsdate"></span>　から　
+						<input type="text" name="fredate" size="12" maxlength="12" onClick="cal2.write(); cal1.hide();" onChange="cal2.getFormValue(); cal2.hide();" />
+						<span id="cal_fredate"></span>　まで
+					</td>
+				</tr>
+				<tr><th align="center" colspan="3"><input type="submit" name="submit" value="　ポイント　集　計　" /></th></tr>
+</table>
+</form>
+
+<hr>
+__IfSearchResultExists__
+検索期間：%&SEARCHQUERYMESSAGE&%
+				<div style="width:640px">
+					<table class="datagrid" cellspacing="0" cellpadding="2" rules="all" bordercolor="#3366CC" border="1" id="DataGrid1" style="background-color:White;border-color:#3366CC;border-width:1px;border-style:None;width:100%;border-collapse:collapse;">
+						<tr><th colspan="3">会員ポイントランキング集計</th></tr>
+						<tr style="color:#CCCCFF;background-color:#003399;font-weight:bold;">
+							<th width="40">合計ポイント</th>
+							<th width="50">会員ＩＤ</th>
+							<th width="40">会員ニックネーム</th>
+						</tr>
+__LoopSearchPointRankingList__
+						<tr class="%&cssstyle&%">
+							<td>%&SUM_POINT&%</td>
+							<td><a href="/app.mpl?app=AppMember;action=detailMember;owid=%&owid&%">%&owid&%</a></td>
+							<td>%&nickname&%</td>
+__LoopSearchPointRankingList__
+						<tr style="color:#CCCCFF;background-color:#003399;font-weight:bold;">
+							<th width="40">合計ポイント</th>
+							<th width="50">会員ＩＤ</th>
+							<th width="40">会員ニックネーム</th>
+						</tr>
+					</table>
+				</div>
+__IfSearchResultExists__
+
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+</body></html>

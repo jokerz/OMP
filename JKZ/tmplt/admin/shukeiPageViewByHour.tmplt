@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>集計管理</title>
+<link rel="stylesheet" href="/style.css" type="text/css" charset="Shift_JIS" />
+<link rel="stylesheet" type="text/css" href="build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" href="build/container/assets/skins/sam/container.css" />
+<script type="text/javascript" src="/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="/build/connection/connection-min.js"></script>
+<script type="text/javascript" src="/build/animation/animation-min.js"></script>
+<script type="text/javascript" src="/build/dragdrop/dragdrop-min.js"></script>
+<script type="text/javascript" src="/build/container/container-min.js"></script>
+<!-- list for yui END -->
+<script src="/js/popuphint.js" type="text/javascript"></script>
+</head>
+<body class="yui-skin-sam">
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1>UPSTAIR システム　管理者画面</h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞集計管理 ＞<a href="/app.mpl?app=AppShukei;action=shukeiByMonth">日次集計</a> ＞<strong>日別PV集計(24時間)</strong>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>集計管理　%&BENCH_TIME&%</h2>
+		</div>
+
+		<div id="list">
+			<!-- <fieldset> -->
+
+			<!-- 集計テーブル BEGIN -->
+				<div id="content"></div>
+				<script src="/js/myIndicator.js" type="text/javascript"></script>
+			<div id="shukei">
+				<table width="100%" align="center">
+__IfAction__
+				<thead>
+					<tr>
+						<td></td><td></td><td></td>
+						<th colspan="24" align="center">
+							&nbsp;&nbsp;<b>%&sYEAR&%年<a href="/app.mpl?app=AppShukei;action=shukeiPageView;year=%&sYEAR&%;month=%&sMONTH&%" style="text-decoration:none;">%&sMONTH&%月</a>%&sDATE&%日 </b>PV集計&nbsp;&nbsp;
+						</th>
+					</tr>
+					<tr>
+						<td></td><td></td><td></td><th colspan="24" align="center" width="72%">時間（24時間表記）</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<td></td><td></td><th colspan="25"></th>
+				</tfoot>
+			__IfNoData__
+				<tbody>
+					<tr><td colspan="27">%&ERRORMSG&%</td></tr>
+				</tbody>
+			__IfNoData__
+
+			__IfData__
+				<tbody>
+					<tr>
+						<th align="center" colspan="2" width="20%">ページ名</th>
+						<th align="center" width="5%">合計</th>
+						<th align="center" width="3%">0</th>
+						<th align="center" width="3%">1</th>
+						<th align="center" width="3%">2</th>
+						<th align="center" width="3%">3</th>
+						<th align="center" width="3%">4</th>
+						<th align="center" width="3%">5</th>
+						<th align="center" width="3%">6</th>
+						<th align="center" width="3%">7</th>
+						<th align="center" width="3%">8</th>
+						<th align="center" width="3%">9</th>
+						<th align="center" width="3%">10</th>
+						<th align="center" width="3%">11</th>
+						<th align="center" width="3%">12</th>
+						<th align="center" width="3%">13</th>
+						<th align="center" width="3%">14</th>
+						<th align="center" width="3%">15</th>
+						<th align="center" width="3%">16</th>
+						<th align="center" width="3%">17</th>
+						<th align="center" width="3%">18</th>
+						<th align="center" width="3%">19</th>
+						<th align="center" width="3%">20</th>
+						<th align="center" width="3%">21</th>
+						<th align="center" width="3%">22</th>
+						<th align="center" width="3%">23</th>
+					</tr>
+
+__LoopPageViewLog__
+					<tr class="%&cssstyle&%">
+						<th class="summary" rowspan="3">%&summary&%</th>
+						<td><img src="/images/i.gif" width="19" height="19" /></td>
+						<td align="right">%&SUMD&%</td>
+						<td align="right">%&TIME0D&%</td>
+						<td align="right">%&TIME1D&%</td>
+						<td align="right">%&TIME2D&%</td>
+						<td align="right">%&TIME3D&%</td>
+						<td align="right">%&TIME4D&%</td>
+						<td align="right">%&TIME5D&%</td>
+						<td align="right">%&TIME6D&%</td>
+						<td align="right">%&TIME7D&%</td>
+						<td align="right">%&TIME8D&%</td>
+						<td align="right">%&TIME9D&%</td>
+						<td align="right">%&TIME10D&%</td>
+						<td align="right">%&TIME11D&%</td>
+						<td align="right">%&TIME12D&%</td>
+						<td align="right">%&TIME13D&%</td>
+						<td align="right">%&TIME14D&%</td>
+						<td align="right">%&TIME15D&%</td>
+						<td align="right">%&TIME16D&%</td>
+						<td align="right">%&TIME17D&%</td>
+						<td align="right">%&TIME18D&%</td>
+						<td align="right">%&TIME19D&%</td>
+						<td align="right">%&TIME20D&%</td>
+						<td align="right">%&TIME21D&%</td>
+						<td align="right">%&TIME22D&%</td>
+						<td align="right">%&TIME23D&%</td>
+						<td class="r_solid" rowspan="3">%&TIMETOTAL&%</td>
+					</tr>
+					<tr class="%&cssstyle&%">
+						<td><img src="/images/e.gif" width="19" height="19" /></td>
+						<td align="right">%&SUMAU&%</td>
+						<td align="right">%&TIME0AU&%</td>
+						<td align="right">%&TIME1AU&%</td>
+						<td align="right">%&TIME2AU&%</td>
+						<td align="right">%&TIME3AU&%</td>
+						<td align="right">%&TIME4AU&%</td>
+						<td align="right">%&TIME5AU&%</td>
+						<td align="right">%&TIME6AU&%</td>
+						<td align="right">%&TIME7AU&%</td>
+						<td align="right">%&TIME8AU&%</td>
+						<td align="right">%&TIME9AU&%</td>
+						<td align="right">%&TIME10AU&%</td>
+						<td align="right">%&TIME11AU&%</td>
+						<td align="right">%&TIME12AU&%</td>
+						<td align="right">%&TIME13AU&%</td>
+						<td align="right">%&TIME14AU&%</td>
+						<td align="right">%&TIME15AU&%</td>
+						<td align="right">%&TIME16AU&%</td>
+						<td align="right">%&TIME17AU&%</td>
+						<td align="right">%&TIME18AU&%</td>
+						<td align="right">%&TIME19AU&%</td>
+						<td align="right">%&TIME20AU&%</td>
+						<td align="right">%&TIME21AU&%</td>
+						<td align="right">%&TIME22AU&%</td>
+						<td align="right">%&TIME23AU&%</td>
+					</tr>
+					<tr class="%&cssstyle&%_bottom">
+						<td><img src="/images/v.gif" width="19" height="19" /></td>
+						<td align="right">%&SUMSB&%</td>
+						<td align="right">%&TIME0SB&%</td>
+						<td align="right">%&TIME1SB&%</td>
+						<td align="right">%&TIME2SB&%</td>
+						<td align="right">%&TIME3SB&%</td>
+						<td align="right">%&TIME4SB&%</td>
+						<td align="right">%&TIME5SB&%</td>
+						<td align="right">%&TIME6SB&%</td>
+						<td align="right">%&TIME7SB&%</td>
+						<td align="right">%&TIME8SB&%</td>
+						<td align="right">%&TIME9SB&%</td>
+						<td align="right">%&TIME10SB&%</td>
+						<td align="right">%&TIME11SB&%</td>
+						<td align="right">%&TIME12SB&%</td>
+						<td align="right">%&TIME13SB&%</td>
+						<td align="right">%&TIME14SB&%</td>
+						<td align="right">%&TIME15SB&%</td>
+						<td align="right">%&TIME16SB&%</td>
+						<td align="right">%&TIME17SB&%</td>
+						<td align="right">%&TIME18SB&%</td>
+						<td align="right">%&TIME19SB&%</td>
+						<td align="right">%&TIME20SB&%</td>
+						<td align="right">%&TIME21SB&%</td>
+						<td align="right">%&TIME22SB&%</td>
+						<td align="right">%&TIME23SB&%</td>
+					</tr>
+__LoopPageViewLog__
+				</tbody>
+			__IfData__
+__IfAction__
+
+				</table>
+			</div>
+<!-- 集計テーブル END -->
+
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+
+</body>
+</html>

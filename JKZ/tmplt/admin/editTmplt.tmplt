@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="shift_jis"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>ページ管理画面</title>
+<link rel="stylesheet" type="text/css" href="build/fonts/fonts-min.css" />
+<style media="all" type="text/css">
+<!--/* <![CDATA[ */
+@import "/style.css";
+/* ]]> */-->
+</style>
+<script type="text/javascript">//<![CDATA[
+function NewWindowL(url) { if (url != '') { window.open(url, '_blank', "toolbar=0,menubar=0,scrollbars=1,resizable=yes left=0,top=0,width=640,height=640"); } }
+function NewWindowH(url) { if (url != '') { window.open(url, '_blank', "toolbar=0,menubar=0,scrollbars=1 left=0,top=0,width=360,height=960"); } }
+
+function submitStop(e){
+    if (!e) var e = window.event;
+ 
+    if(e.keyCode == 13)
+        return false;
+}
+
+window.onload = function (){
+        var list = document.getElementsByTagName("input");
+        for(var i=0; i<list.length; i++){
+        if(list[i].type == 'text'){
+            list[i].onkeypress = function (event){
+                return submitStop(event);
+            };
+        }
+    }
+}
+//]]></script>
+<script language='JavaScript'>//<![CDATA[
+	function displayPreviewHTML(form) {
+		document.asshole.action = ('app.mpl');
+		document.asshole.tmplt.value = form.value;
+		document.asshole.app.value = 'AppTmpltPreview';
+		window.open('', 'dick', 'toolbar=no, status=yes, scrollbars=yes, resizable=yes, left=0, top=0, width=248, height=800');
+		document.asshole.submit();
+		//win.document.write();
+	}
+//]]></script>
+</head>
+<body class="yui-skin-sam">
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1> %&CMS_NAME&% &nbsp; <b>%&name&%</b>さんログイン中</h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞<a href="/app.mpl?app=AppTmplt;attr=0">ページ管理</a>＞<strong>ページ編集</strong>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>ページ管理%&BENCH_TIME&%</h2>
+		</div>
+
+		<div id="list">
+
+__IfNoTmpltFileData__
+%&ERROR_MSG&%
+__IfNoTmpltFileData__
+
+<form name="asshole" target="dick" action="" method="post">
+<input type="hidden" name="tmplt" />
+<input type="hidden" name="app" />
+</form>
+
+				<form action="/app.mpl" method="post">
+				<!-- <table cellpadding="1" cellspacing="0" width="100%" align="left" style="table-layout:fixed;" rules="all" class="datagrid"> -->
+				<table cellpadding="1" cellspacing="0" width="100%" align="left" rules="all" class="datagrid">
+					<tr><th colspan="4" bgcolor="#fff0f5" colspan="2" align="center"><img src="/images/das.gif" width="20" height="20" /><img src="/images/icn_html.png" width="16" height="16" />HTMLページ編集</th></tr>
+					<tr>
+						<th width="110">ページID</th>
+						<td bgcolor="#ffffff">%&tmpltm_id&%</td>
+						<th width="110">ページコード</th>
+						<td bgcolor="#ffffff">
+							__IfEditOK__
+							<input type="text" name="tmplt_name" value="%&tmplt_name&%" maxlength="30" size="40" style="ime-mode:disabled;" />
+							__IfEditOK__
+							__IfEditNotOK__
+							%&tmplt_name&%<input type="hidden" name="tmplt_name" value="%&tmplt_name&%" size="40" /><!-- テンプレート名：defaultとerrorは変更不可 -->
+							__IfEditNotOK__
+						
+						</td>
+					</tr>
+					<tr>
+						<th width="110">テンプレID</th>
+						<td bgcolor="#ffffff">%&tmpltfile_id&%</td>
+						<th width="110">ページ名</th><!-- TmpltM.summary -->
+						<td bgcolor="#ffffff">
+							<input type="text" name="summary" value="%&summary&%" maxlength="20" size="40" />
+						</td>
+					</tr>
+					<tr>
+						<th>開始日時</th><!-- TmpltFileF.activation_date -->
+						<td colspan="3" bgcolor="#ffffff">%&ActivationDate&%</td>
+					</tr>
+
+				<!-- DoCoMo BEGIN -->
+					<tr>
+						<!--
+						<th>
+							<img src="/images/icn_html.png" width="16" height="16" /><br />
+							<img src="/images/das.gif" width="20" height="20" /><br />
+							<input type=button value="プレビュー" onClick="displayPreviewHTML(this.form.tmplt_docomo)" class="box" />
+						</th>
+						-->
+						<td colspan="4" bgcolor="#ffffff"><a name="docomo"></a>
+<div align="right" id="x">
+<a href="#docomo"><img src="/images/i.gif" width="18" height="19" /></a
+><a href="#au"><img src="/images/e.gif" width="18" height="19" /></a
+><a href="#softbank"><img src="/images/v.gif" width="18" height="19" /></a
+><a onclick="NewWindowL('/mod-perl/repstr.mpl')" href="#">置換文字(<kbd>F</kbd>)</a
+><a onclick="NewWindowH('/app.mpl?app=AppImage;action=siteImageList')" href="#">画像リスト(<kbd>E</kbd>)</a
+><a onclick="NewWindowL('/color.html')" href="#">カラーパレット(<kbd>H</kbd>)</a>
+</div>
+
+&nbsp;最終編集・更新日[ %&lastupdate_date&% ]
+
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<div style="MozUserSelect: none; KhtmlUserSelect: none"  class="x-panel-header x-unselectable" unselectable="on"><span class="x-panel-header-text"><img src="/images/i.gif" width="18" height="19" /><a name="docomo"></a><input type=button value="プレビュー" onClick="displayPreviewHTML(this.form.tmplt_docomo)"  class="box" /></span></div>
+							<textarea rows="30" cols="164" name="tmplt_docomo">%&tmplt_docomo&%</textarea>
+							<div style="MozUserSelect: none; KhtmlUserSelect: none"  class="x-panel-header x-unselectable" unselectable="on"><span class="x-panel-header-text"><img src="/images/e.gif" width="18" height="19" /><a name="au"></a><input type=button value="プレビュー" onClick="displayPreviewHTML(this.form.tmplt_au)"  class="box" /></span></div>
+							<textarea rows="30" cols="164" name="tmplt_au">%&tmplt_au&%</textarea>
+							<div style="MozUserSelect: none; KhtmlUserSelect: none"  class="x-panel-header x-unselectable" unselectable="on"><span class="x-panel-header-text"><img src="/images/v.gif" width="18" height="19" /><a name="softbank"></a><input type=button value="プレビュー" onClick="displayPreviewHTML(this.form.tmplt_softbank)"  class="box" /></span></div>
+							<textarea rows="30" cols="164" name="tmplt_softbank">%&tmplt_softbank&%</textarea>
+						</td>
+					</tr>
+					<tr bgcolor="#ffffff">
+						<td align="center" colspan="4">
+							<input type=submit value="データ更新(S)" class="button" style="width: 30%;" accesskey="S" />
+						</td>
+					</tr>
+				</table>
+
+				<input type="hidden" name="app" value="AppTmplt" />
+				<input type="hidden" name="action" value="updateTmplt" />
+				<input type="hidden" name="tmplt_id" value="%&tmpltm_id&%" />
+				<input type="hidden" name="tmpltfile_id" value="%&tmpltfile_id&%" />
+				<input type="hidden" name="" value="" />
+				</form>
+
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+
+</body></html>

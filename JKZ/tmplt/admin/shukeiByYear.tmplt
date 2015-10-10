@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>集計管理</title>
+<link rel="stylesheet" href="/style.css" type="text/css" media="all" charset="Shift_JIS" />
+<!-- list below for yui BEGIN -->
+<link rel="stylesheet" type="text/css" href="build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" href="build/container/assets/skins/sam/container.css" />
+<script type="text/javascript" src="/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="/build/connection/connection-min.js"></script>
+<script type="text/javascript" src="/build/animation/animation-min.js"></script>
+<script type="text/javascript" src="/build/dragdrop/dragdrop-min.js"></script>
+<script type="text/javascript" src="/build/container/container-min.js"></script>
+<!-- list for yui END -->
+<script src="/js/popuphint.js" type="text/javascript"></script>
+</head>
+<body class="yui-skin-sam">
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1>システム　管理者画面</h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞ 集計管理 ＞<strong>月次集計</strong>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>集計管理　%&BENCH_TIME&%</h2>
+		</div>
+
+		<div id="list">
+			<!-- <fieldset> -->
+
+			<!-- 集計テーブル BEGIN -->
+			<div id="content"></div>
+			<script src="/js/myIndicator.js" type="text/javascript"></script>
+
+							<form action="/app.mpl" method="post">
+							<table id="form">
+								<tr>
+									<th align="center">月次集計</th>
+									<td>%&year&% 年&nbsp;<input type="submit" name="content" value="　集　計　開　始　" onclick="init();" /></td>
+								</tr>
+							</table>
+							<input type="hidden" name="app" value="AppShukei" />
+							<input type="hidden" name="action" value="%&action&%" />
+							</form>
+%&DUMP&%
+				
+<!--
+					<table border="0" cellspacing="0" cellpadding="1" class="datagrid" width="100%" align="center">
+					<tr>
+						<td colspan="18">
+						</td>
+					</tr>
+-->
+__IfAction__
+			<div id="shukei">
+				<table align="center" style="table-layout:fixed;width:850px;">
+				<thead>
+					<tr>
+						<td></td>
+						<th colspan="19">
+						<!--
+							<span style="position:absolute;left:10px;">
+								<form action="/mod-perl/download.mpl" method="post"><input type="image" src="/images/download04.gif" /></form><img src="/images/b_print.png" />
+							</span>
+						-->
+						__IfToPreviousYear__
+							<a href="/app.mpl?app=AppShukei;action=shukeiByYear;year=%&sYEAR&%" onclick="init();" >&lt;&lt;前年分</a>
+						__IfToPreviousYear__
+							&nbsp;&nbsp;<b>%&sYEAR&%年集計</b>&nbsp;&nbsp;
+
+						__IfToNextYear__
+							<a href="/app.mpl?app=AppShukei;action=shukeiByYear;year=%&sYEAR&%" onclick="init();">翌年分&gt;&gt;</a>
+						__IfToNextYear__
+						</th>
+					</tr>
+				</thead>
+				<tfoot>
+				</tfoot>
+				<tbody>
+				__IfNoData__
+					<tr><th colspan="20" align="center">%&ERRORMSG&%</th></tr>
+				__IfNoData__
+				__IfData__
+					<tr>
+						<th align="center" rowspan="2" style="width:34px;">月</th>
+						<th align="center" colspan="7">全体</th>
+						<th align="center" colspan="4"><img src="/images/i.gif" width="19" height="19" /></th>
+						<th align="center" colspan="4"><img src="/images/e.gif" width="19" height="19" /></th>
+						<th align="center" colspan="4"><img src="/images/v.gif" width="19" height="19" /></th>
+					</tr>
+					<tr>
+						<th align="center" style="width:46px;">会数</th>
+						<th align="center" style="width:46px;">入会</th>
+						<th align="center" style="width:46px;">退会</th>
+						<th align="center" style="width:46px;">登率</th>
+						<th align="center" style="width:46px;">退率</th>
+						<th align="center" style="width:46px;">ア数</th>
+						<th align="center" style="width:46px;">PV数</th>
+					<!-- DoCoMo -->
+						<th align="center" style="width:46px;">入会</th>
+						<th align="center" style="width:46px;">退会</th>
+						<th align="center" style="width:46px;">ア数</th>
+						<th align="center" style="width:46px;">PV数</th>
+					<!-- EzWeb -->
+						<th align="center" style="width:46px;">入会</th>
+						<th align="center" style="width:46px;">退会</th>
+						<th align="center" style="width:46px;">ア数</th>
+						<th align="center" style="width:46px;">PV数</th>
+					<!-- SoftBank -->
+						<th align="center" style="width:46px;">入会</th>
+						<th align="center" style="width:46px;">退会</th>
+						<th align="center" style="width:46px;">ア数</th>
+						<th align="center" style="width:46px;">PV数</th>
+					</tr>
+
+__LoopYearLog__
+					<tr class="%&cssstyle&%">
+						<th align="right">%&MONTH&%</th>
+						<td align="right">%&KAIINSU&%</td>
+						<td align="right">%&RTOTAL&%</td>
+						<td align="right">%&WTOTAL&%</td>
+						<td align="right">%&RATIO_OF_REGISTRATION&%</td>
+						<td align="right">%&RATIO_OF_WITHDRAW&%</td>
+						<td align="right">%&ATOTAL&%</td>
+						<td class="r_solid" align="right">%&PV&%</td>
+						<td align="right">%&RD&%</td>
+						<td align="right">%&WD&%</td>
+						<td align="right">%&AD&%</td>
+						<td class="r_solid" align="right">%&PVD&%</td>
+						<td align="right">%&RA&%</td>
+						<td align="right">%&WA&%</td>
+						<td align="right">%&AA&%</td>
+						<td class="r_solid" align="right">%&PVA&%</td>
+						<td align="right">%&RSB&%</td>
+						<td align="right">%&WSB&%</td>
+						<td align="right">%&ASB&%</td>
+						<td class="r_solid" align="right">%&PVSB&%</td>
+					</tr>
+__LoopYearLog__
+
+<tr class="focus2">
+						<td class="lr_bottom_solid" colspan="2">合計</td>
+						<td align="right">%&SUM_RTOTAL&%</td>
+						<td align="right">%&SUM_WTOTAL&%</td>
+						<td align="right">%&SUM_RATIO_OF_REGISTRATION&%</td>
+						<td align="right">%&SUM_RATIO_OF_WITHDRAW&%</td>
+						<td align="right">%&SUM_ATOTAL&%</td>
+						<td class="r_solid" align="right">%&SUM_PV&%</td>
+						<td align="right">%&SUM_RD&%</td>
+						<td align="right">%&SUM_WD&%</td>
+						<td align="right">%&SUM_AD&%</td>
+						<td class="r_solid" align="right">%&SUM_PVD&%</td>
+						<td align="right">%&SUM_RA&%</td>
+						<td align="right">%&SUM_WA&%</td>
+						<td align="right">%&SUM_AA&%</td>
+						<td class="r_solid" align="right">%&SUM_PVA&%</td>
+						<td align="right">%&SUM_RSB&%</td>
+						<td align="right">%&SUM_WSB&%</td>
+						<td align="right">%&SUM_ASB&%</td>
+						<td class="r_solid" align="right">%&SUM_PVSB&%</td>
+</tr>
+				__IfData__
+				</tbody>
+				</table>
+			</div>
+__IfAction__
+<!-- 集計テーブル END -->
+
+	__IfExistsGraph__
+		<table>
+			<tr>
+				<td align="center">
+					<img src="/graphimage/%&graphimage_name&%" width="760" height="480" />
+				</td>
+			</tr>
+		</table>
+	__IfExistsGraph__
+
+
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+
+</body>
+</html>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<title>画像管理</title>
+<meta name="Pragma" content="no-cache" />
+<meta http-equiv="Content-Type" charset="Shift_JIS" content="text/html" />
+<link rel="stylesheet" type="text/css" href="/style.css" />
+<link rel="stylesheet" type="text/css" href="/css/lightbox.css" />
+<link rel="stylesheet" type="text/css" href="/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" href="/build/container/assets/skins/sam/container.css" />
+<script src="/js/prototype.js" type="text/javascript"></script>
+<script src="/build/utilities/utilities.js" type="text/javascript"></script>
+<script src="/build/container/container.js" type="text/javascript"></script>
+<script src="/js/myIndicator.js" type="text/javascript"></script>
+<script src="/js/scriptaculous.js?load=effects" type="text/javascript"></script>
+<script src="/js/lightbox.js" type="text/javascript"></script>
+<script src="/js/popuphint.js" type="text/javascript"></script>
+<script type="text/javascript">//<![CDATA[
+	function update_msg () { update = confirm("データを更新します.よろしいですか?"); return update }
+	function del_msg () { delimg = confirm("画像を削除します。よろしいですか?"); return delimg }
+//]]></script>
+</head>
+<body>
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1>UPSTAIR  </h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞<strong>画像管理</strong>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>画像管理</h2>
+		</div>
+
+		<div id="list">
+			<!-- <fieldset> -->
+
+
+		<font size="-2" color="red">画像記述書式　&lt;img src=&quot;&#37;&amp;SITEIMAGE_SCRIPTDATABASE_URL&amp;&#37;?i=画像ID[&s=サイズ1-4]&quot; /&gt;</font>
+
+
+
+
+<table border="0" cellpadding="5" rules="all" width="100%" class="datagrid">
+	<tr><td valign="top" style="width:120px;">
+
+<!-- 画像追加 -->
+		<!-- 画像追加 -->
+	<form method="post" action="/app.mpl" enctype="multipart/form-data" target="_self">
+		<table align="center"  border="0" cellspacing="0" width="100%" cellpadding="0" bgcolor="#555555">
+			<tr>
+				<td bgcolor="#e0e0e0" colspan="4" align="center">追加<img height="23" src="/images/jpg01.gif" width="22" /><img height="23" src="/images/gif01.gif" width="22" /></td>
+			</tr>
+			<tr>
+				<th>素材画像</th><th>素材タイトルなど</th><th>素材画像</th><th>素材タイトルなど</th>
+			</tr>
+			<tr>
+				<td bgcolor="#ffffff"><input type="file" name="image" maxlength="100" /></td>
+				<td><input type="text" name="description" maxlength="60" /></td>
+				<td bgcolor="#ffffff"><input type="file" name="image" maxlength="100" /></td>
+				<td><input type="text" name="description" maxlength="60" /></td>
+			</tr>
+			<tr>
+				<td bgcolor="#ffffff"><input type="file" name="image" maxlength="100" /></td>
+				<td><input type="text" name="description" maxlength="60" /></td>
+				<td bgcolor="#ffffff"><input type="file" name="image" maxlength="100" /></td>
+				<td><input type="text" name="description" maxlength="60" /></td>
+			</tr>
+			<tr>
+				<td bgcolor="#ffffff"><input type="file" name="image" maxlength="100" /></td>
+				<td><input type="text" name="description" maxlength="60" /></td>
+				<td bgcolor="#ffffff"><input type="file" name="image" maxlength="100" /></td>
+				<td><input type="text" name="description" maxlength="60" /></td>
+			</tr>
+			<tr>
+				<td align="center" colspan="4">
+					<input type="submit" name="submit" value="アップロード" class="button" style="width:70%;font-size:14px;font-weight:bold;" />
+				</td>
+			</tr>
+		</table>
+		<input type="hidden" name="app" value="AppImage" />
+		<input type="hidden" name="action" value="uploadSiteImage" />
+	</form>
+
+	</td></tr>
+	<tr><td valign="top">
+
+<table bgcolor="#000000" cellpadding="1" cellspacing="0" align="center" width="100%" rules="all" class="datagrid">
+<tr><td colspan="5">画像一覧</td></tr>
+
+__IfNotExistsImages__
+<tr><td colspan="5">現在画像はありません。画面左側のから追加してください。</td></tr>
+__IfNotExistsImages__
+
+__IfExistsImages__
+		<tr><!-- begining of tr tag loop begins below -->
+__LoopImageList__
+<td bgcolor="#ffffff">
+<table width="100%">
+<tr class="focus"><td height="90" align="center">
+<img src="/mod-perl/serveSiteImageDB.mpl?i=%&id&%" border="0" />
+</td></tr>
+<tr class="focus"><td>
+ID:<input type="text" size="3" value="%&id&%" readonly />&nbsp;<input type="text" size="30" name="description" value="%&description&%" readonly />
+<a onclick="del_msg(); return delimg" href="/app.mpl?app=AppImage;action=deleteSiteImage;i=%&id&%" class="hintanchor2" onMouseover="showhint('画像%&id&%の削除', this, event, '80px')">
+<img border="0" src="/images/icn_file_delete.png" width="12" height="12" /></a>
+</td></tr>
+<tr><td>
+<form method="post" action="/app.mpl" enctype="multipart/form-data">
+<input type="file" name="image"  size="2" maxlength="40" />
+<input type="submit" name=".submit" value="画像変更" />
+<input type="hidden" name="app" value="AppImage" />
+<input type="hidden" name="action" value="uploadSiteImage" />
+<input type="hidden" name="id" value="%&id&%" />
+</form>
+</td></tr>
+</table>
+</td>%&TR&%
+__LoopImageList__
+
+</table>
+</td></tr>
+__IfExistsImages__
+
+
+</table>
+
+
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+
+</body></html>

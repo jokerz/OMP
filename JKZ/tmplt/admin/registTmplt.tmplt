@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<title>ページ管理画面</title>
+<meta name="Pragma" content="no-cache" />
+<meta http-equiv="Content-Type" charset="Shift_JIS" content="text/html" />
+<link rel="stylesheet" type="text/css" href="/style.css" />
+<link rel="stylesheet" type="text/css" href="build/fonts/fonts-min.css" />
+<script type="text/javascript">//<![CDATA[
+ <!--
+function NewWindowL(url) { if (url != '') { window.open(url, '_blank', "toolbar=0,menubar=0,scrollbars=1,resizable=yes left=0,top=0,width=960,height=640"); } }
+//-->
+
+//]]></script>
+</head>
+<body>
+
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1> %&CMS_NAME&% &nbsp; <b>%&name&%</b>さんログイン中</h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞<a href="/app.mpl?app=AppTmplt;attr=0">ページ管理</a>＞<strong>ページ登録</strong>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>ページ管理%&BENCH_TIME&%</h2>
+		</div>
+
+		<div id="list">
+			<!-- <fieldset> -->
+%&DUMP&%
+
+__IfRegistTmplteFail__
+<div id="error">
+	<ul><li>%&ERROR_MSG&%</li></ul>
+</div>
+__IfRegistTmplteFail__
+
+
+__IfRegistTmpltSuccess__
+<div id="complete">
+	<ul>
+		<li>登録完了</li>
+		<li><a href="/app.mpl?app=AppTmplt;attr=0">ページ管理TOP</a></li>
+	</ul>
+</div>
+__IfRegistTmpltSuccess__
+
+
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+
+</body></html>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>小カテゴリ管理</title>
+<link rel="stylesheet" href="/style.css" type="text/css" charset="Shift_JIS" />
+</head>
+<body>
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1>UPSTAIR システム　管理者画面</h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>
+__IfRegistSmallCategory__
+＞小カテゴリ新規登録＞<strong>登録完了</strong>
+__IfRegistSmallCategory__
+__IfModifySmallCategory__
+＞<a href="/app.mpl?app=AppProduct;action=viewSmallCategoryList;" onclick="init();" id="content">小カテゴリ一覧</a>＞<a href="/app.mpl?app=AppProduct;action=detailSmallCategory;SmallCategory_id=%&SmallCategory_id_is&%;category_id=%&categorym_id&%" onclick="init();" id="content">小カテゴリ詳細</a>＞<strong>更新完了</strong>
+__IfModifySmallCategory__
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>
+__IfRegistSmallCategory__
+			小カテゴリ新規登録
+__IfRegistSmallCategory__
+__IfModifySmallCategory__
+			小カテゴリ詳細
+__IfModifySmallCategory__
+			</h2>
+		</div>
+
+		<div id="list">
+			<!-- <fieldset> -->
+__IfSuccessExecuteUpdate__
+
+	__IfRegistSmallCategory__
+		<!-- 新規登録の場合 -->
+
+<table border="0" cellspacing="0" cellpadding="2" class="datagrid" width="60%">
+	<tr><th align="center" colspan="2"> 小カテゴリ新規登録完了</th></tr>
+	<tr>
+	    <th>小カテゴリID</th>
+	    <td>&nbsp;<b>%&SmallCategory_id_is&%</b></td>
+	</tr>
+	<tr>
+	    <th>カテゴリ名&gt;中カテゴリ名</th>
+	    <td>
+	    	&nbsp;
+	    	%&category_name&%&gt;%&subcategory_name&%
+	    </td>
+	</tr>
+	<tr>
+	    <th>小カテゴリ名</th>
+	    <td>
+	    	&nbsp;
+	    	%&SmallCategory_name&%
+	    </td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<div id="complete">
+			<ul>
+				<li>上記内容で登録が完了しました。</li>
+				<li><a href="/app.mpl?app=AppProduct;">コンテンツ登録状況</a></li>
+			</ul>
+			</div>
+		</td>
+	</tr>
+</table>
+
+	__IfRegistSmallCategory__
+
+
+	__IfModifySmallCategory__
+		<!-- 既存更新の場合 -->
+		<br />
+<div id="complete">
+	<ul>
+		<li>更新完了</li>
+		<li>小カテゴリID：%&SmallCategory_id_is&%　小カテゴリ名：%&SmallCategory_name&%　<br />
+		<a href="/app.mpl?app=AppProduct;action=detailSmallCategory;SmallCategory_id=%&SmallCategory_id_is&%;category_id=%&categorym_id&%;" onclick="init();" id="content">小カテゴリ詳細に戻る</a>
+		</li>
+		<li><a href="/app.mpl?app=AppProduct;">コンテンツ登録状況</a></li>
+	</ul>
+</div>
+	__IfModifySmallCategory__
+
+__IfSuccessExecuteUpdate__
+
+
+__IfFailExecuteUpdate__
+<div id="error">
+	__IfRegistSmallCategory__
+		<!-- 新規登録の場合 -->
+	<ul><li>%&ERROR_MSG&%</li></ul>
+	__IfRegistSmallCategory__
+
+
+	__IfModifySmallCategory__
+		<!-- 既存更新の場合 -->
+	<ul><li>%&ERROR_MSG&%</li></ul>
+	__IfModifySmallCategory__
+
+</div>
+__IfFailExecuteUpdate__
+
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+
+</body>
+</html>

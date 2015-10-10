@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>商品管理</title>
+<link rel="stylesheet" href="/style.css" type="text/css" charset="Shift_JIS" />
+<link rel="stylesheet" type="text/css" href="/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" href="/build/container/assets/skins/sam/container.css" />
+<script src="/js/prototype.js" type="text/javascript"></script>
+<script src="/build/utilities/utilities.js" type="text/javascript"></script>
+<script src="/build/container/container.js" type="text/javascript"></script>
+<script src="/js/myIndicator.js" type="text/javascript"></script>
+<script src="/js/popuphint.js" type="text/javascript"></script>
+<script src="/js/scriptaculous.js?load=effects" type="text/javascript"></script>
+<script type="text/javascript">//<![CDATA[
+function chktext(obj) {
+if (!obj.value) {
+chktext[obj.name] = false
+alert("この項目は必ず入力してください")
+if(!!obj.style)obj.style.backgroundColor='orange'
+} else {
+chktext[obj.name] = true
+if(!!obj.style)obj.style.backgroundColor='white'
+} }
+//]]></script>
+<style type="text/css">
+<!--/* <![CDATA[ */
+input.text{
+    padding:2px;
+}
+/* ]]> */-->
+</style>
+</head>
+<body>
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1>UPSTAIR  </h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞ 商品管理 ＞<strong>商品新規登録</strong>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>商品新規登録</h2>
+		</div>
+
+		<div id="list">
+<!--
+			<div align="right">
+					<font size="-2">
+					項目「<font color="red">商品名</font>」は<font color="red">検索対象</font>となります<br />
+					項目「<font color="red">説明</font>」は<font color="red">検索対象</font>となります<br />
+					</font>
+			</div>
+-->
+
+__IfRegistProductForm__
+				<font size="-2" color="red">※</font>は必須項目です。
+				<form action="/app.mpl" method="post" name="modifyProduct" id="modifyProduct">
+				<table border="0" cellspacing="0" cellpadding="2" width="100%" rules="all" class="datagrid">
+					<tr><th align="center" colspan="3"> 商品新規登録フォーム</th></tr>
+					<tr>
+						<th>商品ID</th>
+						<td>自動割り振り</td>
+						<td width="40%" rowspan="16" valign="top">
+
+<!-- +++++++++++++++++ 画像 ++++++++++++++++++++++++++ BEGIN -->
+<!--
+<form method="post" action="/app.mpl" enctype="multipart/form-data" target="_self">
+<table bgcolor="#000000" cellpadding="1" cellspacing="0" align="center" border="0" width="100%">
+<tr><th colspan="2">画像追加</th></tr>
+<tr>
+	<td><input type="file" name="image" size="16" maxlength="100" /></td>
+	<td><input type="file" name="image" size="16" maxlength="100" /></td>
+</tr>
+<tr>
+	<td align="center" colspan="2"><input type="submit" name="submit" value="アップロード" style="height:80%;font-size:14px;" /></td>
+</tr>
+
+</table>
+<input type="hidden" name="app" value="AppImage" />
+<input type="hidden" name="action" value="uploadImage" />
+<input type="hidden" name="product_id" value="%&product_id&%" />
+</form>
+<!-- +++++++++++++++++ 画像 ++++++++++++++++++++++++++ END -->
+<!--
+						</td>
+					</tr>
+-->
+				<tr>
+	    			<th>商品名 ※</th>
+	    			<td>
+	    				<input type="text" name="product_name" value="" size="70" class="text" style="ime-mode:active" onblur="chktext(this)" />
+	    			</td>
+				</tr>
+				<tr>
+	    			<th>商品コード</th>
+	    			<td>
+	    				<input type="text" name="product_code" value="" size="70" class="text" maxlength="60" style="ime-mode:inactive" />
+	    			</td>
+				</tr>
+				<tr>
+				    <th>カテゴリ／サブカテゴリ／小カテゴリ※</th>
+				    <td>
+<!--
+					    <select name="subcategory_id">
+	    				<option value="0">--【カテゴリ名】選択してください--</option>
+__LoopSubCategoryList__
+						<option value="%&categorym_id&%;%&subcategory_id&%;%&EncodedCategoryName&%;%&EncodedSubCategoryName&%">【%&category_name&%】%&subcategory_name&%</option>
+__LoopSubCategoryList__
+						</select>-->
+	    <select name="allcategory_id">
+	    <option value="" style="color:#0000cc;">-- 【カテゴリ名&gt;サブカテゴリ名&gt;&gt;小カテゴリ名】 選択してください--</option>
+__LoopAllCategoryList__
+<option value="%&category_id&%;%&subcategory_id&%;%&smallcategory_id&%;%&EncodedCategoryName&%;%&EncodedSubCategoryName&%;%&EncodedSmallCategoryName&%">%&category_name&%&gt;%&subcategory_name&%&gt;&gt;%&smallcategory_name&%</option>
+__LoopAllCategoryList__
+		</select>
+				    </td>
+				</tr>
+				<tr>
+			    	<th>テンプレート ※</th>
+			    	<td>
+						<select name="tmplt_id">
+						<option value="0">--選択してください--</option>
+__LoopTmpltMasterList__
+						<option value="%&tmplt_id&%;%&EncodedSummary&%"__IfTmpltID12__ selected__IfTmpltID12__ >%&summary&%【%&tmplt_id&%】</option>
+__LoopTmpltMasterList__
+						</select>
+    				</td>
+				</tr>
+				<tr>
+				    <th>状態</th>
+	    			<td width="25%">
+					    <label for="status_flag2"><input type="radio" name="status_flag" value="2" id="status_flag2" /> 有効</label>
+	    				 &nbsp;
+					    <label for="status_flag1"><input type="radio" name="status_flag" value="1" checked id="status_flag1" /> 無効</label>
+					</td>
+				</tr>
+				<tr>
+				    <th>新着表示</th>
+	    			<td width="25%">
+					    <label for="latest_flag2"><input type="radio" name="latest_flag" value="2" id="latest_flag2" /> 有効</label>
+	    				 &nbsp;
+					    <label for="latest_flag4"><input type="radio" name="latest_flag" value="4" id="latest_flag4" /> Top表示有効</label>
+	    				 &nbsp;
+					    <label for="latest_flag1"><input type="radio" name="latest_flag" value="1" checked id="latest_flag1" /> 無効</label>
+					</td>
+				</tr>
+				<tr>
+				    <th>おすすめ表示</th>
+	    			<td width="25%">
+					    <label for="recommend_flag2"><input type="radio" name="recommend_flag" value="2" id="recommend__flag2" /> 有効</label>
+	    				 &nbsp;
+					    <label for="recommend_flag1"><input type="radio" name="recommend_flag" value="1" checked id="recommend_flag1" /> 無効</label>
+					</td>
+				</tr>
+				<tr>
+					<th>販売形態</th>
+					<td>
+						<label for="charge_flag2"><input type="checkbox" name="charge_flag" value="2" checked id="charge_flag2" /> ポイント交換</label>
+						&nbsp;
+						<label for="charge_flag4"><input type="checkbox" name="charge_flag" value="4" id="charge_flag4" /> クレジット・現金</label>
+						&nbsp;
+						<label for="charge_flag1"><input type="checkbox" name="charge_flag" value="1" id="charge_flag1" /> 無料</label>
+					</td>
+				</tr>
+				<tr> 
+				    <th>ポイント還元</th>
+				    <td width="25%">
+	    				<label for="point_flag2"><input type="radio" name="point_flag" value="2" id="point_flag2" /> 有効</label>
+	    				&nbsp;
+	    				<label for="point_flag1"><input type="radio" name="point_flag" value="1" checked id="point_flag1" /> 無効</label>
+	    			</td>
+				</tr>
+				<tr>
+	  				<th>ポイント</th>
+	  				<td>
+	  					<input type="text" name="point" value="%&point&%" class="text" style="ime-mode:disabled;text-align:right;height:20;" size="10" maxlength="10" />
+	  				</td>
+				</tr>
+				<tr>
+			    	<th>販売単価税込</th>
+    				<td><input type="text" name="tanka" value="%&tanka&%" class="text" style="ime-mode:disabled;text-align:right;" size="10" maxlength="10" /></td>
+				</tr>
+				<tr>
+    				<th>販売単価税抜</th>
+    				<td><input type="text" name="tanka_notax" value="%&tanka_notax&%" class="text" style="ime-mode:disabled;text-align:right;" size="10" maxlength="10" /></td>
+				</tr>
+				<tr>
+			    	<th>原　　価</td>
+			    	<td><input type="text" name="genka" value="%&genka&%" class="text" style="ime-mode:disabled;text-align:right;" size="10" maxlength="10" /></td>
+				</tr>
+				<tr>
+    				<th>定　　価</th>
+    				<td><input type="text" name="teika" value="%&teika&%" class="text" style="ime-mode:disabled;text-align:right;" size="10" maxlength="10" /></td>
+				</tr>
+				<tr>
+			    	<th>在　　庫</th>
+				    <td><input type="text" name="stock" value="%&stock&%" maxlength="3" size="10" class="text" style="ime-mode:disabled;text-align:right;" /></td>
+				</tr>
+				<tr><td colspan="2"><div align="center"><input type="submit" name="modifyProduct" value="　確　認　画　面　" onclick="init();" id="content" /></div></td></tr>
+				<tr>
+			    	<th>
+    					説明 <font  color="red">※</font><a href="#" class="hintanchor" onMouseover="showhint('htmlのtagが使用出来ます', this, event, '124px')">[?]</a><br />
+			    		<img src="/images/tagok.gif" width="21" height="22" />
+    				</th>
+	    			<td><textarea cols="60" name="description" rows="10" style="font-size:11px;" onblur="chktext(this)"></textarea></td>
+				</tr>
+				<tr> 
+    				<th>
+			    		詳細説明<a href="#" class="hintanchor" onMouseover="showhint('htmlのtagが使用出来ます', this, event, '124px')">[?]</a><br />
+		    			<img src="/images/tagok.gif" width="21" height="22" />
+    				</th>
+				    <td><textarea cols="60" name="description_detail" rows="10" style="font-size:11px;">%&description_detail&%</textarea></td>
+				</tr>
+				<tr>
+				    <th>登録日</th>
+					<td>%&registration_date&%</td>
+				</tr>
+			</table>
+			<input type="hidden" name="app" value="AppProduct" />
+			<input type="hidden" name="action" value="registProduct" />
+			<input type="hidden" name="md5key" value="%&md5key&%" />
+			</form>
+__IfRegistProductForm__
+
+
+__IfConfirmProductForm__
+<!-- 確認フォーム -->
+%&DUMP&%
+<!-- //  全ての必須項目に値が入ってない場合 BEGIN -->
+	__IfRequirementNotFilled__
+			<div id="error">
+				<font color="red">下記内容を確認してください。</font>
+				<ul>
+	__IfProductNameIsEmpty__
+					<li>商品名を入力してください。</li>
+	__IfProductNameIsEmpty__
+	__IfCategoryIsNotSelected__
+					<li>商品のカテゴリ/サブカテゴリ/小カテゴリを選択してください。</li>
+	__IfCategoryIsNotSelected__
+
+	__IfTemplateIsNotSelected__
+					<li>商品表示用のテンプレートを選択してください。</li>
+	__IfTemplateIsNotSelected__
+
+				</ul>
+				　　　　<input type="button" value="　戻　っ　て　修　正　" onClick="history.back()" class="button" /><br /><br />
+			</div>
+
+	__IfRequirementNotFilled__
+<!--  全ての必須項目に値が入ってない場合 END // -->
+
+	__IfRequirementFilled__
+			<div id="complete">
+				<ul>
+					<li><font size="-2">下記内容で登録する場合は画面下の「商品登録」ボタンを押下して商品登録を完了してください。</font></li>
+					<li><font size="-2">下記内容を修正する場合は画面下の「修正」ボタンを押下し内容を修正してください。</font></li>
+				</ul>
+			</div>
+			<form action="/app.mpl" method="post">
+
+			<table border="0" cellspacing="0" cellpadding="2" width="60%" rules="all" class="datagrid">
+				<tr><th align="center" colspan="3"> 商品新規登録情報確認</th></tr>
+				<tr>
+				    <th>商品ID</th>
+	    			<td>自動割り振り</td>
+				</tr>
+				<tr>
+				    <th>商品名</th>
+				    <td>&nbsp;%&product_name&%</td>
+				</tr>
+				<tr>
+	    			<th>商品コード</th>
+	    			<td>&nbsp;%&product_code&%</td>
+				</tr>
+				<tr>
+	    			<th>カテゴリ／サブカテゴリ／小カテゴリ</th>
+	    			<td>%&DecodedCategoryName&%／%&DecodedSubCategoryName&%／%&DecodedSubCategoryName&%</td>
+				</tr>
+				<tr>
+    				<th>テンプレート</th>
+    				<td>%&DecodedSummary&%</td>
+				</tr>
+				<tr>
+				    <th>状態</th>
+				    <td width="25%">
+	     			__IfStatusFlagIsActive__ <font style="color:#0000ff;">有効</font>__IfStatusFlagIsActive__
+	     			__IfStatusFlagIsNotActive__ <font style="color:#ff0000;">無効</font>__IfStatusFlagIsNotActive__
+					</td>
+				</tr>
+				<tr>
+				    <th>新着表示</th>
+				    <td width="25%">
+	     			__IfLatestFlagIsActive__ <font style="color:#0000ff;">有効</font>__IfLatestFlagIsActive__
+	     			__IfLatestOnTopFlagIsActive__ <font style="color:#0000ff;">Top表示有効</font>__IfLatestOnTopFlagIsActive__
+	     			__IfLatestFlagIsNotActive__ <font style="color:#ff0000;">無効</font>__IfLatestFlagIsNotActive__
+					</td>
+				</tr>
+				<tr>
+				    <th>おすすめ表示</th>
+				    <td width="25%">
+	     			__IfRecommendFlagIsActive__ <font style="color:#0000ff;">有効</font>__IfRecommendFlagIsActive__
+	     			__IfRecommendFlagIsNotActive__ <font style="color:#ff0000;">無効</font>__IfRecommendFlagIsNotActive__
+					</td>
+				</tr>
+				<tr>
+				<tr>
+	    			<th>課金形態</th>
+				    <td width="25%">%&CHARGE_STATUS&%</td>
+				</tr>
+				<tr>
+	    			<th>ポイント還元</th>
+				    <td width="25%">
+				     __IfPointFlagIsActive__ <font style="color:#0000ff;">有効</font>__IfPointFlagIsActive__
+				     __IfPointFlagIsNotActive__ <font style="color:#ff0000;">無効</font>__IfPointFlagIsNotActive__
+	    			</td>
+				</tr>
+				<tr>
+				  <th>ポイント</th>
+				  <td>%&point&%</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+					<div align="center">
+						<input type="submit" name="modifyProduct" value="　登　録　す　る　" onclick="init();" id="content" />
+						<br /><br />
+						<input type="button" value="　修　正　す　る　" onClick="history.back()" />
+					</div>
+					</td>
+				</tr>
+				<tr>
+			       	<th>
+    					説明<a href="#" class="hintanchor" onMouseover="showhint('htmlのtagが使用出来ます', this, event, '124px')">[?]</a><br />
+			    		<img src="/images/tagok.gif" width="21" height="22" />
+    				</th>
+				    <td><textarea cols="60" name="description" rows="10" style="font-size:11px;" readonly>%&description&%</textarea></td>
+				</tr>
+				<tr> 
+			    	<th>
+    					詳細説明<a href="#" class="hintanchor" onMouseover="showhint('htmlのtagが使用出来ます', this, event, '124px')">[?]</a><br />
+			    		<img src="/images/tagok.gif" width="21" height="22" />
+    				</th>
+	    			<td><textarea cols="60" name="description_detail" rows="10" style="font-size:11px;" readonly>%&description_detail&%</textarea></td>
+				</tr>
+				<tr>
+			    	<th>単価税込</th>
+			    	<td>&nbsp;%&tanka&%</td>
+				</tr>
+				<tr>
+			    	<th>単価税抜</th>
+			    	<td>&nbsp;%&tanka_notax&%</td>
+				</tr>
+				<tr>
+    				<th>原　　価</td>
+			    	<td>&nbsp;%&genka&%</td>
+				</tr>
+				<tr>
+			    	<th>定　　価</th>
+			    	<td>&nbsp;%&teika&%</td>
+				</tr>
+				<tr>
+    				<th>在　　庫</th>
+	    			<td>&nbsp;%&stock&%</td>
+				</tr>
+				<tr>
+				    <th>登録日</th>
+	    			<td>%&registration_date&%</td>
+				</tr>
+			</table>
+			<input type="hidden" name="app" value="AppProduct" />
+			<input type="hidden" name="action" value="modifyProduct" />
+			<input type="hidden" name="md5key" value="%&md5key&%" />
+			</form>
+	__IfRequirementFilled__
+
+__IfConfirmProductForm__
+
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>管理画面</title>
+<link rel="stylesheet" href="style.css" type="text/css" charset="Shift_JIS" />
+<link rel="stylesheet" type="text/css" href="build/fonts/fonts-min.css" />
+<script src="/js/popuphint.js" type="text/javascript"></script>
+</head>
+<body class="yui-skin-sam">
+<div id="base">
+		<!-- ヘッダー -->
+	<div id="head">
+		<h1>システム　管理者画面</h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main">
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞ 環境設定・情報 ＞
+			<strong>
+__IfviewConfigrationServer__
+			サーバー環境情報
+__IfviewConfigrationServer__
+
+__IfviewConfigrationMails__
+			メール設定情報
+__IfviewConfigrationMails__
+			</strong>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>
+__IfviewConfigrationServer__
+			サーバー環境情報
+__IfviewConfigrationServer__
+
+__IfviewConfigrationMails__
+			メール設定情報
+__IfviewConfigrationMails__
+
+			</h2>
+		</div>
+
+		<div id="list">
+			<!-- <fieldset> -->
+
+__IfviewConfigrationServer__
+<table border="0" cellspacing="0" cellpadding="2" width="100%" rules="all" class="datagrid">
+<tr><th colspan="2">サーバー環境情報</th></tr>
+<tr><th>SERVER_NAME</th><td>%&SERVER_NAME&%</td></tr>
+<tr><th>SERVER_SOFTWARE</th><td>%&SERVER_SOFTWARE&%</td></tr>
+<tr><th>SERVER_ADMIN</th><td>%&SERVER_ADMIN&%</td></tr>
+<tr><th>SERVER_PORT</th><td>%&SERVER_PORT&%</td></tr>
+<tr><th>SERVER_PROTOCOL</th><td>%&SERVER_PROTOCOL&%</td></tr>
+<tr><th>SERVER_ADDR</th><td>%&SERVER_ADDR&%</td></tr>
+<tr><th>DOCUMENT_ROOT</th><td>%&DOCUMENT_ROOT&%</td></tr>
+<tr><th>PATH</th><td>%&PATH&%</td></tr>
+<tr><th>JKZ_CONFIG</th><td>%&JKZ_CONFIG&%</td></tr>
+<tr><th>SCRIPT_NAME</th><td>%&SCRIPT_NAME&%</td></tr>
+<tr><th>REMOTE_PORT</th><td>%&REMOTE_PORT&%</td></tr>
+<tr><th>MOD_PERL_API_VERSION</th><td>%&MOD_PERL_API_VERSION&%</td></tr>
+<tr><th>GATEWAY_INTERFACE</th><td>%&GATEWAY_INTERFACE&%</td></tr>
+<tr><th>PERL_VERSION</th><td>%&PERL_VERSION&%</td></tr>
+<tr><th>MYSQL_VERSION</th><td>%&MYSQL_VERSION&%</td></tr>
+</table>
+__IfviewConfigrationServer__
+
+__IfviewConfigrationMails__
+
+<table border="0" cellspacing="0" cellpadding="2" width="100%" rules="all" class="datagrid">
+<tr><th colspan="3">メール設定情報</th></tr>
+<tr>
+	<!--<th>操作</th>-->
+	<th>送信メールアドレス</th>
+	<th>識別タイプ</th>
+	<th>用途・説明</th>
+</tr>
+
+__LoopMailConfigrationList__
+<tr>
+	<!--<td align="center" width="40">
+		<a href="/app.mpl?app=AppGeneralENV;action=configureComponent;of=mails;id=%&id&%;" onclick="init();">
+		<img src="/images/icn_file_edit.png" border="0" width="16" height="16" class="hintanchor" onMouseover="showhint('%&from_address&%の詳細・編集', this, event, '160px')" />
+		</a>
+	</td>-->
+	<td align="center">%&from_address&%</td>
+	<td align="center">%&type&%</td>
+	<td>%&description&%</td>
+</tr>
+__LoopMailConfigrationList__
+</table>
+
+__IfviewConfigrationMails__
+
+			</fieldset>
+		</div>
+	</div>
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div>
+
+</body></html>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>画像管理</title>
+<link rel="stylesheet" href="/style.css" type="text/css" charset="Shift_JIS" />
+<link rel="stylesheet" type="text/css" href="build/fonts/fonts-min.css" />
+</head>
+<body class="yui-skin-sam">
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1>UPSTAIR  </h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞画像管理＞<strong>画像削除</strong>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>画像管理　%&BENCH_TIME&%</h2>
+		</div>
+
+		<div id="list">
+			<!-- <fieldset> -->
+
+
+__IfDeleteDBSuccess__
+				<br />
+				<table border="1" cellspacing="0" cellpadding="2" width="70%" rules="all" class="datagrid">
+					<tr><th align="center" colspan="2">画像データ削除完了</th></tr>
+					<tr>
+						<th colspan="2">画像ID</th>
+						<td>%&id&%</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div id="complete">
+								<ul>
+									<li><a href="/app.mpl?app=AppImage;">画像管理</a></li>
+								</ul>
+							</div>
+						</td>
+					</tr>
+				</table>
+__IfDeleteDBSuccess__
+
+__IfDeleteDBFail__
+				<div id="error">
+					<ul><li>%&ERROR_MSG&%</li></ul>
+				</div>
+__IfDeleteDBFail__
+
+__IfNoIDSelected__
+				<div id="error">
+					<ul><li>画像ID選択エラー</li></ul>
+				</div>
+__IfNoIDSelected__
+
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+
+</body>
+</html>

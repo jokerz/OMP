@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>管理画面</title>
+<link rel="stylesheet" type="text/css" href="/style.css" charset="Shift_JIS" />
+<link rel="stylesheet" type="text/css" href="build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" href="build/container/assets/skins/sam/container.css" />
+<script type="text/javascript" src="/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="/build/connection/connection-min.js"></script>
+<script type="text/javascript" src="/build/animation/animation-min.js"></script>
+<script type="text/javascript" src="/build/dragdrop/dragdrop-min.js"></script>
+<script type="text/javascript" src="/build/container/container-min.js"></script>
+<script src="/js/scriptaculous.js?load=effects" type="text/javascript"></script>
+<script src="/js/popuphint.js" type="text/javascript"></script>
+<script src="/js/jkl-form.js" type="text/JavaScript"></script>
+<style type="text/css">
+<!--/* <![CDATA[ */
+textarea{
+    padding:2px;
+}
+/* ]]> */-->
+</style>
+</head>
+<body class="yui-skin-sam">
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1>UPSTAIR  </h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞メディア管理＞<strong>不正広告管理</strong>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>広告利用会員検索%&BENCH_TIME&%</h2>
+		</div>
+
+		<div id="list">
+
+			<div id="content"></div>
+			<script src="/js/myIndicator.js" type="text/javascript"></script>
+
+			<form action="/app.mpl" method="POST">
+			<table border="0" cellspacing="0" width="100%" rules="all" class="datagrid">
+				<tr>
+					<td colspan="2">
+						<img src="/images/warning_triangle.png" width="16" height="16" />送信ユーザー情報で会員の割り出しをします。<br />
+						<img src="/images/warning_triangle.png" width="16" height="16" />送信ユーザー情報とはポイントバック広告に送信する会員を特定する文字列です。<br />
+						<pre>
+　ポケアフィ　→<font style="color:blue;">desc</font>={ここの値}
+　アフィレボ　→<font style="color:blue;">misc</font>={ここの値}
+　アフィリード→<font style="color:blue;">option</font>={ここの値}
+　アクセストレード→<font style="color:blue;">add</font>={ここの値}
+</pre>
+						<img src="/images/warning_triangle.png" width="16" height="16" />送信ユーザー情報を複数入力するときは半角スペース、カンマ、もしくは改行をいれてください。
+					</td>
+				</tr>
+				<tr>
+					<th colspan="2">
+					広告利用会員調査
+					</th>
+				</tr>
+				<tr>
+					<th>送信ユーザー情報</th>
+					<td>
+					<textarea name="fssession_id" cols="60" rows="6">%&s_fssession_id&%</textarea>
+					</td>
+				</tr>
+				<tr>
+					<td align="center" colspan="2">
+						<input type="submit" name="identifyUser" value="　利　用　会　員　検　索　" onclick="init();" id="content" />
+					</td>
+			</table>
+			<input type="hidden" name="app" value="AppMedia" />
+			<input type="hidden" name="action" value="%&action&%" />
+			<input type="hidden" name="" value="" />
+			</form>
+
+
+__IfSearchExecuted__
+			<br />
+			<table border="0" cellspacing="0" cellpadding="2" bgcolor="#999999" width="100%" rules="all">
+
+
+
+	__IfSearchResultNotExists__
+		<!-- // 結果なしの場合 BEGIN -->
+				<tr><td colspan="5">対象データはありません</td></tr>
+		<!-- 結果なしの場合 END // -->
+	__IfSearchResultNotExists__
+
+
+	__IfSearchResultExists__
+		<!-- // 結果ありの場合 BEGIN -->
+				<tr>
+					<th>送信ユーザー情報</th>
+					<th>会員ID</th>
+					<th>広告ID</th>
+					<th>広告名・サイト名</th>
+					<th>代理店名</th>
+					<th>備考</th>
+				</tr>
+__LoopIdentifiedUserList__
+				<tr class="%&cssstyle&%">
+					<td width="220">%&session_id&%</td>
+					<td width="50" align="center"><a href="/app.mpl?app=AppMember;action=detailMember;owid=%&owid&%">%&owid&%</td>
+					<td width="50" align="center"><a href="/app.mpl?app=AppMedia;action=detailMedia;ad_id=%&ad_id&%">%&ad_id&%</a></td>
+					<td align="center">%&ad_name&%</td>
+					<td align="center">%&agent_name&%</td>
+					<td><br /></td>
+				</tr>
+__LoopIdentifiedUserList__
+
+		<!-- 結果ありの場合 END // -->
+	__IfSearchResultExists__
+
+</table>
+
+
+__IfSearchExecuted__
+
+
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+</body>
+</html>

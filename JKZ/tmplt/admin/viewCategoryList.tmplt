@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>商品カテゴリ管理</title>
+<link rel="stylesheet" href="/style.css" type="text/css" charset="Shift_JIS" />
+<link rel="stylesheet" type="text/css" href="build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" href="build/container/assets/skins/sam/container.css" />
+<script type="text/javascript" src="/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="/build/connection/connection-min.js"></script>
+<script type="text/javascript" src="/build/animation/animation-min.js"></script>
+<script type="text/javascript" src="/build/dragdrop/dragdrop-min.js"></script>
+<script type="text/javascript" src="/build/container/container-min.js"></script>
+<script src="/js/popuphint.js" type="text/javascript"></script>
+<script src="/js/scriptaculous.js?load=effects" type="text/javascript"></script>
+<script src="/js/jkl-form.js" type="text/JavaScript"></script>
+<script type="text/javascript">//<![CDATA[ 
+	var form1 = new JKL.Form("searchProduct"); 
+//]]></script> 
+</head>
+<body class="yui-skin-sam">
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1>UPSTAIR  </h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞ 商品管理 ＞<strong>カテゴリ一覧</strong>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>カテゴリ一覧</h2>
+		</div>
+
+		<div id="list">
+			<!-- <fieldset> -->
+
+<!-- カテゴリなしの場合 BEGIN -->
+__IfNotExistsCategoryList__
+<table border="0" cellspacing="0" cellpadding="2" bgcolor="#999999" width="100%">
+<tr><th>カテゴリ一覧</th></tr>
+<tr><td>現在カテゴリはありません。</td></tr>
+</table>
+__IfNotExistsCategoryList__
+<!-- カテゴリなしの場合 END -->
+
+<!-- カテゴリありの場合 BEGIN -->
+__IfExistsCategoryList__
+<div id="content"></div>
+<script src="/js/myIndicator.js" type="text/javascript"></script>
+
+<form action="/app.mpl" name="searchProdcut" id="searchProdcut">
+<input type="hidden" name="app" value="AppProduct" />
+
+<table border="0" cellspacing="0" width="100%" rules="all" class="datagrid">
+
+<tr><th colspan="7">カテゴリ一覧 (30件表示)</th></tr>
+<tr>
+<th align="center" colspan="2">カテゴリID</th>
+<th align="center">状態</th>
+<th align="center">カテゴリ名</th>
+<th align="center">カテゴリ説明(先頭30文字)</th>
+<th align="center">登録日</th>
+</tr>
+
+__LoopCategoryList__
+<tr class="focus">
+<td align="center" width="40">
+<a href="/app.mpl?app=AppProduct;action=detailCategory;category_id=%&category_id&%;" onclick="init();">
+<img src="images/icn_file_edit.png" border="0" width="16" height="16" class="hintanchor" onMouseover="showhint('%&category_name&%の詳細表示', this, event, '120px')" />
+</a>
+</td>
+<td align="center" width="40">%&category_id&%</td>
+<td align="center"><img src="/images/%&status_flagImages&%" /><!--%&status_flagDescription&%--></td>
+<td>%&category_name&%</td>
+<!--<td>%&category_name&%</td>-->
+<td>%&description&%</td>
+<td><img src="/images/icn_clock.png" width="16" height="16" />&nbsp;%&registration_date&%</td>
+</tr>
+__LoopCategoryList__
+<tr>
+	<td colspan="7" align="right">
+  <!-- 前のページへのリンク BEGIN -->
+__IfPreviousData__
+<font size="-1"><a href="/app.mpl?app=AppProduct;action=viewCategoryList;&off=%&offsetTOprevious&%">&gt;&gt;前を表示</a></font>
+__IfPreviousData__
+  <!-- 前のページへのリンク END -->
+&nbsp;
+  <!-- 次のページへのリンク BEGIN -->
+__IfNextData__
+<font size="-1"><a href="/app.mpl?app=AppProduct;action=viewCategoryList;off=%&offsetTOnext&%">&lt;&lt;前を表示</a></font>
+__IfNextData__
+  <!-- 次のページへのリンク END -->
+	</td>
+</tr>
+
+</table>
+
+</form>
+__IfExistsCategoryList__
+
+
+			</fieldset>
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+
+</body>
+</html>

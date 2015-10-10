@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>集計管理</title>
+<link rel="stylesheet" href="/style.css" type="text/css" charset="Shift_JIS" />
+<link rel="stylesheet" type="text/css" href="build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" href="build/container/assets/skins/sam/container.css" />
+<script type="text/javascript" src="/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="/build/connection/connection-min.js"></script>
+<script type="text/javascript" src="/build/animation/animation-min.js"></script>
+<script type="text/javascript" src="/build/dragdrop/dragdrop-min.js"></script>
+<script type="text/javascript" src="/build/container/container-min.js"></script>
+<!-- list for yui END -->
+<script src="/js/popuphint.js" type="text/javascript"></script>
+<style type="text/css">
+<!--/* <![CDATA[ */
+th.block a {
+    display: block;
+}
+th.block a:hover {
+    background-color: #555;
+    color: #ffffff;
+}
+/* ]]> */-->
+</style>
+</head>
+<body class="yui-skin-sam">
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1>UPSTAIR システム　管理者画面</h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞メディア管理＞<strong>アフィリ集計</strong>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>アフィリ集計一覧%&BENCH_TIME&%</h2>
+		</div>
+
+		<div id="list">
+			<!-- <fieldset> -->
+
+				<!-- 集計テーブル BEGIN -->
+				<div id="content"></div>
+				<script src="/js/myIndicator.js" type="text/javascript"></script>
+							<form action="/app.mpl" method="post">
+							<table id="form">
+								<tr>
+									<th align="center">アフィリ集計</th>
+									<td>%&year&% 年 %&month&% 月&nbsp;<input type="submit" name="content" value="　集　計　開　始　" onclick="init();" /></td>
+								</tr>
+							</table>
+							<input type="hidden" name="app" value="AppShukei" />
+							<input type="hidden" name="action" value="%&action&%" />
+							</form>
+
+				<table border="0" cellspacing="0" cellpadding="1" class="datagrid" width="100%" align="center">
+__IfAction__
+					<tr>
+						<th colspan="%&Days&%" align="center">
+
+__IftAffiliateM__
+
+					__IfToPreviousMonth__
+						<a href="/app.mpl?app=AppShukei;action=shukeiAffiliate;year=%&sYEAR&%;month=%&pMONTH&%" onclick="init();" >&lt;&lt;前月分</a>
+					__IfToPreviousMonth__
+						&nbsp;&nbsp;<b>%&sYEAR&%年%&sMONTH&%月 </b>アフィリエイト集計
+					__IfToNextMonth__
+						<a href="/app.mpl?app=AppShukei;action=shukeiAffiliate;year=%&sYEAR&%;month=%&nMONTH&%" onclick="init();">翌月分&gt;&gt;</a>
+					__IfToNextMonth__
+
+__IftAffiliateM__
+__IftAdvM__
+					__IfToPreviousMonth__
+						<a href="/app.mpl?app=AppShukei;action=shukeiAffiliate;year=%&sYEAR&%;month=%&pMONTH&%;adv=1" onclick="init();" >&lt;&lt;前月分</a>
+					__IfToPreviousMonth__
+						&nbsp;&nbsp;<b>%&sYEAR&%年%&sMONTH&%月 </b>リンクバナー集計
+					__IfToNextMonth__
+						<a href="/app.mpl?app=AppShukei;action=shukeiAffiliate;year=%&sYEAR&%;month=%&nMONTH&%;adv=1" onclick="init();">翌月分&gt;&gt;</a>
+					__IfToNextMonth__
+__IftAdvM__
+						&nbsp;&nbsp;
+
+
+						</th>
+					</tr>
+
+				__IfNoData__
+					<tr><td colspan="6">%&ERRORMSG&%</td></tr>
+				__IfNoData__
+
+				__IfData__
+
+__LoopAccessCountLog__
+
+					<tr>
+					<td align="left" colspan="%&COLTOTAL&%">　◆　<font style="font-weight:bold;">%&client_name&%</font></td>
+					</tr>
+<tr>
+<td><br /></td>
+__LoopMONTH__
+<th align="right" class="block">
+<a href="/app.mpl?app=AppShukei;action=shukeiAffiliateByHour;year=%&YEAR&%;month=%&RYO&%;date=%&day&%;adv=%&advValue&%" style="text-decoration:none;">%&day&%(%&yobi&%)</a>
+</th>
+__LoopMONTH__
+<th align="center">合計</th>
+</tr>
+					<tr class="focus2">
+						<th style="background-color: #ffe1ff;" align="center">登録数</th>
+						<td align="right">%&rlDAY1&%  </td>
+						<td align="right">%&rlDAY2&%  </td>
+						<td align="right">%&rlDAY3&%  </td>
+						<td align="right">%&rlDAY4&%  </td>
+						<td align="right">%&rlDAY5&%  </td>
+						<td align="right">%&rlDAY6&%  </td>
+						<td align="right">%&rlDAY7&%  </td>
+						<td align="right">%&rlDAY8&%  </td>
+						<td align="right">%&rlDAY9&%  </td>
+						<td align="right">%&rlDAY10&% </td>
+						<td align="right">%&rlDAY11&% </td>
+						<td align="right">%&rlDAY12&% </td>
+						<td align="right">%&rlDAY13&% </td>
+						<td align="right">%&rlDAY14&% </td>
+						<td align="right">%&rlDAY15&% </td>
+						<td align="right">%&rlDAY16&% </td>
+						<td align="right">%&rlDAY17&% </td>
+						<td align="right">%&rlDAY18&% </td>
+						<td align="right">%&rlDAY19&% </td>
+						<td align="right">%&rlDAY20&% </td>
+						<td align="right">%&rlDAY21&% </td>
+						<td align="right">%&rlDAY22&% </td>
+						<td align="right">%&rlDAY23&% </td>
+						<td align="right">%&rlDAY24&% </td>
+						<td align="right">%&rlDAY25&% </td>
+						<td align="right">%&rlDAY26&% </td>
+						<td align="right">%&rlDAY27&% </td>
+						<td align="right">%&rlDAY28&% </td>
+<!--
+						<td align="right">%&rlDAY29&% </td>
+						<td align="right">%&rlDAY30&% </td>
+-->
+					__IfExistsDay29__
+						<td align="right">%&rlDAY29&% </td>
+					__IfExistsDay29__
+					__IfExistsDay30__
+						<td align="right">%&rlDAY29&% </td>
+						<td align="right">%&rlDAY30&% </td>
+					__IfExistsDay30__
+					__IfExistsDay31__
+						<td align="right">%&rlDAY29&% </td>
+						<td align="right">%&rlDAY30&% </td>
+						<td align="right">%&rlDAY31&% </td>
+					__IfExistsDay31__
+						<td align="right">%&rlDAYTOTAL&% </td>
+					</tr>
+					<tr class="focusodd">
+						<th style="background-color: #99ccff;" align="center">アク数</th>
+						<td align="right">%&alDAY1&% </td>
+						<td align="right">%&alDAY2&% </td>
+						<td align="right">%&alDAY3&% </td>
+						<td align="right">%&alDAY4&% </td>
+						<td align="right">%&alDAY5&% </td>
+						<td align="right">%&alDAY6&% </td>
+						<td align="right">%&alDAY7&% </td>
+						<td align="right">%&alDAY8&% </td>
+						<td align="right">%&alDAY9&% </td>
+						<td align="right">%&alDAY10&%</td>
+						<td align="right">%&alDAY11&%</td>
+						<td align="right">%&alDAY12&%</td>
+						<td align="right">%&alDAY13&%</td>
+						<td align="right">%&alDAY14&%</td>
+						<td align="right">%&alDAY15&%</td>
+						<td align="right">%&alDAY16&%</td>
+						<td align="right">%&alDAY17&%</td>
+						<td align="right">%&alDAY18&%</td>
+						<td align="right">%&alDAY19&%</td>
+						<td align="right">%&alDAY20&%</td>
+						<td align="right">%&alDAY21&%</td>
+						<td align="right">%&alDAY22&%</td>
+						<td align="right">%&alDAY23&%</td>
+						<td align="right">%&alDAY24&%</td>
+						<td align="right">%&alDAY25&%</td>
+						<td align="right">%&alDAY26&%</td>
+						<td align="right">%&alDAY27&%</td>
+						<td align="right">%&alDAY28&%</td>
+						<!--<td align="right">%&alDAY29&%</td>
+						<td align="right">%&alDAY30&%</td>
+						-->
+					__IfExistsDay29__
+						<td align="right">%&alDAY29&% </td>
+					__IfExistsDay29__
+					__IfExistsDay30__
+						<td align="right">%&alDAY29&% </td>
+						<td align="right">%&alDAY30&% </td>
+					__IfExistsDay30__
+					__IfExistsDay31__
+						<td align="right">%&alDAY29&% </td>
+						<td align="right">%&alDAY30&% </td>
+						<td align="right">%&alDAY31&% </td>
+					__IfExistsDay31__
+						<td align="right">%&alDAYTOTAL&%</td>
+					</tr>
+__LoopAccessCountLog__
+
+				__IfData__
+__IfAction__
+
+				</table>
+<!-- 集計テーブル END -->
+%&DUMP&%
+
+
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+
+</body>
+</html>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>管理画面</title>
+<link rel="stylesheet" type="text/css" href="/style.css" charset="Shift_JIS" />
+<link rel="stylesheet" type="text/css" href="build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" href="build/container/assets/skins/sam/container.css" />
+<script type="text/javascript" src="/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="/build/connection/connection-min.js"></script>
+<script type="text/javascript" src="/build/animation/animation-min.js"></script>
+<script type="text/javascript" src="/build/dragdrop/dragdrop-min.js"></script>
+<script type="text/javascript" src="/build/container/container-min.js"></script>
+<script src="/js/scriptaculous.js?load=effects" type="text/javascript"></script>
+<script src="/js/popuphint.js" type="text/javascript"></script>
+<script src="/js/admin.js" type="text/JavaScript"></script>
+</head>
+<body class="yui-skin-sam">
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1>UPSTAIR  </h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞メディア管理＞<strong>代理店・広告集計</strong>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>代理店・広告集計一覧%&BENCH_TIME&%</h2>
+		</div>
+
+		<div id="list">
+
+			<div id="content"></div>
+			<script src="/js/myIndicator.js" type="text/javascript"></script>
+
+		<form action="/app.mpl" method="post">
+			<table id="form">
+				<tr>
+					<th>期間指定</th>
+					<td>
+				20<input type="text" name="fsyear" value="%&fsyear&%" maxlength="2" style="ime-mode:disabled;" size="2"/> /
+				<input type="text" name="fsmonth" value="%&fsmonth&%" maxlength="2" style="ime-mode:disabled;" size="2" /> /
+				<input type="text" name="fsdate" value="%&fsdate&%" maxlength="2" style="ime-mode:disabled;" size="2" />
+				&nbsp;から&nbsp;
+				20<input type="text" name="feyear" value="%&feyear&%" maxlength="2" style="ime-mode:disabled;" size="2"/> /
+				<input type="text" name="femonth" value="%&femonth&%" maxlength="2" style="ime-mode:disabled;" size="2" /> /
+				<input type="text" name="fedate" value="%&fedate&%" maxlength="2" style="ime-mode:disabled;" size="2" />
+				&nbsp;まで&nbsp;
+
+					<input type="submit" name="submit" value="　集　計　開　始　" onclick="init();" />
+				</td>
+				</tr>
+			</table>
+		<input type="hidden" name="app" value="AppShukei" />
+		<input type="hidden" name="action" value="shukeiMediaClick" />
+		<input type="hidden" name="" value="" />
+		</form>
+
+
+
+__IfAction__
+
+<div>集計条件　:　%&SEARCHQUERYMESSAGE&%</div>
+
+<div id="shukei">
+				<table align="center" style="width:850px;">
+<!--
+<thead>
+					<tr><th colspan="12">代理店・広告集計一覧</th></tr>
+					<tr>
+						<th rowspan="2">操作</th>
+						<th rowspan="2">代理店名</th>
+						<th rowspan="2">広告名・サイト名</th>
+						<th colspan="3"><img src="/images/das.gif" />合計</th>
+						<th colspan="2"><img src="/images/i.gif" /></th>
+						<th colspan="2"><img src="/images/e.gif" /></th>
+						<th colspan="2"><img src="/images/v.gif" /></th>
+					</tr>
+
+					<tr>
+						<th>登録数</th>
+						<th>クリック数</th>
+						<th>金額</th>
+						<th>登録数</th>
+						<th>クリック数</th>
+						<th>登録数</th>
+						<th>クリック数</th>
+						<th>登録数</th>
+						<th>クリック数</th>
+					</tr>
+<tr><th colspan="12">代理店・広告集計一覧</th></tr>
+</thead>
+-->
+<thead>
+					<tr>
+						<td></td><td></td><td></td>
+						<th colspan="4" align="center"><img src="/images/das.gif" />全体（3キャリア）</th>
+						<th colspan="2" align="center"><img src="/images/i.gif" /></th>
+						<th colspan="2" align="center"><img src="/images/e.gif" /></th>
+						<th colspan="2" align="center"><img src="/images/v.gif" /></th>
+					</tr>
+</thead>
+<tfoot><th colspan="13"></th></tfoot>
+					<tr>
+						<th>操作</th>
+						<th>代理店名</th>
+						<th>広告名・サイト名</th>
+						<th width="6%">登録</th>
+						<th width="6%">クリック</th>
+						<th width="6%">POINT</th>
+						<th width="6%">金額</th>
+						<th width="5%">登数</th>
+						<th width="5%">クリック</th>
+						<th width="5%">登録</th>
+						<th width="5%">クリック</th>
+						<th width="5%">登録</th>
+						<th width="5%">クリック</th>
+					</tr>
+<tbody>
+__LoopMediatList__
+<tr class="%&cssstyle&%">
+<td width="40">
+							<a href="/app.mpl?app=AppMedia;action=detailMedia;ad_id=%&ad_id&%;" onclick="init();">
+								<img src="/images/icn_file_edit.png" border="0" width="16" height="16" class="hintanchor" onMouseover="showhint('%&ad_name&%の詳細表示', this, event, '120px')" />
+							</a>
+</td>
+<td>%&agent_name&%</td>
+<td>%&ad_name&%</td>
+<td align="right"><font style="font-weight:bold;">%&REGTOTAL&%</font></td>
+<td align="right"><font style="font-weight:bold;">%&CLICKTOTAL&%</font></td>
+<td align="right"><font style="font-weight:bold;">%&ADPOINTTOTAL&%</font></td>
+<td align="right"><font style="font-weight:bold;">%&PRICETOTAL&%</font></td>
+<td align="right">%&REGD&%</td>
+<td align="right">%&CLICKD&%</td>
+<td align="right">%&REGAU&%</td>
+<td align="right">%&CLICKAU&%</td>
+<td align="right">%&REGSB&%</td>
+<td align="right">%&CLICKSB&%</td>
+</tr>
+__LoopMediatList__
+</tbody>
+				</table>
+</div>
+__IfAction__
+
+
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+
+</body>
+</html>

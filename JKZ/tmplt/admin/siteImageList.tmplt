@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<title>画像管理</title>
+<meta name="Pragma" content="no-cache" />
+<meta http-equiv="Content-Type" charset="Shift_JIS" content="text/html" />
+<link rel="stylesheet" type="text/css" href="/style.css" />
+<script type="text/javascript">//<![CDATA[
+function copyImageTag(form) {
+    var rng = form.text1.createTextRange();
+    rng.select();
+	rng.execCommand("copy");
+ }
+//]]></script>
+</head>
+<body>
+
+<table cellspacing="6" cellpadding="3">
+<tr><th> サイト画像一覧</th></tr>
+__LoopImageList__
+	<tr class="%&cssstyle&%">
+		<td>
+			<table width="100%">
+				<tr>
+					<td>
+						<img src="/mod-perl/serveSiteImageDB.mpl?i=%&id&%" border="0" /><br />
+						高さ&nbsp;%&height&% px　幅&nbsp;%&width&% px　%&mime_type&%
+						<form>
+						<input value="&lt;img src=&quot;&#37;&amp;SITEIMAGE_SCRIPTDATABASE_URL&amp;&#37;?i=%&id&%&quot; /&gt;" name="text1" style="visibility: hidden;" size="4" />
+						<input type="button" value="画像置換タグコピー" onclick="copyImageTag(this.form);" />
+						</form>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+__LoopImageList__
+</table>
+
+</body>
+</html>

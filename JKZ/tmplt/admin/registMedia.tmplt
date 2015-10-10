@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>広告管理</title>
+<link rel="stylesheet" href="/style.css" type="text/css" charset="Shift_JIS" />
+<link rel="stylesheet" type="text/css" href="/css/lightbox.css" />
+<link rel="stylesheet" type="text/css" href="/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" href="/build/container/assets/skins/sam/container.css" />
+<script src="/js/prototype.js" type="text/javascript"></script>
+<script src="/build/utilities/utilities.js" type="text/javascript"></script>
+<script src="/build/container/container.js" type="text/javascript"></script>
+<script src="/js/myIndicator.js" type="text/javascript"></script>
+<script src="/js/popuphint.js" type="text/javascript"></script>
+<script src="/js/scriptaculous.js?load=effects" type="text/javascript"></script>
+<script src="/js/jkl-form.js" type="text/JavaScript"></script>
+<script type="text/javascript">//<![CDATA[
+	var form1 = new JKL.Form("registMedia");
+//]]></script>
+</head>
+<body>
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1>UPSTAIR  </h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞<strong>広告登録</strong>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>メディア管理%&BENCH_TIME&%</h2>
+		</div>
+
+		<div id="list">
+			<!-- <fieldset> -->
+
+				<div id="content"></div>
+				<script src="/js/myIndicator.js" type="text/javascript"></script>
+
+__IfRegistMedia__
+				<div id="complete">
+					<ul>
+					<!--<li>全ての項目が必須です</li>-->
+						<!--<li>開始日以前は無効扱いになります。また終了日以降は無効扱いになります</li>
+						<li>広告コードは&#37;&amp;acd&amp;&#37;により置換できます。</li>
+						<li>キックバックURLは&nbsp;http://ptbk.1mp.jp/ptbk.mpl?s={ Pointy側で会員を識別ID(32文字) }</li>-->
+					</ul>
+				</div>
+__IfRegistMedia__
+
+__IfConfirmMedia__
+				<div id="error">
+					<ul>
+						%&ERROR_MSG&%
+					</ul>
+					修正しない場合は「登録する」ボタンを押下してください。
+				</div>
+__IfConfirmMedia__
+
+				<form action="/app.mpl" name="registMedia" id="registMedia" method="POST">
+				<table border="1" cellspacing="0" cellpadding="2" width="100%" rules="all" class="datagrid">
+					<tr><th align="center" colspan="3"> 広告新規登録フォーム</th></tr>
+__IfRegistMedia__
+					<tr>
+						<th style="width:200px;">広告コード</th>
+						<td><input type="text" name="" value="%&max_ad_id&%" style="text-align:right;" size="4" readonly />　自動割り振り</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">代理店名</th>
+						<td>
+						<select name="agent_id">
+					__LoopMediaAgentList__
+							<option value="%&agent_id&%;%&EncodedAgentName&%">%&agent_name&%</option>
+					__LoopMediaAgentList__
+							</select>
+						</td>
+						<!--<td><input type="text" name="agent_name" size="80" maxlength="30" /></td>-->
+
+					</tr>
+					<tr>
+						<th style="width:200px;">広告設定・サイト名</th>
+						<td><input type="text" name="ad_name" size="80" maxlength="100" /></td>
+					</tr>
+					<tr>
+						<th style="width:200px;">広告・サイトURL</th>
+						<td><input type="text" name="ad_url" style="ime-mode:disabled;" size="80" maxlength="255" /></td>
+					</tr>
+					<tr>
+						<th style="width:200px;">状態</th>
+						<!--<td><font color="red">無効</font>(<i>テスト完了確認後に変更できます。</i>)</td>-->
+						<td>
+							<label for="status_flag2"><input type="radio" name="status_flag"  value="2" checked id="status_flag2" /> <font style="color:blue">有効</font> </label>
+							<label for="status_flag1"><input type="radio" name="status_flag"  value="1" id="status_flag1" /> 無効 </label>
+					</tr>
+					<tr>
+						<th style="width:200px;">ポイント付与タイプ</th>
+						<td>
+							<!--<label for="point_type1"><input type="radio" name="point_type" value="1" id="point_type1" /> &nbsp;無し</label>-->
+							&nbsp;&nbsp;
+							<label for="point_type2"><input type="checkbox" name="point_type" value="2" id="point_type2" /> &nbsp;登録ポイント</label>
+						</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">ユーザー付与ポイント<font style="color:red;">[1]</font></th>
+						<td><input type="text" name="point" style="ime-mode:disabled;" size="20" maxlength="10" style="ime-mode:disabled;" /></td>
+					</tr>
+					<tr>
+						<th style="width:200px;">登録単価</th>
+						<td><input type="text" name="price_per_regist" value="0" style="ime-mode:disabled;" size="20" maxlength="5" style="ime-mode:disabled;" />&nbsp;円</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">カテゴリ</th>
+						<td>
+							<select name="mediacategory_id">
+					__LoopMediaCategoryList__
+							<option value="%&mediacategory_id&%;%&EncodedMediaCategoryName&%">%&mediacategory_name&%</option>
+					__LoopMediaCategoryList__
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">有効期限設定</th>
+						<td>
+							<label for="ad_period_flag1"><input type="radio" name="ad_period_flag" value="1" id="ad_period_flag1" /> &nbsp;無し</label>
+							&nbsp;&nbsp;
+							<label for="ad_period_flag2"><input type="radio" name="ad_period_flag" value="2" id="ad_period_flag2" /> &nbsp;有り</label>
+						</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">開始日</th>
+						<td>%&years&% 年 %&months&% 月 %&dates&% 日 </td>
+					</tr>
+					<tr>
+						<th style="width:200px;">終了日</th>
+						<td>%&toyears&% 年 %&tomonths&% 月 %&todates&% 日</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">キャリア</th>
+						<td>
+							<input type="checkbox" name="carrier" value="1" CHECKED class="box" id="carrier1" /><label for="carrier1">&nbsp;NTTドコモ&nbsp;</label>
+							<input type="checkbox" name="carrier" value="3" CHECKED class="box" id="carrier3" /><label for="carrier3">&nbsp;AU&nbsp;</label>
+							<input type="checkbox" name="carrier" value="2" CHECKED class="box" id="carrier2" /><label for="carrier2">&nbsp;SoftBank&nbsp;</label>
+						</td>
+					</tr>
+
+<!--				<tr>
+					<th style="width:200px;">系統</th>
+					<td>
+&nbsp;<input type="checkbox" class="box" name="personality" value="1" />&nbsp;普通系
+&nbsp;<input type="checkbox" class="box" name="personality" value="2" />&nbsp;ｷﾞｬﾙ系
+&nbsp;<input type="checkbox" class="box" name="personality" value="3" />&nbsp;姫系
+&nbsp;<input type="checkbox" class="box" name="personality" value="4" />&nbsp;お嬢系
+&nbsp;<input type="checkbox" class="box" name="personality" value="5" />&nbsp;ｷﾚｲ目系
+&nbsp;<input type="checkbox" class="box" name="personality" value="6" />&nbsp;かわいい系
+&nbsp;<input type="checkbox" class="box" name="personality" value="7" />&nbsp;ｺﾞｰｼﾞｬｽ系
+&nbsp;<input type="checkbox" class="box" name="personality" value="8" />&nbsp;萌え系
+&nbsp;<input type="checkbox" class="box" name="personality" value="9" />&nbsp;おとなしめ系
+&nbsp;<input type="checkbox" class="box" name="personality" value="10" />&nbsp;癒し系
+&nbsp;<input type="checkbox" class="box" name="personality" value="11" />&nbsp;さわやか系
+&nbsp;<input type="checkbox" class="box" name="personality" value="12" />&nbsp;ｷﾞｬｸﾞ系
+&nbsp;<input type="checkbox" class="box" name="personality" value="13" />&nbsp;体育会系
+&nbsp;<input type="checkbox" class="box" name="personality" value="14" />&nbsp;いかつい系
+&nbsp;<input type="checkbox" class="box" name="personality" value="15" />&nbsp;ｷﾞｬﾙ男系
+&nbsp;<input type="checkbox" class="box" name="personality" value="16" />&nbsp;ﾎｽﾄ系
+&nbsp;<input type="checkbox" class="box" name="personality" value="17" />&nbsp;ｼﾞｬﾆｰｽﾞ系
+&nbsp;<input type="checkbox" class="box" name="personality" value="18" />&nbsp;硬派系
+&nbsp;<input type="checkbox" class="box" name="personality" value="19" />&nbsp;ﾔﾝｷｰ系
+&nbsp;<input type="checkbox" class="box" name="personality" value="20" />&nbsp;ｱｷﾊﾞ系
+<br />
+						<input value="　全　○　" type="button" class="update" onclick="form1.selectAllOptions('personality',true);" />／
+						<input value="　全　×　" type="button" class="update" onclick="form1.selectAllOptions('personality',false);" />
+					</td>
+				</tr>
+-->
+<!--
+					<tr>
+						<th style="width:200px;">キックバックBASEURL</th>
+						<td><input type="text" value="http://ptbk.1mp.jp/ptbk.mpl" name="return_url" size="80" maxlength="100" style="ime-mode:disabled;" /></td>
+					</tr>
+					<tr>
+						<th style="width:200px;">成果受信時会員セッションパラメータ名<font style="color:red;">[2]</font></th>
+						<td><input type="text" name="param_name_for_session_id" value="s" size="40" maxlength="12" style="ime-mode:disabled;" /></td>
+					</tr>
+					<tr>
+						<th style="width:200px;">成果受信時成果状態パラメータ名<font style="color:red;">[3]</font></th>
+						<td><input type="text" name="param_name_for_status" value="st" size="40" maxlength="12" style="ime-mode:disabled;" /></td>
+					</tr>
+					<tr>
+						<th style="width:200px;">成果受信時成果セッションパラメータ名<font style="color:red;">[4]</font></th>
+						<td><input type="text" name="param_name_for_result_session_id" value="rs" size="40" maxlength="12" style="ime-mode:disabled;" /></td>
+					</tr>
+					<tr>
+						<th style="width:200px;">成果受信時成果承認値</th>
+						<td><input type="text" value="" name="status_value_for_success" size="4" maxlength="2" style="ime-mode:disabled;" /></td>
+					</tr>
+					<tr>
+-->
+						<th style="width:200px;">出稿単価</th>
+						<td><input type="text" name="price" style="ime-mode:disabled;" size="20" maxlength="10" /></td>
+					</tr>
+					<tr>
+						<th style="width:200px;">WEB16文字広告</th>
+						<td><textarea name="ad_16words_text" rows="3" cols="36"></textarea></td>
+					</tr>
+					<tr>
+						<th style="width:200px;">WEB詳細</th>
+						<td><textarea name="ad_text" rows="8" cols="36"></textarea></td>
+					</tr>
+					<tr>
+						<td colspan="2">
+						WEB詳細に置換文字→<i>&#37;&#37;point&#37;&#37;</i>を記述すると<font style="color:red;">[1]</font>項目欄：ポイントの設定値が代入されます。<br />
+						<div align="center"><input type="submit" name="registMedia" value="　確　認　画　面　" onclick="init();" id="content" /></div>
+						<input type="hidden" name="action" value="registMedia" />
+						<br />
+						</td>
+					</tr>
+
+__IfRegistMedia__
+
+__IfConfirmMedia__
+						<th style="width:200px;">広告コード</th>
+						<td>%&max_ad_id&%　自動割り振り</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">代理店名</th>
+						<td>%&agent_name&%</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">広告設定・サイト名</th>
+						<td>%&ad_name&%</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">広告・サイトURL</th>
+						<td>%&ad_url&%</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">状態</th>
+						<td><font color="red">無効</font>(<i>テスト完了確認後に変更できます。</i>)</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">ポイント付与タイプ</th>
+						<td>
+                            __IfPointTypeNotSelected__ 設定無し__IfPointTypeNotSelected__  
+							__IfPointTypeSelected__ 登録ポイント __IfPointTypeSelected__
+						</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">ユーザー付与ポイント</th>
+						<td>%&point&% ポイント</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">登録単価</th>
+						<td>%&price_per_regist&%&nbsp;円</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">カテゴリ</th>
+						<td>
+							%&DecodedMediaCategoryName&%
+						</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">有効期限設定</th>
+						<td>
+							__IfAdPeriodFlagNotSelected__ 無し __IfAdPeriodFlagNotSelected__
+							__IfAdPeriodFlagSelected__ 有り  __IfAdPeriodFlagSelected__
+						</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">開始日</th>
+						<td>%&years&% 年 %&months&% 月 %&dates&% 日 </td>
+					</tr>
+					<tr>
+						<th style="width:200px;">終了日</th>
+						<td>%&toyears&% 年 %&tomonths&% 月 %&todates&% 日</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">キャリア</th>
+						<td>
+__IfAllCarrier__ 指定無し __IfAllCarrier__
+__IfDoCoMo__ DoCoMo __IfDoCoMo__
+__IfSoftBank__ SoftBank __IfSoftBank__
+__IfAU__ AU  __IfAU__
+__IfSoftBankAU__ SoftBank AU __IfSoftBankAU__
+__IfDoCoMoSoftBank__ DoCoMo SoftBank __IfDoCoMoSoftBank__
+__IfDoCoMoAU__ DoCoMo AU __IfDoCoMoAU__
+						</td>
+					</tr>
+<!--
+				<tr>
+					<th style="width:200px;">系統</th>
+					<td>
+&nbsp;<input type="checkbox" class="box" name="personality" value="1" />&nbsp;普通系
+&nbsp;<input type="checkbox" class="box" name="personality" value="2" />&nbsp;ｷﾞｬﾙ系
+&nbsp;<input type="checkbox" class="box" name="personality" value="3" />&nbsp;姫系
+&nbsp;<input type="checkbox" class="box" name="personality" value="4" />&nbsp;お嬢系
+&nbsp;<input type="checkbox" class="box" name="personality" value="5" />&nbsp;ｷﾚｲ目系
+&nbsp;<input type="checkbox" class="box" name="personality" value="6" />&nbsp;かわいい系
+&nbsp;<input type="checkbox" class="box" name="personality" value="7" />&nbsp;ｺﾞｰｼﾞｬｽ系
+&nbsp;<input type="checkbox" class="box" name="personality" value="8" />&nbsp;萌え系
+&nbsp;<input type="checkbox" class="box" name="personality" value="9" />&nbsp;おとなしめ系
+&nbsp;<input type="checkbox" class="box" name="personality" value="10" />&nbsp;癒し系
+&nbsp;<input type="checkbox" class="box" name="personality" value="11" />&nbsp;さわやか系
+&nbsp;<input type="checkbox" class="box" name="personality" value="12" />&nbsp;ｷﾞｬｸﾞ系
+&nbsp;<input type="checkbox" class="box" name="personality" value="13" />&nbsp;体育会系
+&nbsp;<input type="checkbox" class="box" name="personality" value="14" />&nbsp;いかつい系
+&nbsp;<input type="checkbox" class="box" name="personality" value="15" />&nbsp;ｷﾞｬﾙ男系
+&nbsp;<input type="checkbox" class="box" name="personality" value="16" />&nbsp;ﾎｽﾄ系
+&nbsp;<input type="checkbox" class="box" name="personality" value="17" />&nbsp;ｼﾞｬﾆｰｽﾞ系
+&nbsp;<input type="checkbox" class="box" name="personality" value="18" />&nbsp;硬派系
+&nbsp;<input type="checkbox" class="box" name="personality" value="19" />&nbsp;ﾔﾝｷｰ系
+&nbsp;<input type="checkbox" class="box" name="personality" value="20" />&nbsp;ｱｷﾊﾞ系
+<br />
+						<input value="　全　○　" type="button" class="update" onclick="form1.selectAllOptions('personality',true);" />／
+						<input value="　全　×　" type="button" class="update" onclick="form1.selectAllOptions('personality',false);" />
+					</td>
+				</tr>
+-->
+					<tr>
+						<th style="width:200px;">キックバックBASEURL</th>
+						<td>%&return_url&%</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">キックバックURL</th>
+						<td>%&KICKBACKURL&%&nbsp;&nbsp;<font style="color:red;">キックバックBASEURL+[2]+[3]+[4]</font></td>
+					</tr>
+					<tr>
+						<th style="width:200px;">成果受信時会員セッションパラメータ名<font style="color:red;">[2]</font></th>
+						<td>%&param_name_for_session_id&%</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">成果受信時成果状態パラメータ名<font style="color:red;">[3]</font></th>
+						<td>%&param_name_for_status&%</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">成果受信時成果セッションパラメータ名<font style="color:red;">[4]</font></th>
+						<td>%&param_name_for_result_session_id&%</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">成果受信時成果承認値</th>
+						<td>%&status_value_for_success&%</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">送信パラメータ</th>
+						<td>%&send_param_name&%</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">WEB16文字広告</th>
+						<td>%&ad_16words_text&%</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">WEB詳細</th>
+						<td>%&ad_text&%</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							WEB詳細に置換文字→<i>&#37;&#37;point&#37;&#37;</i>を記述すると<font style="color:red;">[1]</font>項目欄：ポイントの設定値が代入されます。<br />
+							<div align="center">
+__IfShowSubmitButton__
+								<input type="submit" name="registMedia" value="　登　録　す　る　" onclick="init();" id="content" />
+								<input type="hidden" name="action" value="modifyMedia" />
+							<br /><br />
+__IfShowSubmitButton__
+__IfDoNotShowSubmitButton__
+下記の「　修　正　す　る　」ボタンで画面を戻り入力<br />
+__IfDoNotShowSubmitButton__
+							<input type="button" value="　修　正　す　る　" onClick="history.back()" />
+							</div>
+							
+							<br />
+						</td>
+					</tr>
+__IfConfirmMedia__
+
+				</table>
+				<input type="hidden" name="app" value="AppMedia" />
+				<input type="hidden" name="md5key" value="%&md5key&%" />
+				</form>
+
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+
+</body>
+</html>

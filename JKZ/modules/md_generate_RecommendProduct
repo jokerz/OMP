@@ -1,0 +1,66 @@
+#!/usr/bin/perl
+
+#******************************************************
+# @desc		オススメコンテンツの生成モジュール
+#           これは物品賞品などの新着
+#			OBJECTには配列で格納
+#			[product_id, lastupdate_date(最終更新日), category_name, tmplt_id, ]
+# @package	generateLatest
+# @author	Iwahase Ryo
+# @create	2010/01/18
+# @version	
+#******************************************************
+
+use strict;
+use vars qw($include_path);
+
+BEGIN {
+	## クラスのインクルードパスを取得するための処理
+	require Cwd;
+	my $pwd = Cwd::getcwd();
+	($include_path = $pwd) =~ s!/modules!!;
+
+	unshift @INC, $include_path;
+}
+
+use MyClass::UsrWebDB;
+use MyClass::WebUtil;
+
+
+#*******************************
+# cronで1日一回実行させる。
+# テーブル：ダウンロードカウンターからコンテンツのカテゴリ別に集計（上位３つ）
+# 集計してデータをシリアライズして保存
+#*******************************
+
+## シリアライズしたデータの場所
+my $publishdir			= $include_path . '/publish/contents';
+# オススメコンテンツ
+my $RecommendContentsFile	= $publishdir . '/recommendContents.obj';
+
+my $sql = "SELECT p.product_id, p.product_name, CONCAT(left(p.description, 10), '...') AS description, p.point, p.lastupdate_date, p.categorym_id, p.tmplt_id, sc.category_name, sc.subcategory_name 
+ FROM tProductM p LEFT JOIN tSubCategoryM sc
+  ON p.categorym_id=sc.categorym_id
+ WHERE p.categorym_id>=2 AND p.recommend_flag=2 AND p.status_flag=2
+  AND p.subcategorym_id=sc.subcategory_id 
+ ORDER BY p.product_id DESC LIMIT 3
+";
+
+my $dbh = MyClass::UsrWebDB::connect({
+            dbaccount => $self->cfg->param('DATABASE_USER'),
+            dbpasswd  => $self->cfg->param('DATABASE_PASSWORD'),
+            dbname    => $self->cfg->param('DATABASE_NAME'),
+          });
+$dbh->do('set names sjis');
+my $aryref = $dbh->selectall_arrayref($sql);
+$dbh->disconnect();
+
+eval {
+    MyClass::WebUtil::publishObj({ file=>$RecommendContentsFile, obj=>$aryref });
+};
+if ($@) {
+    print " FAIL CREATING OBJECT $@ \n";
+}
+
+
+exit();

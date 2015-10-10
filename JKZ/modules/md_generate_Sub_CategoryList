@@ -1,0 +1,179 @@
+#!/usr/bin/perl
+
+#******************************************************
+# @desc		サブカテゴリリストオブジェクトの生成モジュール
+#			OBJECTには配列で格納
+#			categorym_id	subcategory_id
+#			[
+#							[
+#										{ categorym_id
+#										  sucategory_id
+#										  category_name
+#										  subcategory_name
+#										  status_flag
+#										 },
+#							],
+#			],
+#
+# @package	md_generate_Sub_CategoryList
+# @author	Iwahase Ryo
+# @create	2010/01/17
+# @update   2010/01/21 小ｶﾃｺﾞﾘ処理追加
+# @version	
+#******************************************************
+
+use strict;
+use vars qw($include_path $cfg);
+
+BEGIN {
+	## クラスのインクルードパスを取得するための処理
+	require Cwd;
+	my $pwd = Cwd::getcwd();
+	($include_path = $pwd) =~ s!/modules!!;
+	unshift @INC, $include_path;
+
+	my $config = sprintf("%s/conf/envconf.cfg",$include_path);
+
+    require MyClass::Config;
+    $cfg = MyClass::Config->new($config);
+
+}
+
+use MyClass::UsrWebDB;
+use MyClass::WebUtil;
+
+#*******************************
+# cronで1日一回実行させる。
+# 集計してデータをシリアライズして保存
+#*******************************
+
+## シリアライズしたデータオブジェクト
+my $category_objectfile      = $cfg->param('CATEGORYLIST_OBJ');
+my $subcategory_objectfile   = $cfg->param('SUBCATEGORYLIST_OBJ');
+my $smallcategory_objectfile = $cfg->param('SMALLCATEGORYLIST_OBJ');
+my $subcategory_group_by_category_objectfile      = $cfg->param('SUBCATEGORYLIST_BY_CATEGORY_OBJ');
+my $smallcategory_group_by_subcategory_objectfile = $cfg->param('SMALLCATEGORYLIST_BY_SUBCATEGORY_OBJ');
+
+my $dbh = MyClass::UsrWebDB::connect({
+            dbaccount => $cfg->param('DATABASE_USER'),
+            dbpasswd  => $cfg->param('DATABASE_PASSWORD'),
+            dbname    => $cfg->param('DATABASE_NAME'),
+          });
+
+$dbh->do('set names sjis');
+
+my $sql;
+my $aryref;
+my $obj_c;
+my $obj_sc;
+my $obj_smc;
+# 同一サブカテゴリの小カテゴリ subcategoryでまとめる
+my $obj_sc_byc;
+my $obj_smc_bysc;
+
+my @reportsql;
+
+## カテゴリから開始
+$sql    = "SELECT category_id, category_name, status_flag FROM tCategoryM;";
+$aryref = $dbh->selectall_arrayref($sql, { Columns => {} });
+
+foreach (@{$aryref}) {
+	$obj_c->[$_->{category_id}]->{category_id}	 = $_->{category_id};
+	$obj_c->[$_->{category_id}]->{category_name} = $_->{category_name};
+	$obj_c->[$_->{category_id}]->{status_flag}	 = $_->{status_flag};
+}
+
+push(@reportsql, $sql);
+
+## サブカテゴリ
+$sql    = "SELECT s.categorym_id, s.subcategory_id, s.subcategory_name, s.category_name, s.status_flag FROM tSubCategoryM s;";
+$aryref = $dbh->selectall_arrayref($sql, { Columns => {} });
+=pod
+foreach (@{$aryref}) {
+
+}
+=cut
+foreach (@{$aryref}) {
+	$obj_sc->[$_->{subcategory_id}]->{category_id}      = $_->{categorym_id};
+	$obj_sc->[$_->{subcategory_id}]->{subcategory_id}   = $_->{subcategory_id};
+	$obj_sc->[$_->{subcategory_id}]->{category_name}    = $_->{category_name};
+	$obj_sc->[$_->{subcategory_id}]->{subcategory_name} = $_->{subcategory_name};
+	$obj_sc->[$_->{subcategory_id}]->{status_flag}      = $_->{status_flag};
+
+    #********************************
+    # category_idグルーピング
+    #  c_id   sc_id  hash
+    # [       [        {}  ]  ]
+    #
+    #********************************
+	$obj_sc_byc->[$_->{categorym_id}]->[$_->{subcategory_id}]->{category_id}      = $_->{categorym_id};
+	$obj_sc_byc->[$_->{categorym_id}]->[$_->{subcategory_id}]->{subcategory_id}   = $_->{subcategory_id};
+	$obj_sc_byc->[$_->{categorym_id}]->[$_->{subcategory_id}]->{category_name}    = $_->{category_name};
+	$obj_sc_byc->[$_->{categorym_id}]->[$_->{subcategory_id}]->{subcategory_name} = $_->{subcategory_name};
+	$obj_sc_byc->[$_->{categorym_id}]->[$_->{subcategory_id}]->{status_flag}      = $_->{status_flag};
+
+}
+
+push(@reportsql, $sql);
+
+## 小カテゴリ
+$sql    = "SELECT sm.smallcategory_id, sm.categorym_id, sm.subcategorym_id, sm.smallcategory_name, sm.subcategory_name, sm.category_name, sm.status_flag
+ FROM tSmallCategoryM sm;";
+
+$aryref = $dbh->selectall_arrayref($sql, { Columns => {} });
+=pod
+foreach (@{$aryref}) {
+	$obj_smc->[$_->{categorym_id}]->[$_->{subcategorym_id}]->[$_->{smallcategory_id}]->{category_id}        = $_->{categorym_id};
+	$obj_smc->[$_->{categorym_id}]->[$_->{subcategorym_id}]->[$_->{smallcategory_id}]->{subcategory_id}     = $_->{subcategorym_id};
+	$obj_smc->[$_->{categorym_id}]->[$_->{subcategorym_id}]->[$_->{smallcategory_id}]->{smallcategory_id}   = $_->{smallcategory_id};
+	$obj_smc->[$_->{categorym_id}]->[$_->{subcategorym_id}]->[$_->{smallcategory_id}]->{category_name}      = $_->{category_name};
+	$obj_smc->[$_->{categorym_id}]->[$_->{subcategorym_id}]->[$_->{smallcategory_id}]->{subcategory_name}   = $_->{subcategory_name};
+	$obj_smc->[$_->{categorym_id}]->[$_->{subcategorym_id}]->[$_->{smallcategory_id}]->{smallcategory_name} = $_->{smallcategory_name};
+	$obj_smc->[$_->{categorym_id}]->[$_->{subcategorym_id}]->[$_->{smallcategory_id}]->{status_flag}        = $_->{status_flag};
+}
+=cut
+foreach (@{$aryref}) {
+	$obj_smc->[$_->{smallcategory_id}]->{category_id}        = $_->{categorym_id};
+	$obj_smc->[$_->{smallcategory_id}]->{subcategory_id}     = $_->{subcategorym_id};
+	$obj_smc->[$_->{smallcategory_id}]->{smallcategory_id}   = $_->{smallcategory_id};
+	$obj_smc->[$_->{smallcategory_id}]->{category_name}      = $_->{category_name};
+	$obj_smc->[$_->{smallcategory_id}]->{subcategory_name}   = $_->{subcategory_name};
+	$obj_smc->[$_->{smallcategory_id}]->{smallcategory_name} = $_->{smallcategory_name};
+	$obj_smc->[$_->{smallcategory_id}]->{status_flag}        = $_->{status_flag};
+
+    #********************************
+    # subcategory_idグルーピング
+    #  sbc_id   smc_id  hash
+    # [       [        {}  ]  ]
+    #
+    #********************************
+    $obj_smc_bysc->[$_->{subcategorym_id}]->[$_->{smallcategory_id}]->{category_id}        = $_->{categorym_id};
+    $obj_smc_bysc->[$_->{subcategorym_id}]->[$_->{smallcategory_id}]->{subcategory_id}     = $_->{subcategorym_id};
+    $obj_smc_bysc->[$_->{subcategorym_id}]->[$_->{smallcategory_id}]->{smallcategory_id}   = $_->{smallcategory_id};
+    $obj_smc_bysc->[$_->{subcategorym_id}]->[$_->{smallcategory_id}]->{category_name}      = $_->{category_name};
+    $obj_smc_bysc->[$_->{subcategorym_id}]->[$_->{smallcategory_id}]->{subcategory_name}   = $_->{subcategory_name};
+    $obj_smc_bysc->[$_->{subcategorym_id}]->[$_->{smallcategory_id}]->{smallcategory_name} = $_->{smallcategory_name};
+    $obj_smc_bysc->[$_->{subcategorym_id}]->[$_->{smallcategory_id}]->{status_flag}        = $_->{status_flag};
+
+}
+
+push(@reportsql, $sql);
+
+$dbh->disconnect();
+
+eval {
+    MyClass::WebUtil::publishObj({ file=>$category_objectfile, obj=>$obj_c });
+    MyClass::WebUtil::publishObj({ file=>$subcategory_objectfile, obj=>$obj_sc });
+    MyClass::WebUtil::publishObj({ file=>$smallcategory_objectfile, obj=>$obj_smc });
+    MyClass::WebUtil::publishObj({ file=>$subcategory_group_by_category_objectfile, obj=>$obj_sc_byc });
+    MyClass::WebUtil::publishObj({ file=>$smallcategory_group_by_subcategory_objectfile, obj=>$obj_smc_bysc });
+};
+
+if ($@) {
+	warn " Fail Creating Object files $@ \n";
+}
+#else {
+#    print map { $_,"\n" } @reportsql;
+#}
+
+exit();

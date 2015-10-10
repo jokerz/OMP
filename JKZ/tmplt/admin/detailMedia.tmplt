@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>広告管理</title>
+<link rel="stylesheet" href="/style.css" type="text/css" charset="Shift_JIS" />
+<link rel="stylesheet" type="text/css" href="/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" href="/build/container/assets/skins/sam/container.css" />
+<script src="/js/prototype.js" type="text/javascript"></script>
+<script src="/build/utilities/utilities.js" type="text/javascript"></script>
+<script src="/build/container/container.js" type="text/javascript"></script>
+<script src="/js/myIndicator.js" type="text/javascript"></script>
+<script src="/js/popuphint.js" type="text/javascript"></script>
+<script src="/js/scriptaculous.js?load=effects" type="text/javascript"></script>
+<style type="text/css">
+<!--/* <![CDATA[ */
+table {
+	margin: 1em auto;
+	border-collapse: collapse;
+}
+
+thead th,
+tfoot th {
+	padding: 0.5em;
+	text-align: center;
+	border: 1px solid #3366CC;
+	background-color: #ffffff;
+	width : 100px;
+}
+
+tfoot td {
+	border-top: 1px solid #3366CC;
+}
+
+tbody td {
+	padding: 0.5em;
+	border-left: 1px solid #3366CC;
+	border-right: 1px solid #3366CC;
+}
+
+tbody td.dot {
+	border-bottom: 1px dotted gray;
+}
+
+tbody td.solid {
+	border-bottom: 1px solid #3366CC;
+}
+
+/* ]]> */-->
+</style>
+</head>
+<body>
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1> システム　管理者画面</h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞メディア管理＞<a href="/app.mpl?app=AppMedia;action=mediaTopMenu">代理店・広告一覧</a>＞<strong>メディア詳細</strong>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>メディア管理%&BENCH_TIME&%</h2>
+		</div>
+
+		<div id="list">
+			<div id="content"></div>
+				<script src="/js/myIndicator.js" type="text/javascript"></script>
+				<div id="complete">
+					<ul>
+					<!--<li>全ての項目が必須です</li>
+						<li>キックバックURLは&nbsp;http://ptbk.1mp.jp/ptbk.mpl?s={ Pointy側で会員を識別ID(32文字) }</li>-->
+					</ul>
+				</div>
+
+__IfConfirmMedia__
+				<div id="error">
+					<ul>
+						%&ERROR_MSG&%
+					</ul>
+					修正しない場合は「登録する」ボタンを押下してください。
+				</div>
+__IfConfirmMedia__
+
+				<form action="/app.mpl" name="detailMedia" id="detailMedia" method="POST">
+				<table border="0" cellspacing="0" cellpadding="2" width="100%" rules="all" class="datagrid">
+<tr><td colspan="4">
+<div id="x">
+__IfModeView__
+<font style="font-size:14px; font-weight:bold;">閲覧モード</font>(<kbd>V</kbd>)
+<a href="/app.mpl?app=AppMedia;action=detailMedia;ad_id=%&ad_id&%;mode=edit">編集モード(<kbd>E</kbd>)</a
+>
+__IfModeView__
+
+__IfModeEdit__
+<a href="/app.mpl?app=AppMedia;action=detailMedia;ad_id=%&ad_id&%;mode=view">閲覧モード(<kbd>V</kbd>)</a
+>
+<font style="color:#2C4A8A; font-size:14px; font-weight:bold;">編集モード</font>(<kbd>E</kbd>)
+__IfModeEdit__
+</div>
+</td></tr>
+
+					<tr><th align="center" colspan="4"> メディア詳細</th></tr>
+
+__IfModeEdit__
+					<tr>
+						<th style="width:200px;">広告コード</th>
+						<td>%&ad_id&%</td>
+						<th rowspan="8" style="width:100px;">WEB16文字広告</th>
+						<td rowspan="8" style="width:160px; vertical-align:top;"><textarea name="ad_16words_text" rows="15" cols="24">%&ad_16words_text&%</textarea></td>
+					</tr>
+					<tr>
+						<th style="width:200px;">代理店名</th>
+						<td><input type="text" name="agent_name" value="%&agent_name&%" size="60" maxlength="30" /></td>
+					</tr>
+					<tr>
+						<th style="width:200px;">広告設定・サイト名</th>
+						<td><input type="text" name="ad_name" value="%&ad_name&%" size="60" maxlength="100" /></td>
+					</tr>
+					<tr>
+						<th style="width:200px;">広告・サイトURL</th>
+						<td><input type="text" name="ad_url" value="%&ad_url&%" style="ime-mode:disabled;" size="60" maxlength="255" /></td>
+					</tr>
+					<tr>
+						<th style="width:200px;">状態</th>
+						<td>
+__IfStatusFlagIsActive__
+							<label for="status_flag2">
+								<input type="radio" name="status_flag" value="2" checked id="status_flag2" /><font color="blue"> <b>有効</b></font>
+							</label>
+					 		&nbsp;
+							<label for="status_flag1">
+	    						<input type="radio" name="status_flag" value="1" id="status_flag1" /> 無効
+	    					</label>
+__IfStatusFlagIsActive__
+__IfStatusFlagIsNotActive__
+	    					<label for="status_flag2">
+	    						<input type="radio" name="status_flag" value="2" id="status_flag2" /> 有効
+	    					</label>
+	    					&nbsp;
+	    					<label for="status_flag1">
+	    						<input type="radio" name="status_flag" value="1" checked id="status_flag1" /><font color="red"> <b>無効</b></font>
+	    					</label>
+__IfStatusFlagIsNotActive__
+__IfStatusFlagIsExpired__<b style="color:red">有効期限切れ</b>__IfStatusFlagIsExpired__
+						</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">ポイント付与タイプ</th>
+						<td>
+__IfPointTypeSelected__
+						<label for="point_type2"><input type="checkbox" name="point_type" value="2" id="point_type2" checked /> &nbsp;登録ポイント</label>
+__IfPointTypeSelected__
+__IfPointTypeNotSelected__
+						<label for="point_type2"><input type="checkbox" name="point_type" value="2" id="point_type2" /> &nbsp;登録ポイント</label>
+__IfPointTypeNotSelected__
+						</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">ユーザー付与ポイント<font style="color:red;">[1]</font></th>
+						<td><input type="text" name="point" value="%&point&%" style="ime-mode:disabled;" size="20" maxlength="10" style="ime-mode:disabled;" /> ポイント</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">登録単価</th>
+						<td><input type="text" name="price_per_regist" value="%&price_per_regist&%" style="ime-mode:disabled;" size="20" maxlength="5" style="ime-mode:disabled;" />&nbsp;円</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">カテゴリ</th>
+						<td>
+<select name="mediacategory_id">
+__LoopMediaCategoryList__
+<option value="%&lmediacategory_id&%"__IfSelectedMediaCategoryID__ selected__IfSelectedMediaCategoryID__>%&lmediacategory_name&%</option>
+__LoopMediaCategoryList__
+</select>
+						</td>
+<th rowspan="12" style="width:100px;">WEB詳細</th>
+<td rowspan="12" style="width:160px; vertical-align:top;"><textarea name="ad_text" rows="21" cols="24">%&ad_text&%</textarea></td>
+					</tr>
+					<tr>
+						<th style="width:200px;">有効期限設定</th>
+						<td>
+							__IfAdPeriodFlagSelected__
+							<label for="ad_period_flag2">
+								<input type="radio" name="ad_period_flag" value="2" checked id="ad_period_flag2" /><font color="blue"> <b>有り</b></font>
+							</label>
+					 		&nbsp;
+							<label for="ad_period_flag1">
+	    						<input type="radio" name="ad_period_flag" value="1" id="ad_period_flag1" /> 無し
+	    					</label>
+							__IfAdPeriodFlagSelected__
+							__IfAdPeriodFlagNotSelected__
+							<label for="ad_period_flag2">
+								<input type="radio" name="ad_period_flag" value="2" id="ad_period_flag2" />有り
+							</label>
+					 		&nbsp;
+							<label for="ad_period_flag1">
+	    						<input type="radio" name="ad_period_flag" value="1" checked id="ad_period_flag1" /><b> 無し</b>
+	    					</label>
+							__IfAdPeriodFlagNotSelected__
+						</td>
+					</tr>
+
+					<tr>
+						<th style="width:200px;">開始日</th>
+						<td>%&years&% 年 %&months&% 月 %&dates&% 日</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">終了日</th>
+						<td>%&toyears&% 年 %&tomonths&% 月 %&todates&% 日</td>
+					</tr>
+
+					<tr>
+						<th style="width:200px;">キャリア</th>
+						<td>
+__IfAllCarrier__
+<input type="checkbox" name="carrier" value="1" CHECKED class="box" id="carrier1" /><label for="carrier1">&nbsp;NTTドコモ&nbsp;</label>
+<input type="checkbox" name="carrier" value="3" CHECKED class="box" id="carrier3" /><label for="carrier3">&nbsp;AU&nbsp;</label>
+<input type="checkbox" name="carrier" value="2" CHECKED class="box" id="carrier2" /><label for="carrier2">&nbsp;SoftBank&nbsp;</label>
+__IfAllCarrier__
+__IfDoCoMo__
+<input type="checkbox" name="carrier" value="1" CHECKED class="box" id="carrier1" /><label for="carrier1">&nbsp;NTTドコモ&nbsp;</label>
+<input type="checkbox" name="carrier" value="3" class="box" id="carrier3" /><label for="carrier3">&nbsp;AU&nbsp;</label>
+<input type="checkbox" name="carrier" value="2" class="box" id="carrier2" /><label for="carrier2">&nbsp;SoftBank&nbsp;</label>
+__IfDoCoMo__
+__IfSoftBank__
+<input type="checkbox" name="carrier" value="1" class="box" id="carrier1" /><label for="carrier1">&nbsp;NTTドコモ&nbsp;</label>
+<input type="checkbox" name="carrier" value="3" class="box" id="carrier3" /><label for="carrier3">&nbsp;AU&nbsp;</label>
+<input type="checkbox" name="carrier" value="2" CHECKED class="box" id="carrier2" /><label for="carrier2">&nbsp;SoftBank&nbsp;</label>
+__IfSoftBank__
+__IfAU__
+<input type="checkbox" name="carrier" value="1" class="box" id="carrier1" /><label for="carrier1">&nbsp;NTTドコモ&nbsp;</label>
+<input type="checkbox" name="carrier" value="3" CHECKED class="box" id="carrier3" /><label for="carrier3">&nbsp;AU&nbsp;</label>
+<input type="checkbox" name="carrier" value="2" class="box" id="carrier2" /><label for="carrier2">&nbsp;SoftBank&nbsp;</label>
+__IfAU__
+__IfSoftBankAU__
+<input type="checkbox" name="carrier" value="1" class="box" id="carrier1" /><label for="carrier1">&nbsp;NTTドコモ&nbsp;</label>
+<input type="checkbox" name="carrier" value="3" CHECKED class="box" id="carrier3" /><label for="carrier3">&nbsp;AU&nbsp;</label>
+<input type="checkbox" name="carrier" value="2" CHECKED class="box" id="carrier2" /><label for="carrier2">&nbsp;SoftBank&nbsp;</label>
+__IfSoftBankAU__
+__IfDoCoMoSoftBank__
+<input type="checkbox" name="carrier" value="1" CHECKED class="box" id="carrier1" /><label for="carrier1">&nbsp;NTTドコモ&nbsp;</label>
+<input type="checkbox" name="carrier" value="3" class="box" id="carrier3" /><label for="carrier3">&nbsp;AU&nbsp;</label>
+<input type="checkbox" name="carrier" value="2" CHECKED class="box" id="carrier2" /><label for="carrier2">&nbsp;SoftBank&nbsp;</label>
+__IfDoCoMoSoftBank__
+__IfDoCoMoAU__
+<input type="checkbox" name="carrier" value="1" CHECKED class="box" id="carrier1" /><label for="carrier1">&nbsp;NTTドコモ&nbsp;</label>
+<input type="checkbox" name="carrier" value="3" CHECKED class="box" id="carrier3" /><label for="carrier3">&nbsp;AU&nbsp;</label>
+<input type="checkbox" name="carrier" value="2" class="box" id="carrier2" /><label for="carrier2">&nbsp;SoftBank&nbsp;</label>
+__IfDoCoMoAU__
+						</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">キックバックBASEURL</th>
+						<td><input type="text" value="%&return_url&%" name="return_url" size="60" maxlength="100" style="ime-mode:disabled;" /></td>
+					</tr>
+					<tr>
+						<th style="width:200px;">成果受信時会員セッションパラメータ名<font style="color:red;">[2]</font></th>
+						<td><input type="text" name="param_name_for_session_id" value="%&param_name_for_session_id&%" size="40" maxlength="12" style="ime-mode:disabled;" /></td>
+					</tr>
+					<tr>
+						<th style="width:200px;">成果受信時成果状態パラメータ名<font style="color:red;">[3]</font></th>
+						<td><input type="text" name="param_name_for_status" value="%&param_name_for_status&%" size="40" maxlength="12" style="ime-mode:disabled;" /></td>
+					</tr>
+					<tr>
+						<th style="width:200px;">成果受信時成果セッションパラメータ名<font style="color:red;">[4]</font></th>
+						<td><input type="text" name="param_name_for_result_session_id" value="%&param_name_for_result_session_id&%" size="40" maxlength="12" style="ime-mode:disabled;" /></td>
+					</tr>
+					<tr>
+						<th style="width:200px;">成果受信時成果承認値</th>
+						<td><input type="text" value="%&status_value_for_success&%" name="status_value_for_success" size="4" maxlength="2" style="ime-mode:disabled;" /></td>
+					</tr>
+					<tr>
+						<th style="width:200px;">送信パラメータ</th>
+						<td><input type="text" value="%&send_param_name&%" name="send_param_name" size="40" maxlength="12" style="ime-mode:disabled;" /></td>
+					</tr>
+					<tr>
+						<th style="width:200px;">登録日</th>
+						<td>%&registration_date&%</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">最終更新日</th>
+						<td>%&lastupdate_date&%</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							WEB詳細に置換文字→<i>&#37;&#37;point&#37;&#37;</i>を記述すると<font style="color:red;">[1]</font>項目欄：ポイントの設定値が代入されます。<br />
+							<div align="center">
+								<input type="submit" name="detailMedia" value="　更　新　す　る　" onclick="init();" id="content" />
+								<br /><br />
+								<input type="button" value="　修　正　す　る　" onClick="history.back()" />
+							</div>
+							<input type="hidden" name="ad_id" value="%&ad_id&%" />
+							<input type="hidden" name="action" value="modifyMedia" />
+							<br />
+						</td>
+					</tr>
+				</table>
+				<input type="hidden" name="app" value="AppMedia" />
+				<input type="hidden" name="md5key" value="%&md5key&%" />
+				</form>
+__IfModeEdit__
+
+
+
+__IfModeView__
+					<tr>
+						<th style="width:200px;">広告コード</th>
+						<td>%&ad_id&%</td>
+<th rowspan="8" style="width:100px;">WEB16文字広告</th>
+<td rowspan="8" style="width:160px; vertical-align:top;">%&ad_16words_text&%</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">代理店名</th>
+						<td>%&agent_name&%</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">広告設定・サイト名</th>
+						<td>%&ad_name&%</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">広告・サイトURL</th>
+						<td>%&ad_url&%</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">状態</th>
+						<td><img src="/images/%&status_flagImages&%" width="16" height="16" />
+							__IfStatusFlagIsActive__<font color="blue">有効</font>__IfStatusFlagIsActive__
+							__IfStatusFlagIsNotActive__<font color="red"> 無効</font>__IfStatusFlagIsNotActive__
+							__IfStatusFlagIsExpired__<b style="color:red">有効期限切れ</b>__IfStatusFlagIsExpired__
+						</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">ポイント付与タイプ</th>
+						<td>
+                            __IfPointTypeNotSelected__ 設定無し__IfPointTypeNotSelected__  
+							__IfPointTypeSelected__ 登録ポイント __IfPointTypeSelected__
+						</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">ユーザー付与ポイント<font style="color:red;">[1]</font></th>
+						<td>%&point&% ポイント</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">登録単価</th>
+						<td>%&price_per_regist&%&nbsp;円</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">カテゴリ</th>
+						<td>
+							%&mediacategory_name&%
+						</td>
+<th rowspan="11" style="width:100px;">WEB詳細</th>
+<td rowspan="11" style="width:160px; vertical-align:top;">%&ad_text&%</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">有効期限設定</th>
+						<td>
+							__IfAdPeriodFlagNotSelected__ 無し  __IfAdPeriodFlagNotSelected__
+							__IfAdPeriodFlagSelected__ 有り  __IfAdPeriodFlagSelected__
+						</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">開始日</th>
+						<td>%&fromyear&% 年 %&frommonth&% 月 %&fromdate&% 日 </td>
+					</tr>
+					<tr>
+						<th style="width:200px;">終了日</th>
+						<td>%&toyear&% 年 %&tomonth&% 月 %&todate&% 日</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">キャリア</th>
+						<td>
+__IfAllCarrier__ 指定無し __IfAllCarrier__
+__IfDoCoMo__ DoCoMo __IfDoCoMo__
+__IfSoftBank__ SoftBank __IfSoftBank__
+__IfAU__ AU  __IfAU__
+__IfSoftBankAU__ SoftBank AU __IfSoftBankAU__
+__IfDoCoMoSoftBank__ DoCoMo SoftBank __IfDoCoMoSoftBank__
+__IfDoCoMoAU__ DoCoMo AU __IfDoCoMoAU__
+						</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">キックバックBASEURL</th>
+						<td>%&return_url&%</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">キックバックURL</th>
+						<td>%&KICKBACKURL&%</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">成果受信時会員セッションパラメータ名<font style="color:red;">[2]</font></th>
+						<td>%&param_name_for_session_id&%</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">成果受信時成果状態パラメータ名<font style="color:red;">[3]</font></th>
+						<td>%&param_name_for_status&%</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">成果受信時成果セッションパラメータ名<font style="color:red;">[4]</font></th>
+						<td>%&param_name_for_result_session_id&%</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">成果受信時成果承認値</th>
+						<td>%&status_value_for_success&%</td>
+					</tr>
+					<tr>
+						<th style="width:200px;">送信パラメータ</th>
+						<td>%&send_param_name&%</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							WEB詳細に置換文字→<i>&#37;&#37;point&#37;&#37;</i>を記述すると<font style="color:red;">[1]</font>項目欄：ポイントの設定値が代入されます。
+						</td>
+					</tr>
+			</table>
+
+			<table border="0" align="left" cellspacing="0" cellpadding="2">
+				<thead>
+					<tr>
+						<td></td>
+						<th align="center">成果発生件数</th>
+						<th align="center">成果拒否件数</th>
+						<th align="center">クリック数</th>
+						<th align="center">発生金額</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<td></td>
+						<th align="right"><font size="+1"><b>%&REGTOTAL&%</b></font></th>
+						<th align="right"><font size="+1"><b>%&FAILTOTAL&%</b></font></th>
+						<th align="right"><font size="+1"><b>%&CLICKTOTAL&%</b></font></th>
+						<th align="right"><font size="+1"><b>%&PRICETOTAL&%</b></font>&nbsp;円</th>
+					</tr>
+				</tfoot>
+			<tbody>
+				<tr>
+					<th align="left">　<img src="/images/i.gif" width="19" height="19" />DoCoMo</th>
+					<td class="dot" align="right">%&REGD&%</td>
+					<td class="dot" align="right">%&FAILD&%</td>
+					<td class="dot" align="right">%&CLICKD&%</td>
+					<td class="dot" align="right"><br /></td>
+				</tr>
+				<tr>
+					<th align="left">　<img src="/images/e.gif" width="19" height="19" />KDDI</th>
+					<td class="dot" align="right">%&REGAU&%</td>
+					<td class="dot" align="right">%&FAILAU&%</td>
+					<td class="dot" align="right">%&CLICKAU&%</td>
+					<td class="dot" align="right"><br /></td>
+				</tr>
+				<tr>
+					<th align="left">　<img src="/images/v.gif" width="19" height="19" />SoftBank</th>
+					<td class="solid" align="right">%&REGSB&%</td>
+					<td class="solid" align="right">%&FAILSB&%</td>
+					<td class="solid" align="right">%&CLICKSB&%</td>
+					<td class="solid" align="right"><br /></td>
+				</tr>
+		</tbody>
+	</table>
+__IfModeView__
+		
+		
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+
+</body>
+</html>

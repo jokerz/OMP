@@ -1,0 +1,97 @@
+#!/usr/bin/perl
+
+#******************************************************
+# @desc		ポイント広告代理店リストオブジェクトの生成モジュール
+#			OBJECTには配列で格納
+#			categorym_id	subcategory_id
+#			[
+#							[
+#										{ categorym_id
+#										  sucategory_id
+#										  category_name
+#										  subcategory_name
+#										  status_flag
+#										 },
+#							],
+#			],
+#
+# @package	md_generate_MediaAgentList
+# @author	Iwahase Ryo
+# @create	2010/02/12
+# @version	
+#******************************************************
+
+use strict;
+use vars qw($include_path $cfg);
+
+BEGIN {
+	## クラスのインクルードパスを取得するための処理
+	require Cwd;
+	my $pwd = Cwd::getcwd();
+	($include_path = $pwd) =~ s!/modules!!;
+	unshift @INC, $include_path;
+
+	my $config = sprintf("%s/conf/envconf.cfg",$include_path);
+
+    require MyClass::Config;
+    $cfg = MyClass::Config->new($config);
+
+}
+
+use MyClass::UsrWebDB;
+use MyClass::WebUtil;
+
+#*******************************
+# cronで1日一回実行させる。
+# 集計してデータをシリアライズして保存
+#*******************************
+
+## シリアライズしたデータオブジェクト
+my $mediaagent_objectfile      = $cfg->param('MEDIAAGENTLIST_OBJ');
+
+my $dbh = MyClass::UsrWebDB::connect({
+            dbaccount => $self->cfg->param('DATABASE_USER'),
+            dbpasswd  => $self->cfg->param('DATABASE_PASSWORD'),
+            dbname    => $self->cfg->param('DATABASE_NAME'),
+          });
+$dbh->do('set names sjis');
+
+my $sql;
+my $aryref;
+my $obj_ma;
+
+my @reportsql;
+
+## カテゴリから開始
+$sql    = "SELECT agent_id, agent_name, status_flag, return_base_url, kick_back_url, param_name_for_session_id, param_name_for_status, param_name_for_result_session_id, status_value_for_success,send_param_name FROM tMediaAgentM;";
+$aryref = $dbh->selectall_arrayref($sql, { Columns => {} });
+
+foreach (@{$aryref}) {
+    $obj_ma->[$_->{agent_id}]->{agent_id}                         = $_->{agent_id};
+    $obj_ma->[$_->{agent_id}]->{agent_name}                       = $_->{agent_name};
+    $obj_ma->[$_->{agent_id}]->{status_flag}                      = $_->{status_flag};
+    $obj_ma->[$_->{agent_id}]->{return_base_url}                  = $_->{return_base_url};
+    $obj_ma->[$_->{agent_id}]->{kick_back_url}                    = $_->{kick_back_url};
+    $obj_ma->[$_->{agent_id}]->{param_name_for_session_id}        = $_->{param_name_for_session_id};
+    $obj_ma->[$_->{agent_id}]->{param_name_for_status}            = $_->{param_name_for_status};
+    $obj_ma->[$_->{agent_id}]->{param_name_for_result_session_id} = $_->{param_name_for_result_session_id};
+    $obj_ma->[$_->{agent_id}]->{status_value_for_success}         = $_->{status_value_for_success};
+    $obj_ma->[$_->{agent_id}]->{send_param_name}                  = $_->{send_param_name};
+}
+
+push(@reportsql, $sql);
+
+$dbh->disconnect();
+
+eval {
+    MyClass::WebUtil::publishObj({ file=>$mediaagent_objectfile, obj=>$obj_ma });
+};
+
+if ($@) {
+	warn " Fail Creating Object files $@ \n";
+}
+#else {
+#    print map { $_,"\n" } @reportsql;
+#}
+
+exit();

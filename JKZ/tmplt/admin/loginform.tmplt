@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>管理画面</title>
+<link rel="stylesheet" href="style.css" type="text/css" charset="Shift_JIS" />
+<script type="text/javascript" src="/js/popuphint.js"></script>
+</head>
+<body>
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1>UPSTAIR  </h1>
+	</div>
+	<div id="main">
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>UPSTAIR システム 管理ログイン%&BENCH_TIME&%</h2>
+		</div>
+
+<form action="app.mpl" method="post">
+<table cellspacing="0">
+<tr>
+	<td align="right">ログイン名/ID </td>
+	<td>
+		<input type="text" name="login_name" size="14" maxlength="16" style="ime-mode:enable;" tabindex="1" />
+		&nbsp;<a href="#" class="hintanchor" onMouseover="showhint('ログイン名 半角英数16文字以内', this, event, '180px')">[?]</a>
+	</td>
+</tr>
+<tr>
+	<td align="right">パスワード</td>
+	<td>
+		<input type="password" name="login_password" size="14" maxlength="10" style="ime-mode:disabled;" tabindex="2" />
+		&nbsp;<a href="#" class="hintanchor" onMouseover="showhint('パスワード 半角英数10文字以内', this, event, '180px')">[?]</a>
+	</td>
+</tr>
+<tr>
+	<td colspan="2" align="center">
+		<input type="submit" value="ログイン" class="update" style="width:50%" tabindex="3" />
+	</td>
+</tr>
+</table>
+
+</form>
+<br />
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+
+</body></html>

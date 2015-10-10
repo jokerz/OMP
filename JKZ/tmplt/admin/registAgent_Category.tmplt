@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>管理画面</title>
+<link rel="stylesheet" href="/style.css" type="text/css" charset="Shift_JIS" />
+<link rel="stylesheet" type="text/css" href="build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" href="build/container/assets/skins/sam/container.css" />
+<script type="text/javascript" src="/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="/build/connection/connection-min.js"></script>
+<script type="text/javascript" src="/build/animation/animation-min.js"></script>
+<script type="text/javascript" src="/build/dragdrop/dragdrop-min.js"></script>
+<script type="text/javascript" src="/build/container/container-min.js"></script>
+<script src="/js/scriptaculous.js?load=effects" type="text/javascript"></script>
+<script src="/js/popuphint.js" type="text/javascript"></script>
+<style type="text/css">
+<!--/* <![CDATA[ */
+table {
+	margin: 1em auto;
+	border-collapse: collapse;
+}
+
+thead th,
+tfoot th {
+	padding: 0.5em;
+	text-align: center;
+	border: 1px solid #3366CC;
+	background-color: #ffffff;
+	width : 100px;
+}
+
+tfoot td {
+	border-top: 1px solid #3366CC;
+}
+
+tbody td {
+	padding: 0.5em;
+	border-left: 1px solid #3366CC;
+	border-right: 1px solid #3366CC;
+}
+
+tbody td.dot {
+	border-bottom: 1px dotted gray;
+}
+
+tbody td.solid {
+	border-bottom: 1px solid #3366CC;
+}
+
+/* ]]> */-->
+</style>
+</head>
+<body class="yui-skin-sam">
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1>UPSTAIR  </h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞<strong>代理店・カテゴリ登録</strong>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>メディア管理%&BENCH_TIME&%</h2>
+		</div>
+
+		<div id="list">
+<form action="/app.mpl" method="POST">
+<table border="0" cellspacing="0" width="100%" rules="all" class="datagrid">
+<tr><th colspan="2">新規代理店登録</th></tr>
+<tr>
+	<th width="25%">代理店名</th>
+	<td><input type="text" name="agent_name" value="" maxlength="30" size="40" />
+</tr>
+<tr>
+	<th width="25%">状態</th>
+	<td>
+		<label for="status_flag1"><input type="radio" name="status_flag" value="1" id="status_flag1" /> 無効 </label>
+		<label for="status_flag2"><input type="radio" name="status_flag" value="2" id="status_flag2" checked /> 有効 </label>
+	</td>
+</tr>
+<tr>
+	<th width="25%">キックバックBASEURL</th>
+	<td><input type="text" name="return_base_url" value="http://ptbk.1mp.jp/ptbk.mpl" maxlength="60" style="ime-mode:disabled" size="40" /></td>
+</tr>
+<tr>
+	<th width="25%">成果受信時会員セッションパラメータ名</th>
+	<td><input type="text" name="param_name_for_session_id" value="" maxlength="12" style="ime-mode:disabled" size="40" /></td>
+</tr>
+<tr>
+	<th width="25%">成果受信時成果状態パラメータ名</th>
+	<td><input type="text" name="param_name_for_status" value="" maxlength="12" style="ime-mode:disabled" size="40" /></td>
+</tr>
+<tr>
+	<th width="25%">成果受信時成果セッションパラメータ名</th>
+	<td><input type="text" name="param_name_for_result_session_id" value="" maxlength="12" style="ime-mode:disabled" size="40" /></td>
+</tr>
+<tr>
+	<th width="25%">成果受信時成果承認値</th>
+	<td><input type="text" name="status_value_for_success" value="" maxlength="2" style="ime-mode:disabled" size="40" /></td>
+</tr>
+<tr>
+	<td align="center" colspan="2">
+		<input type="submit" value="　登　録　" />
+		<input type="hidden" name="action" value="" />
+	</td>
+</tr>
+</table>
+</form>
+<br />
+
+<form action="/app.mpl" method="POST">
+<table border="0" cellspacing="0" width="100%" rules="all" class="datagrid">
+<tr><th colspan="2">新規カテゴリ登録</th></tr>
+<tr>
+	<th width="25%>カテゴリID</th>
+	<td>自動</td>
+</tr>
+<tr>
+	<th width="25%>カテゴリ名</th>
+	<td><input type="text" name="mediacategory_name" value="" maxlength="20" style="ime-mode:enable;" size="40" /></td>
+</tr>
+<tr>
+	<th width="25%">状態</th>
+	<td>
+		<label for="status_flag1"><input type="radio" name="status_flag" value="1" id="status_flag1" /> 無効 </label>
+		<label for="status_flag2"><input type="radio" name="status_flag" value="2" id="status_flag2" checked /> 有効 </label>
+	</td>
+</tr>
+<tr>
+	<td align="center" colspan="2">
+		<input type="submit" name="registMediaCategory" value="　登　録　" />
+		<input type="hidden" name="action" value="modifyMediaCategory" />
+		<input type="hidden" name="app" value="AppMedia" />
+	</td>
+</tr>
+</table>
+</form>
+<br />
+
+
+<table border="0" cellspacing="0" width="100%" rules="all" class="datagrid">
+<tr><th colspan="9">登録済み代理店一覧</th></tr>
+<tr>
+	<th rowspan="2">代理店ID</th>
+	<th>代理店名</th>
+	<th>キックバックBASEURL</th>
+	<th>成果受信時会員セッションパラメータ名</th>
+	<th>成果受信時成果状態パラメータ名</th>
+	<th>成果受信時成果セッションパラメータ名</th>
+	<th>成果受信時成果承認値</th>
+	<th rowspan="2">操作</th>
+</tr>
+<tr>
+	<th colspan="6">キックバックURL</th>
+</tr>
+__LoopMediaAgentList__
+<form action="/app.mpl" method="POST">
+<tr class="focus">
+	<td rowspan="2" align="center">%&agent_id&%</td>
+	<td><input type="text" name="agent_name" value="%&agent_name&%" maxlength="30" /></td>
+	<td><input type="text" name="return_base_url" value="%&return_base_url&%" maxlength="60" style="ime-mode:disabled" size="18" /></td>
+	<td><input type="text" name="param_name_for_session_id" value="%&param_name_for_session_id&%" maxlength="12" style="ime-mode:disabled" size="18" /></td>
+	<td><input type="text" name="param_name_for_status" value="%&param_name_for_status&%" maxlength="12" style="ime-mode:disabled" size="18" /></td>
+	<td><input type="text" name="param_name_for_result_session_id" value="%&param_name_for_result_session_id&%" maxlength="12" style="ime-mode:disabled" size="18" /></td>
+	<td><input type="text" name="status_value_for_success" value="%&status_value_for_success&%" maxlength="2" style="ime-mode:disabled" size="18" /></td>
+	<td rowspan="2" align="center">
+	<input type="submit" value="　更　新　" />
+	<input type="hidden" name="agent_id" value="%&agent_id&%" />
+	<input type="hidden" name="action" value="modifyMediaAgent" />
+	<input type="hidden" name="app" value="AppMedia" />
+	</td>
+</tr>
+<tr>
+	<td colspan="6"><font style="color:blue">%&kick_back_url&%</font></td>	
+</tr>
+</form>
+__LoopMediaAgentList__
+</table>
+<br />
+
+
+<table border="0" cellspacing="0" width="100%" rules="all" class="datagrid">
+<tr><th colspan="4">登録済みカテゴリ一覧</th></tr>
+<tr><th>カテゴリID</th><th>カテゴリ名</th><th>状態</th><th>操作</th></tr>
+__LoopMediaCategoryList__
+<form action="/app.mpl" method="POST">
+<tr class="%&cssstyle&%">
+<td width="50" align="center">%&mediacategory_id&%</td>
+<td width="200"><input type="text" name="mediacategory_name" value="%&mediacategory_name&%" size="40" maxlength="20" /></td>
+<td width="120" align="center">
+__IfStatusIsActive__
+<label for="status_flag1_%&mediacategory_id&%"><input type="radio" name="status_flag" value="1" id="status_flag1_%&mediacategory_id&%" /> 無効 </label>
+<label for="status_flag2_%&mediacategory_id&%"><input type="radio" name="status_flag" value="2" id="status_flag2_%&mediacategory_id&%" checked /> <font style="color:blue">有効</font> </label>
+__IfStatusIsActive__
+__IfStatusIsNotActive__
+<label for="status_flag1_%&mediacategory_id&%"><input type="radio" name="status_flag" value="1" id="status_flag1_%&mediacategory_id&%" checked /> <font style="color:red">無効</font> </label>
+<label for="status_flag2_%&mediacategory_id&%"><input type="radio" name="status_flag" value="2" id="status_flag2_%&mediacategory_id&%" /> 有効 </label>
+__IfStatusIsNotActive__
+</td>
+<td align="center">
+<input type="submit" value="　更　新　" />
+<input type="hidden" name="mediacategory_id" value="%&mediacategory_id&%" />
+<input type="hidden" name="action" value="modifyMediaCategory" />
+<input type="hidden" name="app" value="AppMedia" />
+</td>
+</tr>
+</form>
+__LoopMediaCategoryList__
+</table>
+
+
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+%&DUMP&%
+</div><!-- ---------------------------------------------------------------------------- -->
+</body>
+</html>

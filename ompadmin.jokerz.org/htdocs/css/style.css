@@ -1,0 +1,106 @@
+a{ text-decoration:none; }
+a:visited { color: #ff69b4; }
+a:hover { color: #4169e1; }
+a:active { color: #4169e1; }
+html, body {
+	scrollbar-3dlight-color:    #4169e1;
+	scrollbar-arrow-color:      #4169e1;
+	scrollbar-darkshadow-color: #FFFFFF;
+	scrollbar-face-color:       #FFFFFF;
+	scrollbar-highlight-color:  #FFFFFF;
+	scrollbar-shadow-color:     #4169e1;
+	scrollbar-track-color:      #FFFFFF;
+   	font-family: "ＭＳＰゴシック", "Osaka";
+   	font-size : 11px;
+}
+.form { background-color:#eeeeee; }
+.radio { border-right: #9DBECD 1px solid; border-top: #9DBECD 1px solid; font: 11px verdana, arial, helvetica, sans-serif; border-left: #9DBECD 1px solid;color: #000000; border-bottom: #9DBECD 1px solid; background-color: #ffffff;}
+.box { border-right: #9dbecd 2px solid; border-top: #9dbecd 2px solid; font: 11px verdana, arial, helvetica, sans-serif; border-left: #9dbecd 2px solid;color: #000000; border-bottom: #9dbecd 1px solid; background-color: #ffffff;}
+.update { border-right: #eeeeee 1px solid; border-top: #eeeeee 1px solid; font: 11px verdana, arial, helvetica, sans-serif; border-left: #eeeeee 1px solid;color: #000000; border-bottom: #eeeeee 1px solid; background-color: #e0e0e0;}
+.overm { background-color: #E0E0E0; }
+.overg { background-color: #00FF00; }
+textarea { font-family: "MS明朝"; font-size: 14px; }
+table { font-size: 12px; }
+/*tr { background-color: #ffffff; }*/
+td {padding : 2px; vertical-align : middle; font-family: Verdana, Arial, Helvetica, sans-serif;}
+table tr.focus:hover,
+table tr.focus:hover td,
+/*table tr.even:hover,
+table tr.odd:hover th,
+table tr.even:hover th,
+table tr.hover th,*/
+table tr.hover {
+    background-color: #ffffbb;
+}
+/*li { padding: 0.0em 0.0em;margin: 0px 4px;list-style: none;text-align: left;border-top: 0px #fff solid;border-left: 0px #fff solid;border-right: 0px #fff solid;border-bottom: 0px #fff solid; }*/
+li.overm { background-color: #00FF00; }
+
+li {
+	padding: 0.1em 0.2em;
+	margin: 0px 0px;
+	list-style: none;
+	text-align: center;
+	background-color: #e0e0e0;
+	border-top: 1px #fff solid;
+	border-left: 1px #aaa solid;
+	border-right: 1px #aaa solid;
+	border-bottom: 1px #99a solid;
+}
+
+.3dbox 
+{
+	width:100px;
+	height:12px;
+	margin:0px;
+	padding:2px;
+	border-width:0px;
+	border-style:outset;
+	border-color:#ffccff;
+	text-align:center;
+	font: bold;
+}
+
+/***************************************************
+* ?リンクのヒントボックス用
+****************************************************/
+
+#hintbox{
+	position:absolute;
+	top:0;
+	background-color:lightyellow;
+	width:150px;
+	padding:3px;
+	border:1pxsolidblack;
+	font:normal11pxVerdana;
+	line-height:18px;
+	z-index:100;
+	border-right:3pxsolidblack;
+	border-bottom:3pxsolidblack;
+	visibility:hidden;
+}
+.hintanchor{ font-weight:bold; color:navy; margin:3px8px; }
+.hintanchor2{ font-weight:bold; color:orange; margin:3px8px; }
+/***************************************************
+* 管理画面タブメニュー用
+****************************************************/
+#tablist{
+	padding: 3px 0;
+	margin-left: 0;
+	margin-bottom: 0;
+	margin-top: 0.1em;
+	font: bold 12px Verdana;
+}
+#tablist li{ list-style: none; display: inline; margin: 0; }
+#tablist li a{
+	text-decoration: none;
+	padding: 3px 0.5em;
+	margin-left: 3px;
+	border: 1px solid #778;
+	border-bottom: none;
+	background: white;
+}
+#tablist li a:link, #tablist li a:visited{
+color: navy;
+}
+#tablist li a:hover{ color: #000000; background: #C1C1FF; border-color: #227; }
+*#tablist li a.current{ background: lightyellow; }*/

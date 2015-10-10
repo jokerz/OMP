@@ -1,0 +1,13 @@
+document.open();
+document.write("<div id='side_d'>");
+document.write("<h3><a href='/app.mpl?action=logout'><img src='/images/logout.gif' width='68' height='19' border='0' /></a></h3>");
+document.write("</div>");
+document.write("<div id='side_d'>");
+document.write("<h3>サイト</h3>");
+document.write("<ul>");
+document.write("<li><a href='/app.mpl?app=AppTmplt;attr=0'>ページ管理</a></li>");
+document.write("<li><a href='/app.mpl?app=AppImage'>画像管理</a></li>");
+document.write("<li><a href='/app.mpl?action=serverinfo'>サーバー環境</a></li>");
+document.write("</ul>");
+document.write("</div>");
+document.close();

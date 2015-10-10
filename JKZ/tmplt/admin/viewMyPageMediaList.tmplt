@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>管理画面</title>
+<link rel="stylesheet" type="text/css" href="/style.css" charset="Shift_JIS" />
+<script src="/js/jkl-form.js" type="text/JavaScript"></script>
+<script type="text/javascript">//<![CDATA[ 
+	var form1 = new JKL.Form("MyPageMediaList"); 
+//]]></script> 
+</head>
+<body class="yui-skin-sam">
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1>UPSTAIR  </h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞メディア管理＞<a href="/app.mpl?app=AppMedia;action=mediaTopMenu"><strong>マイページ広告一覧</strong></a>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>ページ管理%&BENCH_TIME&%</h2>
+		</div>
+
+		<div id="list">
+
+__IfExistsMyPageMediaList__
+			<form action="/app.mpl" name="MyPageMediaList" id="MyPageMediaList" method="POST">
+				<table border="0" cellspacing="0" width="100%" rules="all" class="datagrid">
+					<tr><td colspan="7"><img src="/images/gem_okay.png" width="16" height="16" />有効　<img src="/images/error_fuck.png" width="16" height="16" />無効　<img src="/images/refresh.png" width="16" height="16" />期間指定　<img src="/images/error.png" width="16" height="16" />有効期限切れ</td></tr>
+					<tr>
+						<th align="center" colspan="2">広告ID</th>
+						<th align="center">広告名・サイト名</th>
+						<th align="center">付与ポイント</th>
+						<th align="center">キャリア</th>
+						<th align="center">状態</th>
+						<th align="center">操作</th>
+					</tr>
+						
+__LoopMyPagePointBackMediaList__
+					<tr>
+						<td align="center" width="40">
+						<input type="checkbox" name="ad_id" value="%&ad_id&%" />
+						</td>
+						<td align="center" width="40">%&ad_id&%</td>
+						<td align="center">%&ad_name&%</td>
+						<td align="center">%&point&%</td>
+						<td align="center" width="40">
+__IfCarrier2__<img src="/images/i.gif" width="20" height="20" />__IfCarrier2__
+__IfCarrier4__<img src="/images/v.gif" width="20" height="20" />__IfCarrier4__
+__IfCarrier6__<img src="/images/ds.gif" width="20" height="20" />__IfCarrier6__
+__IfCarrier8__<img src="/images/e.gif" width="20" height="20" />__IfCarrier8__
+__IfCarrier10__<img src="/images/da.gif" width="20" height="20" />__IfCarrier10__
+__IfCarrier12__<img src="/images/as.gif" width="20" height="20" />__IfCarrier12__
+__IfCarrier14__<img src="/images/das.gif" width="20" height="20" />__IfCarrier14__
+						</td>
+						<td align="center" width="40"><img src="/images/%&status_flagImages&%" width="16" height="16" /></td>
+						<td align="center" width="40">
+							<a href="/app.mpl?app=AppMedia;action=detailMedia;ad_id=%&ad_id&%;" onclick="init();">
+								<img src="/images/icn_file_edit.png" border="0" width="16" height="16" class="hintanchor" onMouseover="showhint('%&ad_name&%の詳細表示', this, event, '120px')" />
+							</a>
+						</td>
+					</tr>
+__LoopMyPagePointBackMediaList__
+					<tr>
+						<td colspan="7" align="left">
+
+							<div style="margin:0px 0px 0px 10px;"><img src="/images/arrow_ltr.png" />
+							<input value="全チェックする" type="button" class="box" onclick="form1.selectAllOptions('ad_id',true);">／
+							<input value="全チェックを外す" type="button" class="box" onclick="form1.selectAllOptions('ad_id',false);">
+							&nbsp;
+							<input type="hidden" name="setMyPageMediaStatusTo" value="1" />
+							&nbsp;<input type="submit" value="チェックしたIDをマイページ表示を無効にする" />
+							</div>
+							<input type="hidden" name="app" value="AppMedia" />
+							<input type="hidden" name="action" value="addtoMyPageMedia_UpDateStatus" />
+							<br />
+						</td>
+					</tr>
+				</table>
+			</form>
+__IfExistsMyPageMediaList__
+__IfNotExistsMyPageMediaList__
+現在マイページに表示する広告はありません。
+__IfNotExistsMyPageMediaList__
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+
+</body></html>

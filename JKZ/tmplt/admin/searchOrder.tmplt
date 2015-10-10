@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>管理画面</title>
+<link rel="stylesheet" href="/style.css" type="text/css" charset="Shift_JIS" />
+<link rel="stylesheet" type="text/css" href="build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" href="build/container/assets/skins/sam/container.css" />
+<script type="text/javascript" src="/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="/build/connection/connection-min.js"></script>
+<script type="text/javascript" src="/build/animation/animation-min.js"></script>
+<script type="text/javascript" src="/build/dragdrop/dragdrop-min.js"></script>
+<script type="text/javascript" src="/build/container/container-min.js"></script>
+<script src="/js/scriptaculous.js?load=effects" type="text/javascript"></script>
+<script src="/js/popuphint.js" type="text/javascript"></script>
+<script src="/js/jkl-form.js" type="text/JavaScript"></script>
+<script type="text/javascript">//<![CDATA[
+	function deliver_msg () { deliver = confirm("発送済みにします。よろしいですか?"); return deliver }
+	
+	var form1 = new JKL.Form("searchOrderResult"); 
+
+//]]></script>
+<style type="text/css">
+<!--/* <![CDATA[ */
+
+#scrollable th,td{ font-size:0.9em; }
+
+#main_cont{
+	text-align: left;
+	border: 1px #666666;
+	padding: 10px 0px;
+	width: 100%;
+	background:#F1F4F5;
+	margin: 0px;
+}
+
+#display{
+	background:#F7F8F9;
+	margin-top:12px;
+}
+
+#layer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width:100%;
+	z-index: 90;
+	background-color: #333333;
+	filter:alpha(opacity=60);
+
+	-moz-opacity: 0.6;
+	opacity: 0.6;
+	}
+	
+
+#layer1 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width:100%;
+	z-index: 101;
+	background-color: #333333;
+	filter:alpha(opacity=60);
+
+	-moz-opacity: 0.6;
+	opacity: 0.6;
+	}
+
+main_cont .design_box01{
+	margin:auto 10px 10px;
+	border-top:1px solid #FFFFFF;
+	border-left:1px solid #FFFFFF;
+	border-bottom:1px solid #C0CFD6;
+	border-right:1px solid #C0CFD6;
+	padding:5px;
+	line-height: 12px;
+}
+
+.search_tab {
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-bottom: 0px;
+	margin-left: auto;
+/*	background-image: url(/images/tab_search.jpg);*/
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	font-size: 12px;
+	line-height: 30px;
+	vertical-align: middle;
+	height: 1px;
+	text-align: center;
+	width: 76px;
+	color: #FFFFFF;
+}
+
+.search_tab a {
+	color: #FFFFFF;
+}
+/* ]]> */-->
+</style>
+<script src="/js/admin.js" type="text/JavaScript"></script>
+</head>
+<body class="yui-skin-sam" onload="changeHeight('layer1'); changeHeight('layer');" onresize="changeHeight('layer1'); changeHeight('layer');"onresize="changeHeight('layer1'); changeHeight('layer');">
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1>UPSTAIR  </h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞<strong>受注管理</strong>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>受注管理%&BENCH_TIME&%</h2>
+		</div>
+
+		<div id="list">
+			<div id="content"></div>
+			<script src="/js/myIndicator.js" type="text/javascript"></script>
+
+				<div id="display"> 
+					<a href="javascript:void(0);" onclick="switchObj('search'); changeHeight('layer'); changeHeight('layer1'); changetext();" id="search_tab" class="before">[受注検索フォームの表示]</a>
+					<form action="/app.mpl" name="setwhere" method="post" id="setwhere">
+						<div id="main_cont">
+							<div id="search" style="margin:0px;padding:0px;display:none;">
+								<div class="design_box01" style="margin-top:0px; margin-bottom:0px; background:#ffffff; text-align:left; border:none;">
+									<table border="0" cellpadding="2" cellspacing="0" bgcolor="#999999" rules="all" class="datagrid" width="100%">
+									<tr>
+										<th colspan="4">受注データ検索</th>
+									</tr>
+									<tr>
+										<th width="18%">状態</th>
+										<td>
+											<label for="orderstatus_flag1"><input type="checkbox" name="orderstatus_flag" value="1" id="orderstatus_flag1" checked />新規・処理待ち</label>
+											&nbsp;
+											<!--<label for="orderstatus_flag2"><input type="checkbox" name="orderstatus_flag" value="2" id="orderstatus_flag2" /> 処理中・発送待ち </label>-->
+											&nbsp;
+											<label for="orderstatus_flag8"><input type="checkbox" name="orderstatus_flag" value="8" id="orderstatus_flag8" />発送済み・完了</label>
+		<!--
+		<label for="orderstatus_flag2"><input type="checkbox" name="orderstatus_flag" value="2" id="orderstatus_flag2" /> 発送待ち </label>
+		<label for="orderstatus_flag4"><input type="checkbox" name="orderstatus_flag" value="4" id="orderstatus_flag4" /> 発送 </label>
+		<label for="orderstatus_flag16"><input type="checkbox" name="orderstatus_flag" value="16" id="orderstatus_flag16" /> キャンセル </label>
+		-->
+										</td>
+										<th width="18%">注文ID</th>
+										<td>
+											<input type="text" name="ordernum" maxlength="16" size="40" style="ime-mode:disabled;" />
+										</td>
+									</tr>
+									<tr>
+										<th width="18%">会員ID</th>
+										<td>
+											<input type="text" name="owid" size="40" style="ime-mode:disabled;" />
+										</td>
+										<th width="18%">
+											商品ID
+											<a href="#" class="hintanchor" onMouseover="showhint('複数入力時は<font style=\'color:#ff0000\'>半角スペース</font>もしくは<font style=\'color:#ff0000\'>カンマで</font>区切ってください', this, event, '120px')">[?]</a>
+										</th>
+										<td>
+											<input type="text" name="product_id" size="40" style="ime-mode:disabled;" />
+										</td>
+									</tr>
+									<tr>
+										<th width="18%">
+										期間指定
+										<a href="#" class="hintanchor" onMouseover="showhint('受注日を期間で指定', this, event, '120px')">[?]</a>
+										</th>
+										<td>
+											<input type="text" name="year_from" value="" maxlength="4" style="ime-mode:disabled;" size="4"/> /
+											<input type="text" name="month_from" value="" maxlength="2" style="ime-mode:disabled;" size="2" /> /
+											<input type="text" name="date_from" value="" maxlength="2" style="ime-mode:disabled;" size="2" />
+											 &nbsp;から&nbsp;
+											<input type="text" name="year_to" value="" maxlength="4" style="ime-mode:disabled;" size="4"/> /
+											<input type="text" name="month_to" value="" maxlength="2" style="ime-mode:disabled;" size="2" /> /
+											<input type="text" name="date_to" value="" maxlength="2" style="ime-mode:disabled;" size="2" />
+											&nbsp;まで&nbsp;
+										</td>
+										<th width="18%">表示順</th>
+										<td>
+											<select name="orderby">
+											<option value="1">注文日</option>
+				 							<option value="2">状態</option>
+				 							<option value="3">商品ID</option>
+				 							</select>
+				 						</td>
+									</tr>
+									<tr><td colspan="4" align="center"><input type="submit" value="　受　注　検　索　" /></td></tr>
+								</table>
+								</div>
+							</div>
+						</div>
+						<input type="hidden" name="app" value="AppOrder" />
+						<input type="hidden" name="action" value="searchOrder" />
+						<input type="hidden" name="" value="" />
+						</form>
+					</div>
+
+<div>検索条件　:　%&SEARCHQUERYMESSAGE&%</div>
+
+				<div id="order">
+		<form action="/app.mpl" name="searchOrderResult" id="searchOrderResult" method="POST">
+		<input type="hidden" name="app" value="AppOrder" />
+					<table style="width:850px;">
+__IfSearchResultExists__
+						<caption align="left">受注の検索結果%&pagenavi&%</caption>
+						<thead>
+						<!-- // ページリンクナビ BEGIN -->
+						<!--<tr>
+							<td colspan="11" align="left">
+								%&pagenavi&%
+							</td>
+						</tr>-->
+						<!-- ページリンクナビ END // -->
+
+				<!--<table border="0" cellspacing="0" width="100%" rules="all" class="datagrid">
+					<tr><td colspan="11"></td></tr>-->
+					<tr>
+						<th>選択</th>
+						<th>会員ID</th>
+						<th align="center">注文ID</th>
+						<th align="center">注文日</th>
+						<th align="center">氏名</th>
+						<th align="center">商品ID</th>
+						<th align="center">商品名</th>
+						<th align="center">個数</th>
+						<th align="center">状態</th>
+						<th align="center" colspan="2">操作</th>
+					</tr>
+						</thead>
+					<tfoot>
+					<tr>
+						<th>選択</th>
+						<th>会員ID</th>
+						<th align="center">注文ID</th>
+						<th align="center">注文日</th>
+						<th align="center">氏名</th>
+						<th align="center">商品ID</th>
+						<th align="center">商品名</th>
+						<th align="center">個数</th>
+						<th align="center">状態</th>
+						<th align="center" colspan="2">操作</th>
+					</tr>
+						<!-- // ページリンクナビ BEGIN -->
+						<tr>
+							<td colspan="12" align="left">
+								%&pagenavi&%
+							</td>
+						</tr>
+						<!-- ページリンクナビ END // -->
+</tfoot>
+<tbody>
+__LoopSearchOrderList__
+					<tr class="%&cssstyle&%">
+						<td align="center"><input type="checkbox" name="ordernum_orderstatatus" value="%&ordernum&%:%&id&%:%&orderstatus_flag&%;" /></td>
+						<td class="block" align="center"><a href="/app.mpl?app=AppMember;action=detailMember;owid=%&owid&%" style="text-decoration:none;" class="hintanchor2;button" onMouseover="showhint('会員ID:%&owid&%の詳細表示', this, event, '80px');">%&owid&%</a></td>
+						<td align="center">%&ordernum&%</td>
+						<td align="center">%&order_date&%</td>
+						<td>%&family_name&%&nbsp;%&first_name&%</td>
+						<td align="center">%&product_id&%</td>
+						<td>%&product_name&%</td>
+						<td align="center">%&qty&%</td>
+						<td align="center">
+						__IfDelivered__発送済み__IfDelivered__
+						__IfNotDelivered__&nbsp;<font style="color:red">未処理</font>__IfNotDelivered__
+						</td>
+						<td align="center">
+						__IfDelivered__
+							＊＊＊＊＊
+						__IfDelivered__
+
+						__IfNotDelivered__
+<input type="button" value="発送済・完了処理" onClick="location.href='/app.mpl?app=AppOrder;action=updateStatus;ordernum=%&ordernum&%;id=%&id&%;orderstatus=8'" style="background:#0003d1;color:white;" />
+<!--<a href="/app.mpl?app=AppOrder;action=updateStatus;ordernum=%&ordernum&%;id=%&id&%;orderstatus=8">発送済みにする</a>-->
+<!--						<form action="app.mpl" method="post">
+							<input type="submit" value="発送済みにする" onclick="deliver_msg(); return deliver;" style="background:red;color:white;" class="hintanchor2;button" onMouseover="showhint('商品発送済みにします。', this, event, '80px');" />
+							<input type="hidden" name="action" value="updateStatus" />
+							<input type="hidden" name="ordernum" value="%&ordernum&%" />
+							<input type="hidden" name="id" value="%&id&%" />
+							<input type="hidden" name="orderstatus" value="8" />
+							<input type="hidden" name="app" value="AppOrder" />
+						</form>
+-->
+						__IfNotDelivered__
+						</td>
+						<td width="20" align="center">
+							<a id="%&owid&%" href="/app.mpl?app=AppOrder;action=detailOrder;ordernum=%&ordernum&%:%&id&%" onclick="init();" id="content">
+								<img src="/images/icn_file_edit.png" width="16" height="16" border="0" class="hintanchor" onMouseover="showhint('会員ID:%&owid&%の注文詳細表示', this, event, '120px')" />
+							</a>
+						</td>
+					</tr>
+__LoopSearchOrderList__
+</tbody>
+					<tr>
+						<td colspan="11" align="left">
+							<div style="margin:0px 0px 0px 10px;"><img src="/images/arrow_ltr.png" />
+							<input value="全選択" type="button" class="box" onclick="form1.selectAllOptions('ordernum_orderstatatus',true);" />／
+							<input value="全解除" type="button" class="box" onclick="form1.selectAllOptions('ordernum_orderstatatus',false);" />
+							&nbsp;
+<!--
+							<select name="changeOrderStatus" style="padding:1px;">
+						<option value="-1">--注文状態一括処理内容選択--</option>
+						<option value="2" style="color:#0003d1;">＞確認済・処理中にする</option>
+						<option value="4" style="color:#00a7b0;">＞＞発送待ち・処理待ちにする</option>
+						<option value="8" style="color:#000000; font-weight:bold">＞＞＞発送済・処理完了にする</option>
+						<option value="1" style="color:#ff0000;">未確認・未処理にする＜</option>
+						<option value="16" style="color:#0000cc;">キャンセルにする</option>
+						
+						</select>
+							&nbsp;<input type="submit" value="　一　括　変　更　確　認　" />
+-->
+							</div>
+							<input type="hidden" name="action" value="changeOrderStatus" />
+						</td>
+					</tr>
+__IfSearchResultExists__
+
+__IfSearchResultNotExists__
+<tbody>
+						<tr>
+							<td colspan="11">該当結果は<font color="red">０</font>件です。</td>
+						</tr>
+</tbody>
+__IfSearchResultNotExists__
+					</table>
+				</form>
+				</div>
+
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+%&DUMP&%
+</div><!-- ---------------------------------------------------------------------------- -->
+</body>
+</html>

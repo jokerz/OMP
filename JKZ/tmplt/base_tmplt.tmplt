@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="Pragma" content="no-cache" />
+<title>管理画面</title>
+<style media="all" type="text/css">
+<!--/* <![CDATA[ */
+@import "/css/all.css";
+@import "/ext_js/ext-3.3.0/resources/css/ext-all.css";
+/* ]]> */-->
+</style>
+<body>
+<div id="main"><!-- メイン BEGIN -->
+
+	<div id="header"><!-- ヘッダー BEGIN -->
+		<a href="/app.mpl" class="logo">%&CMS_NAME&%</a>
+		<ul id="top-navigation">
+			<li class="active"><span><span>%&CMS_NAME&% &nbsp; <b>%&name&%</b>さんログイン中</span></span></li>
+		</ul>
+	</div><!-- ヘッダーEND -->
+
+	<div id="middle"><!-- ■■■■■■■■■■■■■■ 中段 BEGIN ■■■■■■■■■■■■■■■■-->
+
+		<div id="left-column"><!-- ■■■■■■■■■■■■■■ 左カラムメニュー BEGIN ■■■■■■■■■■■■■■■■-->
+			<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+		</div><!-- ■■■■■■■■■■■■■■ 左カラムメニュー END ■■■■■■■■■■■■■■■■-->
+
+		<div id="center-column"><!-- ■■■■■■■■■■■■■■ センターカラム BEGIN ■■■■■■■■■■■■■■■■-->
+
+			<div class="top-bar"><!-- スクリーンタイトル BEGIN -->
+				<!-- a href="#" class="button">ADD NEW </a -->
+				<!-- タイトル -->
+				<h1>会員管理%&BENCH_TIME&%</h1>
+
+				<!-- ぱんくず -->
+				<div class="breadcrumbs">
+					<a href="/app.mpl">管理画面トップ</a> / <a href="/app.mpl?app=AppMember">会員管理</a> / 検索
+				</div>
+			</div><!-- スクリーンタイトル END -->
+
+			<br />
+
+		  	<div class="select-bar"><!-- ■■■■■■■■■■■■■■ スクリーンタイトル下エリア BEGIN ■■■■■■■■■■■■■■■■-->
+
+				<br />
+
+			</div>                  <!-- ■■■■■■■■■■■■■■ スクリーンタイトル下エリア END   ■■■■■■■■■■■■■■■■-->
+
+<!-- ●●●●●●●●ここからメインの管理内容表示開始 ●●●●●●●● -->
+			<div id="content"></div>
+			<script src="/js/myIndicator.js" type="text/javascript"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ●●●●●●●●ここまでメインの管理内容表示     ●●●●●●●● -->
+
+		</div>                 <!-- ■■■■■■■■■■■■■■ センターカラム END  ■■■■■■■■■■■■■■■■-->
+	</div>                     <!-- ■■■■■■■■■■■■■■ 中段 END  ■■■■■■■■■■■■■■■■-->
+
+	<div id="footer"><!-- 下段フッター BEGIN -->
+		<div id="copy"><!-- コピーライト -->
+			<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+			(c)UP-STAIR 2009 All Rights Reserved
+		</div>
+	</div><!-- フッター END -->
+</div><!-- メイン END -->
+</body>
+</html>

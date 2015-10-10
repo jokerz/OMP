@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta name="Pragma" content="no-cache" />
+<title>ページ管理画面</title>
+<!--<link rel="stylesheet" type="text/css" href="build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" href="build/container/assets/skins/sam/container.css" />-->
+<style media="all" type="text/css">
+<!--/* <![CDATA[ */
+@import "/style.css";
+/* ]]> */-->
+</style>
+<script type="text/javascript" src="/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="/build/connection/connection-min.js"></script>
+<script type="text/javascript" src="/build/animation/animation-min.js"></script>
+<script type="text/javascript" src="/build/dragdrop/dragdrop-min.js"></script>
+<script type="text/javascript" src="/build/container/container-min.js"></script>
+<!-- list for yui END -->
+<script type="text/javascript">//<![CDATA[
+	function NewWindowL(url) { if (url != '') { window.open(url, '_blank', "toolbar=0,menubar=0,scrollbars=1, resizable=yes, left=0,top=0,width=640,height=640"); } }
+	function NewWindowH(url) { if (url != '') { window.open(url, '_blank', "toolbar=0,menubar=0,scrollbars=1, left=0,top=0,width=360,height=960"); } }
+
+//]]></script>
+<script language='JavaScript'>//<![CDATA[
+	function displayPreviewHTML(form) {
+		document.asshole.action = ('app.mpl');
+		document.asshole.tmplt.value = form.value;
+		document.asshole.app.value = 'AppTmpltPreview';
+		window.open('', 'dick', 'toolbar=no, status=no, scrollbars=yes, left=0, top=0, width=248,height=800');
+		document.asshole.submit();
+		//win.document.write();
+	}
+//]]></script>
+<script language='JavaScript'>//<![CDATA[
+	function iEmojiWindow() {
+		window.open('/emojieditor/iPICT.html','iEmoji','width=330,height=260,scrollbars=yes,location=no,menubar=no,left=10,top=30');
+	}
+//]]></script>
+</head>
+<body>
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1> %&CMS_NAME&% &nbsp; <b>%&name&%</b>さんログイン中</h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞<strong>ページ管理</strong>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>ページ管理%&BENCH_TIME&%</h2>
+		</div>
+
+		<div id="list">
+
+			<form action="app.mpl" method="post" enctype="multipart/form-data">
+			<select name="tmplt_id">
+				<option value="-1">【新規作成】</option>
+			__LoopTmpltMasterList__
+				<option value="%&tmplt_id&%"__IfSelectedMasterID__ selected style="color:#ff0000;"__IfSelectedMasterID__>%&summary&%【%&tmplt_name&%】</option>
+			__LoopTmpltMasterList__
+			</select>&nbsp;<input type="submit" class="button" value="　ページ名【ID】選択　" />
+			<input type="hidden" name="app" value="AppTmplt" />
+			</form>
+
+		<!-- テンプレートマスターからテンプレートID選択後の処理 BEGIN -->
+__IfTmpltIDisSelected__
+			<form action="/app.mpl" method="post" enctype="multipart/form-data">
+			<select name="tmpltfile_id">
+		__LoopTmpltFileList__
+				<option value="%&tmpltfile_id&%">%&tmpltfile_id&%【%&activation_date&%】</option>
+		__LoopTmpltFileList__
+				<option value="-1">%&max_tmpltfile_id&%【追加作成】</option>
+			</select>&nbsp;<input type="submit" class="button" value="　テンプレID【開始日時】選択　" />
+			<input type="hidden" name="app" value="AppTmplt" />
+		<!-- 選択されたパラメーターのため置換文字名を変更 -->
+			<input type="hidden" name="tmplt_id" value="%&selected_tmplt_id&%" />
+			<input type="hidden" name="tmplt_name" value="%&selected_tmplt_name&%" />
+			<input type="hidden" name="summary" value="%&Encoded_selected_tmplt_summary&%" />
+			<input type="hidden" name="action" value="editTmplt" />
+			</form>
+__IfTmpltIDisSelected__
+		<!-- テンプレートマスターからテンプレートID選択後の処理 END -->
+<br />
+
+		<!-- <fieldset> -->
+
+<form name="asshole" target="dick" action="" method="post">
+<input type="hidden" name="tmplt" />
+<input type="hidden" name="app" />
+</form>
+
+				<form action="/app.mpl" method="post">
+				<table cellpadding="1" cellspacing="0" width="100%" align="left" class="datagrid">
+					<tr><th bgcolor="#e0e0e0" colspan="4" align="center">HTMLページ追加</th></tr>
+			__IfTmpltIDisSelected__
+					<tr>
+						<th width="110">ページID</th>
+						<td bgcolor="#ffffff">
+							%&selected_tmplt_id&%
+							<input type="hidden" name="tmplt_id" value="%&selected_tmplt_id&%" />
+						</td>
+						<th width="110">ページコード</th>
+						<td bgcolor="#ffffff">%&selected_tmplt_name&%</td>
+					</tr>
+					<tr>
+						<th width="110"><br /></th>
+						<td><br /></td>
+						<th width="110">ページ名</th>
+						<td bgcolor="#ffffff">%&selected_tmplt_summary&%</td>
+					</tr>
+			__IfTmpltIDisSelected__
+
+			__IfTmpltIDisNotSelected__
+				<!-- 新規ページ作成の場合 -->
+					<tr>
+						<th width="110">ページID</th>
+						<td colspan="3" bgcolor="#ffffff">
+							<input type="text" value="%&max_tmplt_id&%" name="" style="text-align:right;" size="4" readonly />　自動割り振り
+						</td>
+					</tr>
+					<tr>
+						<th width="110">ページコード <font style="color:red;">*</font></th>
+						<td colspan="3" bgcolor="#ffffff">
+							<input type="text" name="tmplt_name" value="" style="ime-mode:disabled;" maxlength="30" size="64" />
+							&nbsp;<font style="color:red;">パラメータ <i><b>a</b></i>の値と連動します。</font>
+						</td>
+					</tr>
+					<tr>
+						<th width="110">ページ名</th>
+						<td colspan="3" bgcolor="#ffffff">
+							<input type="text" name="summary" value="" maxlength="20" size="64" />
+							&nbsp;好きな名前をつけます。
+						</td>
+					</tr>
+			__IfTmpltIDisNotSelected__
+
+					<tr>
+						<th width="110">開始日時</th>
+						<td colspan="3" bgcolor="#ffffff">
+							<select name="year">
+								<option value="2009">2009
+								<option value="2010">2010
+								<option value="2011">2011
+								<option value="2012">2012
+								<option value="2013">2013
+								<option value="2014">2014
+								<option value="2015">2015
+								<option value="2016">2016
+								<option value="2017">2017
+								<option value="2018">2018
+								<option value="2019">2019
+								<option value="2020">2020
+							</select>/
+
+							<select name="month">
+								<option value="01">01<option value="02">02<option value="03">03<option value="04">04<option value="05">05<option value="06">06<option value="07">07<option value="08">08<option value="09">09<option value="10">10<option value="11">11<option value="12">12
+							</select>/
+
+							<select name="day">
+								<option value="01">01<option value="02">02<option value="03">03<option value="04">04<option value="05">05<option value="06">06<option value="07">07<option value="08">08<option value="09">09<option value="10">10<option value="11">11<option value="12">12<option value="13">13<option value="14">14<option value="15">15
+								<option value="16">16<option value="17">17<option value="18">18<option value="19">19<option value="20">20<option value="21">21<option value="22">22<option value="23">23<option value="24">24<option value="25">25<option value="26">26<option value="27">27<option value="28">28<option value="29">29<option value="30">30<option value="31">31
+							</select>
+
+							<select name="hour">
+								<option value="00">00<option value="01">01<option value="02">02<option value="03">03<option value="04">04<option value="05">05<option value="06">06<option value="07">07<option value="08">08<option value="09">09<option value="10">10<option value="11">11
+								<option value="12">12<option value="13">13<option value="14">14<option value="15">15<option value="16">16<option value="17">17<option value="18">18<option value="19">19<option value="20">20<option value="21">21<option value="22">22<option value="23">23
+							</select>:
+			
+							<select name="min">
+								<option value="00">00<option value="15">15<option value="30">30<option value="45">45
+							</select>
+						</td>
+					</tr>
+
+				<!-- DoCoMo BEGIN -->
+					<tr>
+						<!--
+						<th width="110">
+							<img src="/images/icn_html.png" width="16" height="16" /><br />
+							<img src="/images/das.gif" width="20" height="20" /><br />
+							<input type=button value="プレビュー" onClick="displayPreviewHTML(this.form.tmplt_docomo)"  class="box" />
+						</th>
+						-->
+						<td colspan="4" bgcolor="#ffffff">
+							<div align="right" id="x">
+<a onclick="NewWindowL('/mod-perl/repstr.mpl')" href="#">置換文字(<kbd>F</kbd>)</a
+><a onclick="NewWindowH('/app.mpl?app=AppImage;action=siteImageList')" href="#">画像リスト(<kbd>E</kbd>)</a
+><a onclick="NewWindowL('/color.html')" href="#">カラーパレット(<kbd>H</kbd>)</a>
+							</div>
+							<img src="/images/das.gif" width="20" height="20" /><img src="/images/icn_html.png" width="16" height="16" />
+
+							<div style="MozUserSelect: none; KhtmlUserSelect: none"  class="x-panel-header x-unselectable" unselectable="on"><span class="x-panel-header-text"><img src="/images/i.gif" width="18" height="19" /><input type=button value="プレビュー" onClick="displayPreviewHTML(this.form.tmplt_docomo)"  class="box" /><br /></span></div>
+							<textarea rows="30" cols="164" name="tmplt_docomo">
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;shift_jis&quot;?&gt;
+&lt;!DOCTYPE html PUBLIC&quot;-//i-mode group (ja)//DTD XHTML i-XHTML(Locale/Ver.=ja/2.3) 1.0//EN&quot; &quot;i-xhtml_4ja_10.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;application/xhtml+xml; charset=Shift_JIS&quot; /&gt;
+&lt;meta http-equiv=&quot;Pragma&quot; content=&quot;no-cache&quot; /&gt; 
+&lt;meta http-equiv=&quot;Cache-Control&quot; content=&quot;no-cache&quot; /&gt; 
+&lt;meta http-equiv=&quot;Expires&quot; content=&quot;0&quot; /&gt;
+&lt;meta name=&quot;robots&quot; content=&quot;noindex,nofollow&quot; /&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;&quot; media=&quot;handheld, tty&quot; /&gt;
+&lt;title&gt;%&amp;SITE_NAME&amp;%&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;a name=&quot;top&quot;&gt;&lt;/a&gt;
+
+
+
+
+
+
+
+
+
+
+
+%&amp;FOOTER_HTML&amp;%
+
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+							<div style="MozUserSelect: none; KhtmlUserSelect: none"  class="x-panel-header x-unselectable" unselectable="on"><span class="x-panel-header-text"><img src="/images/e.gif" width="18" height="19" /><input type=button value="プレビュー" onClick="displayPreviewHTML(this.form.tmplt_au)"  class="box" /><br /></span></div>
+							<textarea rows="30" cols="164" name="tmplt_au">&lt;!DOCTYPE html PUBLIC &quot;-//OPENWAVE//DTD XHTML 1.0//EN&quot; &quot;http://www.openwave.com/DTD/xhtml-basic.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;application/xhtml+xml; charset=Shift_JIS&quot; /&gt;
+&lt;meta http-equiv=&quot;Pragma&quot; content=&quot;no-cache&quot; /&gt; 
+&lt;meta http-equiv=&quot;Cache-Control&quot; content=&quot;no-cache&quot; /&gt; 
+&lt;meta http-equiv=&quot;Expires&quot; content=&quot;0&quot; /&gt;
+&lt;meta NAME=&quot;robots&quot; content=&quot;noindex,nofollow&quot; /&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;&quot; media=&quot;handheld, tty&quot; /&gt;
+&lt;title&gt;%&amp;SITE_NAME&amp;%&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;a name=&quot;top&quot;&gt;&lt;/a&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+%&amp;FOOTER_HTML&amp;%
+
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+							<div style="MozUserSelect: none; KhtmlUserSelect: none"  class="x-panel-header x-unselectable" unselectable="on"><span class="x-panel-header-text"><img src="/images/v.gif" width="18" height="19" /><input type=button value="プレビュー" onClick="displayPreviewHTML(this.form.tmplt_softbank)"  class="box" /><br /></span></div>
+							<textarea rows="30" cols="164" name="tmplt_softbank">&lt;?xml version=&quot;1.0&quot; encoding=&quot;shift_jis&quot;?&gt;
+&lt;!DOCTYPE html PUBLIC &quot;-//J-PHONE//DTD XHTML Basic 1.0 Plus//EN&quot; &quot;xhtml-basic10-plus.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=Shift_JIS&quot; /&gt;
+&lt;meta http-equiv=&quot;Pragma&quot; content=&quot;no-cache&quot; /&gt; 
+&lt;meta http-equiv=&quot;Cache-Control&quot; content=&quot;no-cache&quot; /&gt; 
+&lt;meta http-equiv=&quot;Expires&quot; content=&quot;0&quot; /&gt;
+&lt;meta NAME=&quot;robots&quot; content=&quot;noindex,nofollow&quot; /&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;&quot; media=&quot;handheld, tty&quot; /&gt;
+&lt;title&gt;%&amp;SITE_NAME&amp;%&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;a name=&quot;top&quot;&gt;&lt;/a&gt;
+
+
+
+
+
+
+
+
+
+
+
+%&amp;FOOTER_HTML&amp;%
+
+&lt;/body&gt;
+&lt;/html&gt;
+</textarea>
+						</td>
+					</tr>
+
+					<tr bgcolor="#ffffff">
+						<td align="center" colspan="4">
+							<input type="submit" value="　登　録(S)　" class="update" style="width: 30%;" accesskey="S" />
+						</td>
+					</tr>
+				</table>
+				<input type="hidden" name="app" value="AppTmplt" />
+				<input type="hidden" name="action" value="registTmplt" />
+				</form>
+
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+
+</body>
+</html>

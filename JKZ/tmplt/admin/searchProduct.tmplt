@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>商品管理</title>
+<link rel="stylesheet" href="/style.css" type="text/css" charset="Shift_JIS" />
+<link rel="stylesheet" type="text/css" href="build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" href="build/container/assets/skins/sam/container.css" />
+<script type="text/javascript" src="/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="/build/connection/connection-min.js"></script>
+<script type="text/javascript" src="/build/animation/animation-min.js"></script>
+<script type="text/javascript" src="/build/dragdrop/dragdrop-min.js"></script>
+<script type="text/javascript" src="/build/container/container-min.js"></script>
+<script src="/js/scriptaculous.js?load=effects" type="text/javascript"></script>
+<script src="/js/popuphint.js" type="text/javascript"></script>
+<script src="/js/jkl-form.js" type="text/JavaScript"></script>
+<script type="text/javascript">//<![CDATA[ 
+
+	var form1 = new JKL.Form("searchProduct"); 
+
+	var form2 = new JKL.Form("searchProductResult"); 
+
+//]]></script> 
+<!--
+<script type="text/javascript" src="/js/prototype.js"></script>
+<script type="text/javascript" src="/js/rico.js"></script>
+<script type="text/javascript" src="/js/readmore.js"></script>
+<script type="text/javascript">//<![CDATA[
+window.onload = function() {
+initSlide({ showform:'▼商品検索フォーム表示▼' });
+};
+//]]></script>
+-->
+<style type="text/css">
+<!--/* <![CDATA[ */
+<!--	.showform { visibility:hidden; }-->
+
+#scrollable th,td{ font-size:0.9em; }
+
+#main_cont{
+	text-align: left;
+	border: 1px #666666;
+	padding: 10px 0px;
+	width: 100%;
+	background:#F1F4F5;
+	margin: 0px;
+}
+
+#display{
+	background:#F7F8F9;
+	margin-top:12px;
+}
+
+#layer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width:100%;
+	z-index: 90;
+	background-color: #333333;
+	filter:alpha(opacity=60);
+
+	-moz-opacity: 0.6;
+	opacity: 0.6;
+	}
+	
+
+#layer1 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width:100%;
+	z-index: 101;
+	background-color: #333333;
+	filter:alpha(opacity=60);
+
+	-moz-opacity: 0.6;
+	opacity: 0.6;
+	}
+
+main_cont .design_box01{
+	margin:auto 10px 10px;
+	border-top:1px solid #FFFFFF;
+	border-left:1px solid #FFFFFF;
+	border-bottom:1px solid #C0CFD6;
+	border-right:1px solid #C0CFD6;
+	padding:5px;
+	line-height: 12px;
+}
+
+.search_tab {
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-bottom: 0px;
+	margin-left: auto;
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	font-size: 12px;
+	line-height: 30px;
+	vertical-align: middle;
+	height: 1px;
+	text-align: center;
+	width: 76px;
+	color: #FFFFFF;
+}
+
+.search_tab a {
+	color: #FFFFFF;
+}
+/* ]]> */-->
+</style>
+<script src="/js/admin.js" type="text/JavaScript"></script>
+</head>
+<!--body class="yui-skin-sam"-->
+<body class="yui-skin-sam" onload="changeHeight('layer1'); changeHeight('layer');" onresize="changeHeight('layer1'); changeHeight('layer');"onresize="changeHeight('layer1'); changeHeight('layer');">
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1>UPSTAIR  </h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞コンテンツ/商品管理＞<strong>商品検索</strong>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>商品検索%&BENCH_TIME&%</h2>
+		</div>
+
+		<div id="list">
+			<!-- <fieldset> -->
+%&DUMP&%
+				<div id="content"></div>
+				<script src="/js/myIndicator.js" type="text/javascript"></script>
+
+<!--IfSearchExecuted
+<div class="showform">
+IfSearchExecuted -->
+
+
+				<div id="display"> 
+					<a href="javascript:void(0);" onclick="switchObj('search'); changeHeight('layer'); changeHeight('layer1'); changetext();" id="search_tab" class="before">[商品検索フォームの表示]</a>
+
+
+				<form action="/app.mpl" method="post" name="searchProduct" id="searchProduct">
+
+						<div id="main_cont">
+							<div id="search" style="margin:0px;padding:0px;display:none;">
+								<div class="design_box01" style="margin-top:0px; margin-bottom:0px; background:#ffffff; text-align:left; border:none;">
+
+				<table border="0" cellspacing="0" width="100%" rules="all" class="datagrid">
+					<tr><th align="center" colspan="4">商品検索</th></tr>
+					<tr>
+						<th align="right">
+							商品ID
+							<a href="#" class="hintanchor" onMouseover="showhint('商品のID', this, event, '120px')">[?]</a>
+						</th>
+						<td colspan="3"><input type="text" name="product_id" style="ime-mode:disabled;" size="24" maxlength="11" /></td>
+					</tr>
+					<tr>
+						<th align="right" width="25%">
+							状態
+							<a href="#" class="hintanchor" onMouseover="showhint('商品の取り扱い状態', this, event, '120px')">[?]</a>
+						</th>
+						<td width="25%">
+							<label for="valid"><input type="checkbox" name="status_flag" value="2" id="valid" checked /><img src="/images/gem_okay.png" width="16" height="16" /> 有効</label>
+							&nbsp;
+							<label for="invalid"><input type="checkbox" name="status_flag" value="1" id="invalid" checked /><img src="/images/error_fuck.png" width="16" height="16" /> 無効</label>
+						</td>
+						<th align="right" width="25%">
+							ポイント還元
+							<a href="#" class="hintanchor" onMouseover="showhint('ポイント還元の有無', this, event, '120px')">[?]</a>
+						</th>
+						<td width="25%">
+							<label for="point2"><input type="checkbox" name="point_flag" value="2" id="point2" checked />還元有</label>
+							&nbsp;
+							<label for="point1"><input type="checkbox" name="point_flag" value="1" id="point1" checked />還元無</label>
+						</td>
+					</tr>
+
+					<tr>
+						<th align="right">
+							新着表示
+							<a href="#" class="hintanchor" onMouseover="showhint('商品の新着表示', this, event, '120px')">[?]</a>
+						</th>
+						<td colspan="3">
+							<label for="latest_flag2"><input type="checkbox" name="latest_flag" value="2" id="latest_flag2" checked /><img src="/images/gem_okay.png" width="16" height="16" /> 有効</label>
+							&nbsp;
+							<label for="latest_flag4"><input type="checkbox" name="latest_flag" value="4" id="latest_flag4" checked /><img src="/images/gem_okay.png" width="16" height="16" /> Top表示有効</label>
+							&nbsp;
+							<label for="latest_flag1"><input type="checkbox" name="latest_flag" value="1" id="latest_flag1" checked /><img src="/images/error_fuck.png" width="16" height="16" /> 無効</label>
+						</td>
+					</tr>
+					<tr>
+						<th align="right">
+							おすすめ表示
+							<a href="#" class="hintanchor" onMouseover="showhint('商品のおすすめ表示', this, event, '120px')">[?]</a>
+						</th>
+						<td colspan="3">
+							<label for="recommend_flag2"><input type="checkbox" name="recommend_flag" value="2" id="recommend_flag2" checked /><img src="/images/gem_okay.png" width="16" height="16" /> 有効</label>
+							&nbsp;
+							<label for="recommend_flag1"><input type="checkbox" name="recommend_flag" value="1" id="recommend_flag1" checked /><img src="/images/error_fuck.png" width="16" height="16" /> 無効</label>
+						</td>
+					</tr>
+					<tr>
+						<th align="right">
+							販売・配信形態
+							<a href="#" class="hintanchor" onMouseover="showhint('商品取得の方法。', this, event, '120px')">[?]</a>
+						</th>
+						<td colspan="3">
+__LoopChargeFlagList__
+					<label for="charge_flag%&s_charge_flag&%"><input type="checkbox" name="charge_flag" value="%&s_charge_flag&%" id="charge_flag%&s_charge_flag&%" checked />&nbsp;%&s_charge_flag_name&% </label>&nbsp;
+__LoopChargeFlagList__
+					</td>
+				</tr>
+					<tr>
+						<th align="right">
+							カテゴリ
+							<a href="#" class="hintanchor" onMouseover="showhint('商品のカテゴリ', this, event, '120px')">[?]</a>
+						</th>
+						<td colspan="3">
+__LoopCategoryList__
+					<label for="category_id%&s_category_id&%"><input type="checkbox" name="category_id" value="%&s_category_id&%" id="category_id%&s_category_id&%" />&nbsp;%&s_category_name&% </label>&nbsp;
+__LoopCategoryList__
+						<br />
+						<input value="全チェックする" type="button" class="box" onclick="form1.selectAllOptions('category_id',true);" />／
+						<input value="全チェックを外す" type="button" class="box" onclick="form1.selectAllOptions('category_id',false);" />
+					</td>
+				</tr>
+					<tr>
+						<th align="right">
+							中カテゴリ
+							<a href="#" class="hintanchor" onMouseover="showhint('商品の中カテゴリ', this, event, '120px')">[?]</a>
+						</th>
+						<td colspan="3">
+__LoopSubCategoryList__
+					<label for="subcategory_id%&s_subcategory_id&%"><input type="checkbox" name="subcategory_id" value="%&s_subcategory_id&%" id="subcategory_id%&s_subcategory_id&%" />&nbsp;%&s_subcategory_name&% </label>&nbsp;
+__LoopSubCategoryList__
+						<br />
+						<input value="全チェックする" type="button" class="box" onclick="form1.selectAllOptions('subcategory_id',true);" />／
+						<input value="全チェックを外す" type="button" class="box" onclick="form1.selectAllOptions('subcategory_id',false);" />
+					</td>
+				</tr>
+					<tr>
+						<th align="right">
+							小カテゴリ
+							<a href="#" class="hintanchor" onMouseover="showhint('商品の小カテゴリ', this, event, '120px')">[?]</a>
+						</th>
+						<td colspan="3">
+__LoopSmallCategoryList__
+					<label for="smallcategory_id%&s_smallcategory_id&%"><input type="checkbox" name="smallcategory_id" value="%&s_smallcategory_id&%" id="smallcategory_id%&s_smallcategory_id&%" />&nbsp;%&s_smallcategory_name&% </label>&nbsp;
+__LoopSmallCategoryList__
+						<br />
+						<input value="全チェックする" type="button" class="box" onclick="form1.selectAllOptions('smallcategory_id',true);" />／
+						<input value="全チェックを外す" type="button" class="box" onclick="form1.selectAllOptions('smallcategory_id',false);" />
+					</td>
+				</tr>
+				<tr>
+					<th align="right">
+						キーワード(商品名・説明)
+						<a href="#" class="hintanchor" onMouseover="showhint('商品名や商品説明をキーワードとして入力。キーワードが複数の場合、<b><font color=red>スペース</font></b>をいれてください.', this, event, '120px')">[?]</a>
+					</th>
+					<td colspan="3">
+						<input type="text" name="keyword" value="" size="50" />
+						&nbsp;
+						<label for="s1"><input type="radio" name="opt" value="1" id="s1" checked />OR検索</label>
+						<a href="#" class="hintanchor" onMouseover="showhint('OR検索は入力した<b><font color=red>いずれか</font></b>のキーワードを含む', this, event, '120px')">[?]</a>
+						&nbsp;
+						<label for="s2"><input type="radio" name="opt" value="2" id="s2" />AND検索</label>
+						<a href="#" class="hintanchor" onMouseover="showhint('AND検索は入力した<b><font color=red>すべての</font></b>キーワードを含む', this, event, '120px')">[?]</a>
+					</td>
+				</tr>
+				<tr>
+					<th align="right">
+						除外キーワード
+						<a href="#" class="hintanchor" onMouseover="showhint('キーワードが入力されている場合。ここで指定したキーワードが<b><font color=red>含まれない</font></b>', this, event, '120px')">[?]</a>
+					</th>
+					<td colspan="3">
+						<input type="text" name="exclusion" value="" size="50" />
+					</td>
+				</tr>
+				<tr>
+					<th align="right">
+						<label for="aa">&nbsp;<input type="checkbox" name="period_flag" value="1" id="aa" />期間指定する</label>
+						<a href="#" class="hintanchor" onMouseover="showhint('商品の登録日を期間で指定', this, event, '120px')">[?]</a>
+					</th>
+					<td colspan="3">%&years&% 年 %&months&% 月 %&dates&% 日&nbsp;―&nbsp; %&toyears&% 年 %&tomonths&% 月 %&todates&% 日</td>
+				</tr>
+				<tr>
+					<th align="right">
+						表示順
+						<a href="#" class="hintanchor" onMouseover="showhint('検索結果の表示順', this, event, '120px')">[?]</a>
+					</th>
+					<td colspan="3">
+						<select name="orderby">
+				 			<option value="1">登録日</option>
+				 			<option value="2">商品ID</option>
+				 			<option value="3">状態</option>
+				 			<option value="4">カテゴリ</option>
+				 		</select>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4" height="40">
+						<div align="center"><input type="submit" name="search" value="　商　品　検　索　" onclick="init();" id="content" /></div>
+						
+					</td>
+				</tr>
+				</table>
+
+								</div>
+							</div>
+						</div>
+
+
+
+				<input type="hidden" name="app" value="AppProduct" />
+				<input type="hidden" name="action" value="searchProduct" />
+				</form>
+
+</div>
+
+<!--IfSearchExecuted
+</div>
+IfSearchExecuted-->
+				<!--<input type="image" src="/images/findm.gif" width="37" height="34" onclick="init();" id="content" />-->
+				
+				 <!-- 検索実行時 -->
+				__IfSearchExecuted__
+				<br />
+				
+				<!-- 結果なしの場合 BEGIN -->
+				__IfNotExistsSearchList__
+				<table border="0" cellspacing="0" cellpadding="2" bgcolor="#999999" width="100%">
+				<tr><th>検索結果</th></tr>
+				<tr><td>０件</td></tr>
+				</table>
+				__IfNotExistsSearchList__
+				<!-- 結果なしの場合 END -->
+				
+				<!-- 結果ありの場合 BEGIN -->
+				__IfExistsSearchList__
+				
+				
+				<form action="/app.mpl" name="searchProductResult" id="searchProductResult" method="POST">
+				<input type="hidden" name="app" value="AppProduct" />
+				
+				
+				<table border="0" cellspacing="0" width="100%" rules="all" class="datagrid">
+				
+				<tr><td colspan="12">商品の検索結果%&pagenavi&%</td></tr>
+				<tr>
+				<th align="center">操作</th>
+				<th align="center" colspan="2">ID</th>
+				<th align="center">状態</th>
+				<th align="center">新着表示</th>
+				<th align="center">おすすめ表示</th>
+				<th align="center">画像</th>
+				<th align="center">商品名</th>
+				<th align="center">大カテゴリ</th>
+				<th align="center">中カテゴリ</th>
+				<th align="center">小カテゴリ</th>
+				<!--
+				<th align="center">商品説明(先頭30文字)</th>
+				-->
+				<th align="center">登録日</th>
+				</tr>
+				
+__LoopSearchList__
+				<tr class="%&cssstyle&%">
+					<td align="center" width="24"><input type="checkbox" name="product_id_statatus_flag" value="%&product_id&%;%&status_flag&%;%&latest_flag&%;%&recommend_flag&%" /></td>
+					<td align="center" width="24">
+						<a href="/app.mpl?app=AppProduct;action=detailProduct;product_id=%&product_id&%;" onclick="init();">
+						<img src="/images/icn_file_edit.png" border="0" width="16" height="16" class="hintanchor" onMouseover="showhint('%&product_name&%の詳細表示', this, event, '120px')" />
+					</a>
+					</td>
+					<td align="center"width="40">%&product_id&%</td>
+					<td align="center" width="24"><img src="/images/%&status_flagImages&%" width="16" height="16" /></td>
+					<td align="center" width="24"><img src="/images/%&latest_flagImages&%" width="16" height="16" /></td>
+					<td align="center" width="24"><img src="/images/%&recommend_flagImages&%" width="16" height="16" /></td>
+					<td align="center" width="50"><img src="/mod-perl/serveImageDB.mpl?p=%&product_id&%;s=3" width="50" /></td>
+					<td align="center">%&product_name&%</td>
+					<td width="70" align="center">%&category_name&%</td>
+					<td width="70" align="center">%&subcategory_name&%</td>
+					<td width="70" align="center">%&smallcategory_name&%</td>
+					<td width="60" align="center">%&registration_date&%</td>
+				</tr>
+__LoopSearchList__
+
+				<tr>
+				<th align="center">操作</th>
+				<th align="center" colspan="2">ID</th>
+				<th align="center">状態</th>
+				<th align="center">新着表示</th>
+				<th align="center">おすすめ表示</th>
+				<th align="center">画像</th>
+				<th align="center">商品名</th>
+				<th align="center">大カテゴリ</th>
+				<th align="center">中カテゴリ</th>
+				<th align="center">小カテゴリ</th>
+				<!--
+				<th align="center">商品説明(先頭30文字)</th>
+				-->
+				<th align="center">登録日</th>
+				</tr>
+
+				<tr>
+					<td colspan="12" align="left">
+						<div style="margin:0px 0px 0px 10px;"><img src="/images/arrow_ltr.png" />
+						<input value="全チェックする" type="button" class="box" onclick="form2.selectAllOptions('product_id_statatus_flag',true);">／
+						<input value="全チェックを外す" type="button" class="box" onclick="form2.selectAllOptions('product_id_statatus_flag',false);">
+						&nbsp;
+						<select name="changeProductStatusTo">
+						<option value="-1">--チェックしたIDの状態変更内容を選択--</option>
+						<option value="1;2" style="color:#0000cc;">状態を有効にする</option>
+						<option value="1;1" style="color:#cc0000;">状態を無効にする</option>
+						<option value="2;2" style="color:#0000cc;">新着表示を有効にする</option>
+						<option value="2;4" style="color:#0000cc;">新着Top表示を有効にする</option>
+						<option value="2;1" style="color:#cc0000;">新着表示を無効にする</option>
+						<option value="3;2" style="color:#0000cc;">オススメ表示を有効にする</option>
+						<option value="3;1" style="color:#cc0000;">オススメ表示を無効にする</option>
+						</select>
+						&nbsp;<input type="submit" value="　一　括　変　更　確　認　" />
+						</div>
+						<input type="hidden" name="action" value="changeProductStatus" />
+					</td>
+				</tr>
+				<tr>
+					<td colspan="12" align="left">
+						<!-- ページリンクナビ -->
+						%&pagenavi&%
+					</td>
+				</tr>
+				</table>
+				</form>
+				__IfExistsSearchList__
+
+				__IfSearchExecuted__
+
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+
+</body>
+</html>

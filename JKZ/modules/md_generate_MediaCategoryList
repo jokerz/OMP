@@ -1,0 +1,90 @@
+#!/usr/bin/perl
+
+#******************************************************
+# @desc		ポイント広告カテゴリリストオブジェクトの生成モジュール
+#			OBJECTには配列で格納
+#			categorym_id	subcategory_id
+#			[
+#							[
+#										{ categorym_id
+#										  sucategory_id
+#										  category_name
+#										  subcategory_name
+#										  status_flag
+#										 },
+#							],
+#			],
+#
+# @package	md_generate_MediaCategoryList
+# @author	Iwahase Ryo
+# @create	2010/02/05
+# @version	
+#******************************************************
+
+use strict;
+use vars qw($include_path $cfg);
+
+BEGIN {
+	## クラスのインクルードパスを取得するための処理
+	require Cwd;
+	my $pwd = Cwd::getcwd();
+	($include_path = $pwd) =~ s!/modules!!;
+	unshift @INC, $include_path;
+
+	my $config = sprintf("%s/conf/envconf.cfg",$include_path);
+
+    require MyClass::Config;
+    $cfg = MyClass::Config->new($config);
+
+}
+
+use MyClass::UsrWebDB;
+use MyClass::WebUtil;
+
+#*******************************
+# cronで1日一回実行させる。
+# 集計してデータをシリアライズして保存
+#*******************************
+
+## シリアライズしたデータオブジェクト
+my $mediacategory_objectfile      = $cfg->param('MEDIACATEGORYLIST_OBJ');
+
+my $dbh = MyClass::UsrWebDB::connect({
+            dbaccount => $self->cfg->param('DATABASE_USER'),
+            dbpasswd  => $self->cfg->param('DATABASE_PASSWORD'),
+            dbname    => $self->cfg->param('DATABASE_NAME'),
+          });
+$dbh->do('set names sjis');
+
+my $sql;
+my $aryref;
+my $obj_mc;
+
+my @reportsql;
+
+## カテゴリから開始
+$sql    = "SELECT mediacategory_id, mediacategory_name, status_flag FROM tMediaCategoryM;";
+$aryref = $dbh->selectall_arrayref($sql, { Columns => {} });
+
+foreach (@{$aryref}) {
+	$obj_mc->[$_->{mediacategory_id}]->{mediacategory_id}   = $_->{mediacategory_id};
+	$obj_mc->[$_->{mediacategory_id}]->{mediacategory_name} = $_->{mediacategory_name};
+	$obj_mc->[$_->{mediacategory_id}]->{status_flag}        = $_->{status_flag};
+}
+
+push(@reportsql, $sql);
+
+$dbh->disconnect();
+
+eval {
+    MyClass::WebUtil::publishObj({ file=>$mediacategory_objectfile, obj=>$obj_mc });
+};
+
+if ($@) {
+	warn " Fail Creating Object files $@ \n";
+}
+#else {
+#    print map { $_,"\n" } @reportsql;
+#}
+
+exit();

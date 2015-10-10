@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>商品カテゴリ管理</title>
+<link rel="stylesheet" href="/style.css" type="text/css" charset="Shift_JIS" />
+<link rel="stylesheet" type="text/css" href="/css/lightbox.css" />
+</head>
+<body>
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1>UPSTAIR  </h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞ 商品管理 ＞
+__IfRegistCategory__
+＞カテゴリ新規登録＞<strong>登録完了</strong>
+__IfRegistCategory__
+__IfModifyCategory__
+＞<a href="/app.mpl?app=AppProduct;action=detailCategory;category_id=%&category_id_is&%;" onclick="init();" id="content">カテゴリ詳細</a>＞<strong>更新完了</strong>
+__IfModifyCategory__
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>
+__IfRegistCategory__
+			カテゴリ新規登録
+__IfRegistCategory__
+__IfModifyCategory__
+			カテゴリ詳細
+__IfModifyCategory__
+			</h2>
+		</div>
+
+		<div id="list">
+			<!-- <fieldset> -->
+__IfSuccessExecuteUpdate__
+
+	__IfRegistCategory__
+		<!-- 新規登録の場合 -->
+
+<table border="0" cellspacing="0" cellpadding="2" bgcolor="#999999" width="70%">
+	<tr><th align="center" colspan="2"> 商品カテゴリ新規登録完了</th></tr>
+	<tr>
+	    <th>カテゴリID</th>
+	    <td>&nbsp;<b>%&category_id_is&%</b></td>
+	</tr>
+	<tr>
+	    <th>カテゴリ名</th>
+	    <td>
+	    	&nbsp;
+	    	%&category_name&%
+	    </td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<div id="complete">
+			<ul>
+				<li>上記内容で登録が完了しました。</li>
+				<li><a href="/app.mpl?app=AppProduct;">コンテンツ管理TOP</a></li>
+			</ul>
+			</div>
+		</td>
+	</tr>
+</table>
+
+	__IfRegistCategory__
+
+
+	__IfModifyCategory__
+		<!-- 既存更新の場合 -->
+		<br />
+<div id="complete">
+	<ul>
+		<li>更新完了</li>
+		<li>カテゴリID：%&category_id_is&%　カテゴリ名：%&category_name&%　<br />
+		<a href="/app.mpl?app=AppProduct;action=detailCategory;category_id=%&category_id_is&%;" onclick="init();" id="content">カテゴリ詳細に戻る</a>
+		</li>
+		<li><a href="/app.mpl?app=AppProduct;">コンテンツ管理TOP</a></li>
+	</ul>
+</div>
+	__IfModifyCategory__
+
+__IfSuccessExecuteUpdate__
+
+
+__IfFailExecuteUpdate__
+<div id="error">
+	__IfRegistCategory__
+		<!-- 新規登録の場合 -->
+	<ul><li>%&ERROR_MSG&%</li></ul>
+	__IfRegistCategory__
+
+
+	__IfModifyCategory__
+		<!-- 既存更新の場合 -->
+	<ul><li>%&ERROR_MSG&%</li></ul>
+	__IfModifyCategory__
+
+</div>
+__IfFailExecuteUpdate__
+
+			</fieldset>
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+
+</body>
+</html>

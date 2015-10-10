@@ -1,0 +1,122 @@
+#!/usr/bin/perl
+
+#******************************************************
+# @desc		会員ポイント取得ランキング
+#			[product_id, lastupdate_date(最終更新日), category_name, tmplt_id, ]
+# @package	md_generate_UserRank
+# @author	Iwahase Ryo
+# @create	2010/03/12
+# @version	
+#******************************************************
+
+use strict;
+use vars qw($include_path $cfg);
+
+BEGIN {
+	## クラスのインクルードパスを取得するための処理
+	require Cwd;
+	my $pwd = Cwd::getcwd();
+	($include_path = $pwd) =~ s!/modules!!;
+
+	unshift @INC, $include_path;
+
+    require MyClass::Config;
+	my $config = sprintf("%s/conf/envconf.cfg",$include_path);
+    $cfg       = MyClass::Config->new($config);
+}
+
+use MyClass::UsrWebDB;
+use MyClass::WebUtil;
+
+
+#*******************************
+# cronで1日一回実行させる。20までのランキング
+# 集計してデータをシリアライズして保存
+#*******************************
+
+## 日付 yyyy-mm
+my $yyyymm = MyClass::WebUtil::GetTime(6);
+## ランキングオブジェクトファイル
+my $userpointranking_objectfile = sprintf("%s/%s.obj", $cfg->param('USERPOINT_RANK_DIR'), $yyyymm);
+
+my $obj;
+my $sql;
+
+$sql = "SELECT p.owid, SUM(p.point) AS SUM_POINT FROM tPointLogF p 
+ WHERE p.type_of_point=2 AND DATE_FORMAT(p.registration_date, '%Y-%m')=?
+  GROUP BY p.owid
+  ORDER BY SUM_POINT DESC LIMIT 20;
+";
+
+my $dbh = MyClass::UsrWebDB::connect({
+            dbaccount => $self->cfg->param('DATABASE_USER'),
+            dbpasswd  => $self->cfg->param('DATABASE_PASSWORD'),
+            dbname    => $self->cfg->param('DATABASE_NAME'),
+          });
+$dbh->do('set names sjis');
+
+my $aryref = $dbh->selectall_arrayref($sql, { Columns => {} }, $yyyymm);
+
+$sql = "SELECT m.ad_id, m.ad_name, m.point
+ FROM tPointLogF p 
+  LEFT JOIN tMediaM m
+   ON p.id_of_type=m.ad_id
+  WHERE p.owid=? AND type_of_point=2 AND 
+  DATE_FORMAT(p.registration_date, '%Y-%m')=?;
+";
+
+#****************************
+# objectfile array object
+# 要素数 1 owid
+#        2 nickname
+#        3 totalpoint
+#        4 array 広告id 広告名
+#****************************
+my $cnt;
+foreach (@{ $aryref }) {
+    $obj->[$cnt]->[0] = $_->{owid};
+    $obj->[$cnt]->[1] = 'nickname_should_be_here';
+    $obj->[$cnt]->[2] = $_->{SUM_POINT};
+
+    my $aryref_ad = $dbh->selectall_arrayref($sql, undef, $_->{owid}, $yyyymm);
+    foreach my $ad_ref (@{ $aryref_ad }) {
+        push( @{ $obj->[$cnt]->[3] }, [$ad_ref->[0], $ad_ref->[1]] );
+    }
+    $cnt++;
+}
+
+$dbh->disconnect();
+use Data::Dumper;
+
+eval {
+    MyClass::WebUtil::publishObj({ file=> $userpointranking_objectfile, obj=>$obj });
+};
+if ($@) {
+    print " FAIL CREATING OBJECT $@ \n";
+}
+else {
+
+    print Dumper($obj);
+}
+
+=pod
+#### テストのためにここで今のランキングを取得
+    eval {
+        $obj = MyClass::WebUtil::publishObj( { file=>$userpointranking_objectfile } );
+    };
+my $rankobj;
+$rankobj->{LoopRankingList} = $#{ $obj };
+
+map {
+    $rankobj->{owid}->[$_]      = $obj->[$_]->[0];
+    $rankobj->{nickname}->[$_]  = $obj->[$_]->[1];
+    $rankobj->{SUM_POINT}->[$_] = $obj->[$_]->[2];
+    $rankobj->{my_rank}->[$_]   = $_+1;
+} 0..{LoopRankingList};
+
+print Dumper($rankobj);
+=cut
+
+
+
+exit();

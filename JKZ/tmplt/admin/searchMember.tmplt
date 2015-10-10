@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>管理画面</title>
+<link rel="stylesheet" href="/style.css" type="text/css" charset="Shift_JIS" />
+<link rel="stylesheet" type="text/css" href="build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" href="build/container/assets/skins/sam/container.css" />
+<script type="text/javascript" src="/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="/build/connection/connection-min.js"></script>
+<script type="text/javascript" src="/build/animation/animation-min.js"></script>
+<script type="text/javascript" src="/build/dragdrop/dragdrop-min.js"></script>
+<script type="text/javascript" src="/build/container/container-min.js"></script>
+<script src="/js/scriptaculous.js?load=effects" type="text/javascript"></script>
+<script src="/js/popuphint.js" type="text/javascript"></script>
+<script src="/js/jkl-form.js" type="text/JavaScript"></script>
+<script src="/js/jkl-opacity.js" type="text/JavaScript"></script>
+<script src="/js/jkl-calendar.js" type="text/JavaScript"></script>
+<!--<script src="/js/jkl-calender.js" type="text/JavaScript"></script>-->
+<script type="text/javascript">//<![CDATA[
+	var form1 = new JKL.Form("setwhere");
+	var cal1 = new JKL.Calender("cal_frsdate","setwhere","frsdate");
+	if ( ! cal1.getFormValue() ) cal1.setFormValue();
+	cal1.setStyle( "frame_color", "#3333CC" );
+
+	var cal2 = new JKL.Calender("cal_fredate","setwhere","fredate");
+	if ( ! cal2.getFormValue() ) cal2.setFormValue();
+	cal2.setStyle( "frame_color", "#CC3333" );
+
+	var cal3 = new JKL.Calender("cal_fdsdate","setwhere","fdsdate");
+	if ( ! cal3.getFormValue() ) cal3.setFormValue();
+	cal3.setStyle( "frame_color", "#3333CC" );
+
+	var cal4 = new JKL.Calender("cal_fdedate","setwhere","fdedate");
+	if ( ! cal4.getFormValue() ) cal4.setFormValue();
+	cal4.setStyle( "frame_color", "#CC3333" );
+//]]></script>
+<style type="text/css">
+<!--/* <![CDATA[ */
+<!--
+.Freezing {
+    z-index: 10;
+    position: relative;
+    top: expression(this.offsetParent.scrollTop)
+}
+.FreezingCol {
+    z-index: 1;
+    left: expression(document.getElementById("freezingDiv").scrollLeft);
+    position: relative
+}
+-->
+
+
+#scrollable th,td{ font-size:0.9em; }
+
+#main_cont{
+	text-align: left;
+	border: 1px #666666;
+	padding: 10px 0px;
+	width: 100%;
+	background:#F1F4F5;
+	margin: 0px;
+}
+
+#display{
+	background:#F7F8F9;
+	margin-top:12px;
+}
+
+#layer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width:100%;
+	z-index: 90;
+	background-color: #333333;
+	filter:alpha(opacity=60);
+
+	-moz-opacity: 0.6;
+	opacity: 0.6;
+	}
+	
+
+#layer1 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width:100%;
+	z-index: 101;
+	background-color: #333333;
+	filter:alpha(opacity=60);
+
+	-moz-opacity: 0.6;
+	opacity: 0.6;
+	}
+
+main_cont .design_box01{
+	margin:auto 10px 10px;
+	border-top:1px solid #FFFFFF;
+	border-left:1px solid #FFFFFF;
+	border-bottom:1px solid #C0CFD6;
+	border-right:1px solid #C0CFD6;
+	padding:5px;
+	line-height: 12px;
+}
+
+.search_tab {
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-bottom: 0px;
+	margin-left: auto;
+/*	background-image: url(/images/tab_search.jpg);*/
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	font-size: 12px;
+	line-height: 30px;
+	vertical-align: middle;
+	height: 1px;
+	text-align: center;
+	width: 76px;
+	color: #FFFFFF;
+}
+
+.search_tab a {
+	color: #FFFFFF;
+}
+/* ]]> */-->
+</style>
+<script src="/js/admin.js" type="text/JavaScript"></script>
+</head>
+<body class="yui-skin-sam" onload="changeHeight('layer1'); changeHeight('layer');" onresize="changeHeight('layer1'); changeHeight('layer');"onresize="changeHeight('layer1'); changeHeight('layer');">
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1>UPSTAIR  </h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞<a href="/app.mpl?app=AppMember">会員管理</a>＞<strong>検索</strong>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>会員管理%&BENCH_TIME&%</h2>
+		</div>
+
+		<div id="list">
+
+			<div id="content"></div>
+			<script src="/js/myIndicator.js" type="text/javascript"></script>
+				<div id="display"> 
+					<a href="javascript:void(0);" onclick="switchObj('search'); changeHeight('layer'); changeHeight('layer1'); changetext();" id="search_tab" class="before">[会員検索フォームの表示]</a>
+					<form action="/app.mpl" name="setwhere" method="post" id="setwhere">
+						<div id="main_cont">
+							<div id="search" style="margin:0px;padding:0px;display:none;">
+								<!--
+								<div class="design_box01" style="margin-top:0px; margin-bottom:0px; background:#BDC9D0; text-align:left; border:none;">
+								-->
+								<div class="design_box01" style="margin-top:0px; margin-bottom:0px; background:#ffffff; text-align:left; border:none;">
+									<table border="0" cellpadding="2" cellspacing="0" bgcolor="#999999" rules="all" class="datagrid" width="100%">
+										<tr>
+											<th align="center" colspan="3">検索条件指定</th>
+										</tr>
+										<tr>
+											<th align="center" colspan="2" width="18%">会員ID</th>
+											<td bgcolor="#ffffff">
+					<input type=text name="fsmid" value="%&s_fsmid&%" size="40" maxlen="50" style="ime-mode:disabled" />
+						&nbsp;<i>複数入力時は会員IDを<font style="color:#ff0000">スペース</font>もしくは<font style="color:#ff0000">カンマ</font>で区切ってください</i>
+											</td>
+										</tr>
+										<tr>
+											<th colspan="2" width="18%">
+												固体識別NO(subno)
+												<a href="#" class="hintanchor" onMouseover="showhint('AUの固体識別やソフトバンクSNから始まる番号', this, event, '142px')">[?]</a>
+											</th>
+											<td bgcolor="#ffffff">
+												<input type="text" name="subno" value="%&s_subno&%" size="40" maxlen="30" />
+											</td>
+										</tr>
+										<tr>
+											<th colspan="2" width="18%">
+												dcmguid/x-jphone-uid
+												<a href="#" class="hintanchor" onMouseover="showhint('ドコモ・ソフトバンクのUID AUはsubnoの入力してください', this, event, '142px')">[?]</a>
+											</th>
+												<td bgcolor="#ffffff">
+												<input type="text" name="guid" value="%&s_guid&%" size="40" maxlen="30" />
+											</td>
+										</tr>
+										<tr>
+											<th align="center" colspan="2" width="18%">メールアドレス</th>
+											<td bgcolor=#ffffff><input type=text name="mobilemailaddress" value="%&s_mobilemailaddress&%" size="40" maxlen="255" /></td>
+										</tr>
+<!-- 削除項目 2010/03/25 -->
+<!--
+				<tr>
+					<th colspan="2">メールアドレス登録</th>
+					<td bgcolor=#ffffff>
+						<input type="radio" class="radio" name="mailstatus_flag" value="0" checked id="mailstatus_flag0" /><label for="mailstatus_flag0">&nbsp;指定なし&nbsp;</label>
+						<input type="radio" class="radio" name="mailstatus_flag" value="2" id="mailstatus_flag2" /><label for="mailstatus_flag2">&nbsp;登録有り&nbsp;</label>
+						<input type="radio" class="radio" name="mailstatus_flag" value="1" id="mailstatus_flag1" /><label for="mailstatus_flag1">&nbsp;登録無し&nbsp;</label>
+					</td>
+				</tr>
+-->
+										<tr>
+											<th align="center" colspan="2">キャリア</th>
+											<td bgcolor=#ffffff>
+__IfsAllCarrier__
+<input type="checkbox" name="carrier" value="1" CHECKED class="box" id="carrier1" /><label for="carrier1">&nbsp;NTTドコモ&nbsp;</label>
+<input type="checkbox" name="carrier" value="3" CHECKED class="box" id="carrier3" /><label for="carrier3">&nbsp;AU&nbsp;</label>
+<input type="checkbox" name="carrier" value="2" CHECKED class="box" id="carrier2" /><label for="carrier2">&nbsp;SoftBank&nbsp;</label>
+__IfsAllCarrier__
+__IfsDoCoMo__
+<input type="checkbox" name="carrier" value="1" CHECKED class="box" id="carrier1" /><label for="carrier1">&nbsp;NTTドコモ&nbsp;</label>
+<input type="checkbox" name="carrier" value="3" class="box" id="carrier3" /><label for="carrier3">&nbsp;AU&nbsp;</label>
+<input type="checkbox" name="carrier" value="2" class="box" id="carrier2" /><label for="carrier2">&nbsp;SoftBank&nbsp;</label>
+__IfsDoCoMo__
+__IfsSoftBank__
+<input type="checkbox" name="carrier" value="1" class="box" id="carrier1" /><label for="carrier1">&nbsp;NTTドコモ&nbsp;</label>
+<input type="checkbox" name="carrier" value="3" class="box" id="carrier3" /><label for="carrier3">&nbsp;AU&nbsp;</label>
+<input type="checkbox" name="carrier" value="2" CHECKED class="box" id="carrier2" /><label for="carrier2">&nbsp;SoftBank&nbsp;</label>
+__IfsSoftBank__
+__IfsAU__
+<input type="checkbox" name="carrier" value="1" class="box" id="carrier1" /><label for="carrier1">&nbsp;NTTドコモ&nbsp;</label>
+<input type="checkbox" name="carrier" value="3" CHECKED class="box" id="carrier3" /><label for="carrier3">&nbsp;AU&nbsp;</label>
+<input type="checkbox" name="carrier" value="2" class="box" id="carrier2" /><label for="carrier2">&nbsp;SoftBank&nbsp;</label>
+__IfsAU__
+__IfsSoftBankAU__
+<input type="checkbox" name="carrier" value="1" class="box" id="carrier1" /><label for="carrier1">&nbsp;NTTドコモ&nbsp;</label>
+<input type="checkbox" name="carrier" value="3" CHECKED class="box" id="carrier3" /><label for="carrier3">&nbsp;AU&nbsp;</label>
+<input type="checkbox" name="carrier" value="2" CHECKED class="box" id="carrier2" /><label for="carrier2">&nbsp;SoftBank&nbsp;</label>
+__IfsSoftBankAU__
+__IfsDoCoMoSoftBank__
+<input type="checkbox" name="carrier" value="1" CHECKED class="box" id="carrier1" /><label for="carrier1">&nbsp;NTTドコモ&nbsp;</label>
+<input type="checkbox" name="carrier" value="3" class="box" id="carrier3" /><label for="carrier3">&nbsp;AU&nbsp;</label>
+<input type="checkbox" name="carrier" value="2" CHECKED class="box" id="carrier2" /><label for="carrier2">&nbsp;SoftBank&nbsp;</label>
+__IfsDoCoMoSoftBank__
+__IfsDoCoMoAU__
+<input type="checkbox" name="carrier" value="1" CHECKED class="box" id="carrier1" /><label for="carrier1">&nbsp;NTTドコモ&nbsp;</label>
+<input type="checkbox" name="carrier" value="3" CHECKED class="box" id="carrier3" /><label for="carrier3">&nbsp;AU&nbsp;</label>
+<input type="checkbox" name="carrier" value="2" class="box" id="carrier2" /><label for="carrier2">&nbsp;SoftBank&nbsp;</label>
+__IfsDoCoMoAU__
+
+
+
+											</td>
+										</tr>
+										<tr>
+											<th align="center" colspan="2">会員状態</th>
+											<td bgcolor=#ffffff>
+__IfsAllStatus__
+												<input type="checkbox" class="box" name="status_flag" value="1" checked id="status_flag1" /><label FOR="status_flag1">&nbsp;会員&nbsp;</label>
+												<input type="checkbox" class="box" name="status_flag" value="2" checked id="status_flag2" /><label FOR="status_flag2">&nbsp;退会会員&nbsp;</label>
+__IfsAllStatus__
+
+__IfsMemberStatus__
+												<input type="checkbox" class="box" name="status_flag" value="1" checked id="status_flag1" /><label FOR="status_flag1">&nbsp;会員&nbsp;</label>
+												<input type="checkbox" class="box" name="status_flag" value="2" id="status_flag2" /><label FOR="status_flag2">&nbsp;退会会員&nbsp;</label>
+__IfsMemberStatus__
+__IfsWithdrawnMemberStatus__
+												<input type="checkbox" class="box" name="status_flag" value="1" id="status_flag1" /><label FOR="status_flag1">&nbsp;会員&nbsp;</label>
+												<input type="checkbox" class="box" name="status_flag" value="2" checked id="status_flag2" /><label FOR="status_flag2">&nbsp;退会会員&nbsp;</label>
+__IfsWithdrawnMemberStatus__
+
+											</td>
+										</tr>
+										<tr>
+											<th colspan="2">会員種別<a href="#" class="hintanchor" onMouseover="showhint('不正行為による会員登録', this, event, '142px')">[?]</a></th>
+											<td bgcolor=#ffffff>
+												<input type="radio" class="radio" name="memberstatus_flag" value="0"__IfBothMember__ checked__IfBothMember__ id="memberstatus_flag0" /><label FOR="memberstatus_flag0">&nbsp;指定無し&nbsp;</label>
+												<input type="radio" class="radio" name="memberstatus_flag" value="1"__IfOKMember__ checked__IfOKMember__ id="memberstatus_flag1" /><label FOR="memberstatus_flag1">&nbsp;正常登録会員&nbsp;</label>
+												<input type="radio" class="radio" name="memberstatus_flag" value="5"__IfNotOKMember__ checked__IfNotOKMember__ id="memberstatus_flag5" /><label FOR="memberstatus_flag5">&nbsp;不正登録会員&nbsp;</label>
+											</td>
+										</tr>
+										<tr>
+											<th align="center" colspan="2">登録日時</th>
+											<td bgcolor=#ffffff>
+												<input type="text" name="frsdate" value="%&s_frsdate&%" size="12" maxlength="12" onClick="cal1.write(); cal2.hide();" onChange="cal1.getFormValue(); cal1.hide();" />
+												<span id="cal_frsdate"></span>　から　
+												<input type="text" name="fredate" value="%&s_fredate&%" size="12" maxlength="12" onClick="cal2.write(); cal1.hide();" onChange="cal2.getFormValue(); cal2.hide();" />
+												<span id="cal_fredate"></span>　まで
+											</td>
+										</tr>
+										<tr>
+											<th align="center" colspan="2">年齢</th>
+											<td bgcolor=#ffffff>
+												<input type=text name="frsage" value="%&s_frsage&%" size="4" maxlength="3" />　歳から 
+												<input type=text name="freage" value="%&s_freage&%"size="4" maxlength="3" />　歳まで
+											</td>
+										</tr>
+										<tr>
+											<th align="center" colspan="2">広告コード</th>
+											<td bgcolor=#ffffff>
+												<!--<input type=text name="adv_code" value="" size="15" maxlen="10" />-->
+												<select name="adv_code">
+												<option value="">-- --</option>
+__LoopACDList__
+												<option value="%&pacd&%">%&pacd&%【%&pclient_name&%】</option>
+__LoopACDList__
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<th align="center" colspan="2">性別</th>
+											<td bgcolor=#ffffff>
+<!--
+IfsMale
+												<input type=checkbox class="box" name="sex" value="1" checked id="sex1" /><label FOR="sex1">&nbsp;男性&nbsp;</label>
+												<input type=checkbox class="box" name="sex" value="2" id="sex2" /><label FOR="sex2">&nbsp;女性&nbsp;</label>
+IfsMale
+IfsFemale
+												<input type=checkbox class="box" name="sex" value="1" id="sex1" /><label FOR="sex1">&nbsp;男性&nbsp;</label>
+												<input type=checkbox class="box" name="sex" value="2" checked id="sex2" /><label FOR="sex2">&nbsp;女性&nbsp;</label>
+IfsFemale
+IfsAllSex
+-->
+												<input type=checkbox class="box" name="sex" value="1" checked id="sex1" /><label FOR="sex1">&nbsp;男性&nbsp;</label>
+												<input type=checkbox class="box" name="sex" value="2" checked id="sex2" /><label FOR="sex2">&nbsp;女性&nbsp;</label>
+<!--
+IfsAllSex
+-->
+											</td>
+										</tr>
+
+				<tr>
+					<th colspan="2">血液型</th>
+					<td bgcolor=#ffffff>
+						&nbsp;<input type=checkbox name="bloodtype" value="1" checked />&nbsp;A
+						&nbsp;<input type=checkbox name="bloodtype" value="2" checked />&nbsp;AB
+						&nbsp;<input type=checkbox name="bloodtype" value="3" checked />&nbsp;B
+						&nbsp;<input type=checkbox name="bloodtype" value="4" checked />&nbsp;O
+					</td>
+				</tr>
+
+				<tr>
+					<th colspan="2">系統</th>
+					<td bgcolor="#ffffff">
+&nbsp;<input type="checkbox" class="box" name="personality" value="1" />&nbsp;普通系
+&nbsp;<input type="checkbox" class="box" name="personality" value="2" />&nbsp;ｷﾞｬﾙ系
+&nbsp;<input type="checkbox" class="box" name="personality" value="3" />&nbsp;姫系
+&nbsp;<input type="checkbox" class="box" name="personality" value="4" />&nbsp;お嬢系
+&nbsp;<input type="checkbox" class="box" name="personality" value="5" />&nbsp;ｷﾚｲ目系
+&nbsp;<input type="checkbox" class="box" name="personality" value="6" />&nbsp;かわいい系
+&nbsp;<input type="checkbox" class="box" name="personality" value="7" />&nbsp;ｺﾞｰｼﾞｬｽ系
+&nbsp;<input type="checkbox" class="box" name="personality" value="8" />&nbsp;萌え系
+&nbsp;<input type="checkbox" class="box" name="personality" value="9" />&nbsp;おとなしめ系
+&nbsp;<input type="checkbox" class="box" name="personality" value="10" />&nbsp;癒し系
+&nbsp;<input type="checkbox" class="box" name="personality" value="11" />&nbsp;さわやか系
+&nbsp;<input type="checkbox" class="box" name="personality" value="12" />&nbsp;ｷﾞｬｸﾞ系
+&nbsp;<input type="checkbox" class="box" name="personality" value="13" />&nbsp;体育会系
+&nbsp;<input type="checkbox" class="box" name="personality" value="14" />&nbsp;いかつい系
+&nbsp;<input type="checkbox" class="box" name="personality" value="15" />&nbsp;ｷﾞｬﾙ男系
+&nbsp;<input type="checkbox" class="box" name="personality" value="16" />&nbsp;ﾎｽﾄ系
+&nbsp;<input type="checkbox" class="box" name="personality" value="17" />&nbsp;ｼﾞｬﾆｰｽﾞ系
+&nbsp;<input type="checkbox" class="box" name="personality" value="18" />&nbsp;硬派系
+&nbsp;<input type="checkbox" class="box" name="personality" value="19" />&nbsp;ﾔﾝｷｰ系
+&nbsp;<input type="checkbox" class="box" name="personality" value="20" />&nbsp;ｱｷﾊﾞ系
+<br />
+						<input value="　全　○　" type="button" class="update" onclick="form1.selectAllOptions('personality',true);" />／
+						<input value="　全　×　" type="button" class="update" onclick="form1.selectAllOptions('personality',false);" />
+					</td>
+				</tr>
+
+				<tr>
+					<th colspan="2">職業</th>
+					<td bgcolor="#ffffff">
+&nbsp;<input type="checkbox" class="box" name="occupation" value="1" />&nbsp;小学生
+&nbsp;<input type="checkbox" class="box" name="occupation" value="2" />&nbsp;中学生
+&nbsp;<input type="checkbox" class="box" name="occupation" value="3" />&nbsp;高校生
+&nbsp;<input type="checkbox" class="box" name="occupation" value="4" />&nbsp;専門学校生
+&nbsp;<input type="checkbox" class="box" name="occupation" value="5" />&nbsp;大学生
+&nbsp;<input type="checkbox" class="box" name="occupation" value="6" />&nbsp;大学院生
+&nbsp;<input type="checkbox" class="box" name="occupation" value="7" />&nbsp;浪人生
+&nbsp;<input type="checkbox" class="box" name="occupation" value="8" />&nbsp;ﾌﾘｰﾀｰ
+&nbsp;<input type="checkbox" class="box" name="occupation" value="9" />&nbsp;ﾆｰﾄ
+&nbsp;<input type="checkbox" class="box" name="occupation" value="10" />&nbsp;夢追人
+&nbsp;<input type="checkbox" class="box" name="occupation" value="11" />&nbsp;自営業
+&nbsp;<input type="checkbox" class="box" name="occupation" value="12" />&nbsp;職人
+&nbsp;<input type="checkbox" class="box" name="occupation" value="13" />&nbsp;営業・事務
+&nbsp;<input type="checkbox" class="box" name="occupation" value="14" />&nbsp;医療・保健
+&nbsp;<input type="checkbox" class="box" name="occupation" value="15" />&nbsp;教育・福祉
+&nbsp;<input type="checkbox" class="box" name="occupation" value="16" />&nbsp;公務員
+&nbsp;<input type="checkbox" class="box" name="occupation" value="17" />&nbsp;ｻｰﾋﾞｽ
+&nbsp;<input type="checkbox" class="box" name="occupation" value="18" />&nbsp;法務
+&nbsp;<input type="checkbox" class="box" name="occupation" value="19" />&nbsp;経営
+&nbsp;<input type="checkbox" class="box" name="occupation" value="20" />&nbsp;ﾏｽｺﾐ・芸能
+&nbsp;<input type="checkbox" class="box" name="occupation" value="21" />&nbsp;芸術・ﾃﾞｻﾞｲﾝ
+&nbsp;<input type="checkbox" class="box" name="occupation" value="22" />&nbsp;技術・理工
+&nbsp;<input type="checkbox" class="box" name="occupation" value="23" />&nbsp;国際・貿易
+&nbsp;<input type="checkbox" class="box" name="occupation" value="24" />&nbsp;主婦
+&nbsp;<input type="checkbox" class="box" name="occupation" value="25" />&nbsp;その他
+<br />
+						<input value="　全　○　" type="button" class="update" onclick="form1.selectAllOptions('occupation',true);" />／
+						<input value="　全　×　" type="button" class="update" onclick="form1.selectAllOptions('occupation',false);" />
+					</td>
+				</tr>
+
+				<tr>
+					<th colspan="2">地域</th>
+					<td bgcolor=#ffffff>
+<input type=checkbox class="box" name="prefecture" value="1" id="prefecture1" checked /><label FOR="prefecture1">&nbsp;北海道&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="2" id="prefecture2" checked /><label FOR="prefecture2">&nbsp;青森&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="3" id="prefecture3" checked /><label FOR="prefecture3">&nbsp;岩手&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="4" id="prefecture4" checked /><label FOR="prefecture4">&nbsp;宮城&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="5" id="prefecture5" checked /><label FOR="prefecture5">&nbsp;秋田&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="6" id="prefecture6" checked /><label FOR="prefecture6">&nbsp;山形&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="7" id="prefecture7" checked /><label FOR="prefecture7">&nbsp;福島&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="8" id="prefecture8" checked /><label FOR="prefecture8">&nbsp;茨城&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="9" id="prefecture9" checked /><label FOR="prefecture9">&nbsp;栃木&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="10" id="prefecture10" checked /><label FOR="prefecture10">&nbsp;群馬&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="11" id="prefecture11" checked /><label FOR="prefecture11">&nbsp;埼玉&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="12" id="prefecture12" checked /><label FOR="prefecture12">&nbsp;千葉&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="13" id="prefecture13" checked /><label FOR="prefecture13">&nbsp;東京&nbsp;</label>
+
+<input type=checkbox class="box" name="prefecture" value="14" id="prefecture14" checked /><label FOR="prefecture14">&nbsp;神奈川&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="15" id="prefecture15" checked /><label FOR="prefecture15">&nbsp;新潟&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="16" id="prefecture16" checked /><label FOR="prefecture16">&nbsp;富山&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="17" id="prefecture17" checked /><label FOR="prefecture17">&nbsp;石川&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="18" id="prefecture18" checked /><label FOR="prefecture18">&nbsp;福井&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="19" id="prefecture19" checked /><label FOR="prefecture19">&nbsp;山梨&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="20" id="prefecture20" checked /><label FOR="prefecture20">&nbsp;長野&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="21" id="prefecture21" checked /><label FOR="prefecture21">&nbsp;岐阜&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="22" id="prefecture22" checked /><label FOR="prefecture22">&nbsp;静岡&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="23" id="prefecture23" checked /><label FOR="prefecture23">&nbsp;愛知&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="24" id="prefecture24" checked /><label FOR="prefecture24">&nbsp;三重&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="25" id="prefecture25" checked /><label FOR="prefecture25">&nbsp;滋賀&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="26" id="prefecture26" checked /><label FOR="prefecture26">&nbsp;京都&nbsp;</label>
+
+<input type=checkbox class="box" name="prefecture" value="27" id="prefecture27" checked /><label FOR="prefecture27">&nbsp;大阪&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="28" id="prefecture28" checked /><label FOR="prefecture28">&nbsp;兵庫&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="29" id="prefecture29" checked /><label FOR="prefecture29">&nbsp;奈良&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="30" id="prefecture30" checked /><label FOR="prefecture30">&nbsp;和歌山&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="31" id="prefecture31" checked /><label FOR="prefecture31">&nbsp;鳥取&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="32" id="prefecture32" checked /><label FOR="prefecture32">&nbsp;島根&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="33" id="prefecture33" checked /><label FOR="prefecture33">&nbsp;岡山&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="34" id="prefecture34" checked /><label FOR="prefecture34">&nbsp;広島&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="35" id="prefecture35" checked /><label FOR="prefecture35">&nbsp;山口&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="36" id="prefecture36" checked /><label FOR="prefecture36">&nbsp;徳島&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="37" id="prefecture37" checked /><label FOR="prefecture37">&nbsp;香川&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="38" id="prefecture38" checked /><label FOR="prefecture38">&nbsp;愛媛&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="39" id="prefecture39" checked /><label FOR="prefecture39">&nbsp;高知&nbsp;</label>
+
+<input type=checkbox class="box" name="prefecture" value="40" id="prefecture40" checked /><label FOR="prefecture40">&nbsp;福岡&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="41" id="prefecture41" checked /><label FOR="prefecture41">&nbsp;佐賀&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="42" id="prefecture42" checked /><label FOR="prefecture42">&nbsp;長崎&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="43" id="prefecture43" checked /><label FOR="prefecture43">&nbsp;熊本&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="44" id="prefecture44" checked /><label FOR="prefecture44">&nbsp;大分&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="45" id="prefecture45" checked /><label FOR="prefecture45">&nbsp;宮崎&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="46" id="prefecture46" checked /><label FOR="prefecture46">&nbsp;鹿児島&nbsp;</label>
+<input type=checkbox class="box" name="prefecture" value="47" id="prefecture47" checked /><label FOR="prefecture47">&nbsp;沖縄&nbsp;</label>
+<br />
+						<input value="　全　○　" type="button" class="update" onclick="form1.selectAllOptions('prefecture',true);" />
+						<input value="　全　×　" type="button" class="update" onclick="form1.selectAllOptions('prefecture',false);" />
+					</td>
+				</tr>
+
+										<tr>
+											<th align="center" colspan="2">表示順</th>
+											<td bgcolor=#ffffff>
+												<select name="orderby">
+												<option value="1">登録日</option>
+												<option value="2">会員ID</option>
+												<option value="3">キャリア</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<th colspan="2">退会日時</th>
+											<td bgcolor=#ffffff>
+											    <input type="text" name="fdsdate" value="%&s_fdsdate&%" size="12" maxlength="12" onClick="cal3.write(); cal4.hide();" onChange="cal3.getFormValue(); cal3.hide();" />
+												<span id="cal_fdsdate"></span>　から　
+												<input type="text" name="fdedate" value="%&s_fdedate&%" size="12" maxlength="12" onClick="cal4.write(); cal3.hide();" onChange="cal4.getFormValue(); cal4.hide();" />
+												<span id="cal_fdedate"></span>　まで
+											</td>
+										</tr>
+										<tr>
+											<td bgcolor="white" colspan=3 align=center>
+												<input type="submit" name="memserch" value=" 検　索 " class="button" style="width:40%;"  onclick="init();" />
+												&nbsp;<input type="reset" class="button" value="リセット" />
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+					<input type="hidden" name="app" value="AppMember" />
+					<input type="hidden" name="action" value="searchMember" />
+					</form>
+				</div>
+
+				<div>検索条件　:　%&SEARCHQUERYMESSAGE&%</div>
+
+<!--
+				<div id="freezingDiv" style="overflow:auto; width:780px; height:480px">
+-->
+				<div style="width:850px">
+					<table class="datagrid" cellspacing="0" cellpadding="2" rules="all" bordercolor="#3366CC" border="1" id="DataGrid1" style="background-color:White;border-color:#3366CC;border-width:1px;border-style:None;width:100%;border-collapse:collapse;">
+__IfSearchResultExists__
+						<!-- // ページリンクナビ BEGIN -->
+						<tr>
+							<td colspan="10" align="left">
+							<form action="/mod-perl/download.mpl" method="post"><input type="image" src="/images/csv_16_16.png" width="16" height="16" class="hintanchor1" onMouseover="showhint('結果をCSVダウンロード', this, event, '140px')" /></form>
+							%&pagenavi&%
+							</td>
+						</tr>
+						<!-- ページリンクナビ END // -->
+						<tr style="color:#CCCCFF;background-color:#003399;font-weight:bold;">
+							<th width="40"><br /></th>
+							<th width="50">会員ＩＤ</th>
+							<th width="40">状態</th>
+							<th width="190">dcmguid/up_subno</th>
+							<!--<th width="190">固体識別NO(subno)</th>-->
+							<th width="38">キ</th>
+							<!--<th>会員種別</th>-->
+							<th width="60">広告名</th>
+							<th width="30">性</th>
+							<th width="54">入会日</th>
+							<th width="58">退会日</th>
+							<!--<th>再入会日</th>-->
+							<th>USERAGENT</th>
+						</tr>
+__LoopSearchMemberList__
+						<tr class="%&cssstyle&%">
+							<td width="40" align="center">
+								<a id="%&owid&%" href="/app.mpl?app=AppMember;action=detailMember;owid=%&owid&%;" onclick="init();" id="content">
+								<img src="/images/icn_file_edit.png" width="16" height="16" border="0" class="hintanchor" onMouseover="showhint('会員ID:%&owid&%の詳細表示', this, event, '120px')" />
+								</a>
+							</td>
+							<td width="50" align="center">%&owid&%</td>
+							<td width="40" align="center">%&statusDescription&%</td>
+							<td width="190" align="center">%&guid&%</td>
+							<!-- <td width="190" align="center">subno</td> -->
+							<td width="38" align="center"><img src="/images/%&CARRIERPIC&%.gif" width="19" height="19" /></td>
+							<!--<td width="60" align="center">%&MEMBER_STATUS&%</td>-->
+							<td width="60" align="center">%&client_name&%</td>
+							<td width="30" align="center">
+								__IfSexUnKnown__ 不 __IfSexUnKnown__
+								__IfMale__ 男  __IfMale__
+								__IfFemale__ 女 __IfFemale__
+							</td>
+							<td width="54" align="center">%&registration_date&%</td>
+							<td width="58" align="center"><font style="color:#ff0000;">%&withdraw_date&%</font></td>
+							<!--<td width="60" align="center">%&reregistration_date&%</td>-->
+							<td align="center">%&useragent&%</td>
+						</tr>
+__LoopSearchMemberList__
+						<tr style="color:#CCCCFF;background-color:#003399;font-weight:bold;">
+							<th width="40"><br /></th>
+							<th width="50">会員ＩＤ</th>
+							<th width="40">状態</th>
+							<th width="190">dcmguid/up_subno</th>
+							<th width="38">キ</th>
+							<!--<th>会員種別</th>-->
+							<th width="60">広告名</th>
+							<th width="30">性</th>
+							<th width="54">入会日</th>
+							<th width="58">退会日</th>
+							<!--<th>再入会日</th>-->
+							<th>USERAGENT</th>
+						</tr>
+						<tr>
+							<td colspan="10" align="left">
+							<form action="/mod-perl/download.mpl" method="post"><input type="image" src="/images/csv_16_16.png" width="16" height="16" class="hintanchor1" onMouseover="showhint('結果をCSVダウンロード', this, event, '140px')" /></form>
+							<!-- ページリンクナビ -->
+							%&pagenavi&%
+							</td>
+						</tr>
+__IfSearchResultExists__
+
+__IfSearchResultNotExists__
+						<tr>
+							<td colspan="10">該当結果は<font color="red">０</font>件です。</td>
+						</tr>
+__IfSearchResultNotExists__
+					</table>
+				</div>
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+%&DUMP&%
+</div><!-- ---------------------------------------------------------------------------- -->
+</body>
+</html>

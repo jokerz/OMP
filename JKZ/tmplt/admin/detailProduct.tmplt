@@ -1,0 +1,896 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>商品管理</title>
+<link rel="stylesheet" href="/style.css" type="text/css" charset="Shift_JIS" />
+<link rel="stylesheet" type="text/css" href="/css/lightbox.css" />
+<link rel="stylesheet" type="text/css" href="/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" href="/build/container/assets/skins/sam/container.css" />
+<script src="/js/prototype.js" type="text/javascript"></script>
+<script src="/build/utilities/utilities.js" type="text/javascript"></script>
+<script src="/build/container/container.js" type="text/javascript"></script>
+<script src="/js/myIndicator.js" type="text/javascript"></script>
+<script type="text/javascript">//<![CDATA[
+	function update_msg () { update = confirm("データを更新します.よろしいですか?"); return update }
+	function del_msg () { delimg = confirm("画像を削除します。よろしいですか?"); return delimg }
+//]]></script>
+<script src="/js/popuphint.js" type="text/javascript"></script>
+<script src="/js/scriptaculous.js?load=effects" type="text/javascript"></script>
+<script src="/js/lightbox.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1>UPSTAIR  </h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞ 商品管理 ＞<a href="/app.mpl?app=AppProduct;action=searchProduct">商品検索</a>＞<strong>商品詳細</strong>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>商品詳細%&BENCH_TIME&%</h2>
+		</div>
+
+		<div id="list">
+				<div id="content"></div>
+				<script src="/js/myIndicator.js" type="text/javascript"></script>
+<!--
+			<div align="right">
+				<font size="-2">
+				項目「<font style="color:#ff0000;">商品名</font>」は<font style="color:#ff0000;">検索対象</font>となります<br />
+				項目「<font style="color:#ff0000;">説明</font>」は<font style="color:#ff0000;">検索対象</font>となります<br />
+				</font>
+			</div>
+-->
+<!-- 商品詳細編集フォーム BEGIN -->
+__IfModifyProductForm__
+				<table border="0" cellspacing="0" cellpadding="2" width="100%" rules="all" class="datagrid">
+					<tr><th align="center" colspan="3">商品ID:<b>%&product_id&%</b>&nbsp;商品名:<b>%&product_name&%</b> 詳細情報</th></tr>
+					<tr>
+						<th>商品ID</th>
+						<td><input type="text" name="product_id" value="%&product_id&%" size="26" readonly /></td>
+						<td width="40%" rowspan="18" valign="top">
+%&DUMP&%
+	<!-- // 通常賞品商品の場合に表示 BEGIN -->
+	__IfNormalProdcut__
+	<table cellpadding="1" cellspacing="0" align="center" border="0" width="100%">
+<tr><th colspan="2">画像登録</th></tr>
+<form method="post" action="/app.mpl" enctype="multipart/form-data" target="_self">
+<tr>
+	<td><input type="file" name="image" size="16" maxlength="100" /></td>
+	<td><input type="file" name="image" size="16" maxlength="100" /></td>
+</tr>
+<tr>
+	<td align="center" colspan="2">
+	<input type="submit" name=".submit" value="　画　像　登　録　" style="height:80%;font-size:14px;" onclick="init();" id="content" />
+	</td>
+</tr>
+				<input type="hidden" name="app" value="AppImage" />
+				<input type="hidden" name="action" value="uploadImageM" />
+				<input type="hidden" name="product_id" value="%&product_id&%" />
+				<input type="hidden" name="subcategorym_id" value="%&subcategorym_id&%" />
+</form>
+__IfExistsImageData__
+<!--
+		<tr>
+			<th rowspan="4">商品</th>
+			<th colspan="2">サイズ：240px X 320px</th>
+		</tr>
+			<td align="center" style="width:90%;" colspan="2">
+				<img src="/mod-perl/serveImageDB.mpl?p=%&product_id&%;i=1;s=1" border="0" />
+			</td>
+		</tr>
+		<tr>
+			<th>サイズ：60px X 80px</th>
+			<th>サイズ：30px X 40px</th>
+		</tr>
+		<tr>
+			<td align="center">
+				<img src="/mod-perl/serveImageDB.mpl?p=%&product_id&%;i=1;s=2" border="0" />
+			</td>
+			<td align="center">
+				<img src="/mod-perl/serveImageDB.mpl?p=%&product_id&%;i=1;s=3" border="0" />
+			</td>
+		</tr>
+
+
+__IfExistsImageData__
+		<tr>
+			<td colspan="3" align="center">
+<form method="post" action="/app.mpl" enctype="multipart/form-data">
+				<input type="file" name="image" /><br />
+				<input type="file" name="image" /><br />
+				<input type="file" name="image" /><br />
+				<input type="submit" name=".submit" value="　画　像　登　録　" onclick="init();" id="content" />
+				<input type="hidden" name="app" value="AppImage" />
+				<input type="hidden" name="action" value="uploadImageM" />
+				<input type="hidden" name="product_id" value="%&product_id&%" />
+				<input type="hidden" name="subcategorym_id" value="%&subcategorym_id&%" />
+</form>
+__IfExistsImageData__
+<br />
+				<div align="right">
+				<a onclick="del_msg(); return delimg" href="/app.mpl?app=AppImage;action=deleteImageM;p=%&product_id&%;i=%&id&%" class="hintanchor2" onMouseover="showhint('画像%&id&%の削除', this, event, '80px')">
+				<img border="0" src="/images/icn_file_delete.png" width="16" height="16" />
+				</a>画像の削除
+				</div>
+__IfExistsImageData__
+			</td>
+		</tr>
+-->
+
+<tr><th colspan="2">商品画像一覧</th></tr>
+__LoopImageList__
+%&TRBEGIN&%
+<td width="50%">
+<table width="100%" rules="all" class="datagrid">
+<tr><th>画像ID:<input type="text" size="3" value="%&id&%" readonly /></th></tr>
+<tr><td height="64" align="center">
+<a rel="lightbox" href="/mod-perl/serveImageDB.mpl?p=%&productm_id&%;i=%&id&%;s=1">
+<img src="/mod-perl/serveImageDB.mpl?p=%&productm_id&%;i=%&id&%;s=2" border="0" /></a>
+</td></tr>
+<tr><td>
+<form method="post" action="/app.mpl" enctype="multipart/form-data">
+<input type="file" name="image"  size="2" /><input type="submit" name=".submit" value="画像変更" />
+<input type="hidden" name="app" value="AppImage" />
+<input type="hidden" name="action" value="uploadImageM" />
+<input type="hidden" name="product_id" value="%&productm_id&%" />
+<input type="hidden" name="subcategorym_id" value="%&subcategory_id&%" />
+<input type="hidden" name="id" value="%&id&%" />
+</form>
+</td></tr>
+<tr><td>
+<a onclick="del_msg(); return delimg" href="/app.mpl?app=AppImage;action=deleteImageM;p=%&productm_id&%;i=%&id&%" class="hintanchor2" onMouseover="showhint('画像%&id&%の削除', this, event, '80px')">
+<img border="0" src="/images/icn_file_delete.png" width="16" height="16" /></a>画像の削除
+</td></tr>
+</table>
+</td>
+%&TREND&%
+__LoopImageList__
+
+	</table>
+	__IfNormalProdcut__
+	<!-- // 通常賞品商品の場合に表示 END -->
+
+	<!-- // デコメ・プチデコ・絵文字商品の場合に表示 BEGIN -->
+	__IfDecoPDecoEmojiProduct__
+	<table cellpadding="1" cellspacing="0" align="center" border="0" width="100%">
+		<caption align="right">サンプル画像は自動で生成されます。</caption>
+__IfExistsImageData__
+		<tr>
+			<th rowspan="3">デコメ・絵文字</th>
+			<th>配信画像</th>
+			<td align="center" style="width:90%;">
+				<img src="/mod-perl/serveImageDB.mpl?p=%&product_id&%;s=1" border="0" />
+			</td>
+		</tr>
+		<tr>
+			<th>サンプル画像</th>
+			<td align="center">
+				<img src="/mod-perl/serveImageDB.mpl?p=%&product_id&%;s=2" border="0" />
+			</td>
+		</tr>
+__IfExistsImageData__
+		<tr>
+			<td colspan="2" align="center">
+<form method="post" action="/app.mpl" enctype="multipart/form-data">
+				<input type="file" name="image"  size="2" />&nbsp;<input type="submit" name=".submit" value="　画　像　登　録　" onclick="init();" id="content" />
+				<input type="hidden" name="app" value="AppImage" />
+				<input type="hidden" name="action" value="uploadImageM" />
+				<input type="hidden" name="product_id" value="%&product_id&%" />
+				<!--<input type="hidden" name="category_id" value="" />-->
+				<input type="hidden" name="subcategorym_id" value="%&subcategorym_id&%" />
+				<input type="hidden" name="id" value="%&id&%" />
+</form>
+__IfExistsImageData__
+<br />
+				<div align="right">
+				<a onclick="del_msg(); return delimg" href="/app.mpl?app=AppImage;action=deleteImageM;p=%&product_id&%;i=%&id&%" class="hintanchor2" onMouseover="showhint('画像%&id&%の削除', this, event, '80px')">
+				<img border="0" src="/images/icn_file_delete.png" width="16" height="16" />
+				</a>画像の削除
+				</div>
+__IfExistsImageData__
+			</td>
+		</tr>
+
+
+	</table>
+	__IfDecoPDecoEmojiProduct__
+	<!-- デコメ・プチデコ・絵文字商品の場合に表示 END // -->
+
+<!-- +++++++++++++++++ FlashFile ++++++++++++++++++++++++++ BEGIN -->
+	<!-- // 待ち受けFLASH商品の場合に表示 BEGIN -->
+	__IfSwfProduct__
+
+		__IfExistsFlashData__
+		<table cellpadding="3" cellspacing="0" align="center" border="0" width="100%">
+
+		<tr>
+			<th rowspan="4">フラッシュデータ</th>
+			<th colspan="2">MIME TYPE</th>
+			<td style="width:50%;">%&mime_type&%</td>
+		</tr>
+		<tr>
+			<th colspan="2">サイズ</th>
+			<td><i>%&file_size&%</i> byte</td>
+		</tr>
+		<tr>
+			<th colspan="2">高さ x 幅</th>
+			<td><i>%&height&%</i> x <i>%&width&%</i> pixel</td>
+		</tr>
+		<tr>
+			<td colspan="3" style="width:50%;">
+<form method="post" action="/app.mpl" enctype="multipart/form-data">
+			<input type="file" name="swffile" size="2" maxlength="100" />
+			&nbsp;
+			<input type="submit" name="submit" value="　変　更　" onclick="init();" id="content" />
+			<input type="hidden" name="app" value="AppDataTransfer" />
+			<input type="hidden" name="action" value="uploadSwfFile" />
+			<input type="hidden" name="product_id" value="%&product_id&%" />
+</form>
+			</td>
+		</tr>
+			<td align="center" colspan="4">
+				<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" width="240" height="320">
+				<param name="allowScriptAccess" value="sameDomain" />
+				<param name="movie" value="/mod-perl/serveFlashDB.mpl?p=%&product_id&%;i=1" />
+				<param name="quality" value="high" />
+				<param name="bgcolor" value="#000000" /><param name="LOOP" value="false">
+				<embed src="http://cms1mp.up-stair.jp/mod-perl/serveFlashDB.mpl?p=%&product_id&%;i=1" quality="high" bgcolor="#000000" width="240" height="320" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" loop="false" />
+				</embed> 
+				</object>
+			</td>
+		</tr>
+
+		<tr><td colspan="4"><br /></td></tr>
+
+		<tr>
+			<th rowspan="3">サンプル画像</th>
+			<td rowspan="3" colspan="2" align="center">
+				60 x 80 s=2
+				<img src="/mod-perl/serveImageDB.mpl?p=%&product_id&%;s=2" border="0" />
+			</td>
+			<td>
+				<a rel="lightbox" href="/mod-perl/serveImageDB.mpl?p=%&product_id&%;s=1" class="hintanchor2" onMouseover="showhint('ﾌﾙｻｲｽﾞ画像を表示', this, event, '80px')">
+				<img src="/images/zoomin16.png" width="16" height="16" border="0" />
+				</a>240 x 320 s=1<br />
+				<a rel="lightbox" href="/mod-perl/serveImageDB.mpl?p=%&product_id&%;s=3">
+				<img src="/images/zoomout16.png" width="16" height="16" border="0" />
+				</a>&nbsp;30 x &nbsp;40 s=3<br />
+			</td>
+		</tr>
+		<tr>
+			<td>
+<form method="post" action="/app.mpl" enctype="multipart/form-data">
+				<input type="file" name="image"  size="2" />&nbsp;<input type="submit" name=".submit" value="　画　像　変　更　" onclick="init();" id="content" />
+				<input type="hidden" name="app" value="AppImage" />
+				<input type="hidden" name="action" value="uploadImageM" />
+				<input type="hidden" name="product_id" value="%&product_id&%" />
+				<!--<input type="hidden" name="category_id" value="" />-->
+				<input type="hidden" name="subcategorym_id" value="%&subcategorym_id&%" />
+				<input type="hidden" name="id" value="%&id&%" />
+</form>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<a onclick="del_msg(); return delimg" href="/app.mpl?app=AppImage;action=deleteImageM;p=%&product_id&%;i=%&id&%" class="hintanchor2" onMouseover="showhint('画像%&id&%の削除', this, event, '80px')">
+				<img border="0" src="/images/icn_file_delete.png" width="16" height="16" />
+				</a>画像の削除
+			</td>
+		</tr>
+
+		</table>
+		__IfExistsFlashData__
+
+		__IfNotExistsFlashData__
+<form method="post" action="/app.mpl" enctype="multipart/form-data">
+	<table cellpadding="3" cellspacing="0" align="center" border="0" width="100%">
+	<tr><th colspan="2">フラッシュデータ登録</th></tr>
+	<tr>
+		<td colspan="2" align="center">
+			<input type="file" name="swffile" size="16" maxlength="100" />
+		</td>
+	</tr>
+	<tr><th colspan="2">フラッシュサンプル画像</th></tr>
+	<tr>
+		<td colspan="2" align="center">
+			<input type="file" name="image" size="16" maxlength="100" />
+		</td>
+	</tr>
+<tr>
+	<th colspan="2">
+		<input type="submit" name="submit" value="アップロード" style="height:80%;font-size:14px;" onclick="init();" id="content" />
+	</th>
+</tr>
+	</table>
+		<input type="hidden" name="app" value="AppDataTransfer" />
+		<input type="hidden" name="action" value="uploadSwfFile" />
+		<input type="hidden" name="product_id" value="%&product_id&%" />
+		<!-- Flashの場合はFlashデータと画像データの処理を同時に実行する -->
+		<input type="hidden" name="subcategorym_id" value="%&subcategorym_id&%" />
+</form>
+		__IfNotExistsFlashData__
+
+	__IfSwfProduct__
+	<!-- 待ち受けFLASH商品の場合に表示 END // -->
+<!-- +++++++++++++++++ FlashFile ++++++++++++++++++++++++++ END -->
+
+<!-- +++++++++++++++++ ﾃﾞｺﾒﾃﾝﾌﾟﾚｰﾄFile ++++++++++++++++++++++++++ BEGIN -->
+	<!-- デコメ商品の場合に表示 BEGIN -->
+	__IfDecoTmpltProduct__
+
+		<!-- まだデータが無く新規の場合 -->
+		__IfNotExistsDecoTmpltFile__
+<form method="post" action="/app.mpl" enctype="multipart/form-data">
+		<table cellpadding="1" cellspacing="0" align="center" border="0" width="100%">
+		<tr><th colspan="2">デコメテンプレートファイル新規追加</th></tr>
+		<tr>
+			<th><img src="/images/i.gif" width="19" height="19" />( dmt file )</th>
+			<td>
+				<input type="file" name="dmt" size="16" maxlength="100" />
+			</td>
+		</tr>
+		<tr>
+			<th><img src="/images/v.gif" width="19" height="19" />( hmt file )</th>
+			<td>
+				<input type="file" name="hmt" size="16" maxlength="100" />
+			</td>
+		</tr>
+		<tr>
+			<th><img src="/images/e.gif" width="19" height="19" />( khm file )</th>
+			<td>
+				<input type="file" name="khm"  maxlength="100" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<input type="submit" name="submit" value="アップロード" style="height:80%;font-size:14px;" onclick="init();" id="content" />
+			</td>
+		</tr>
+
+		</table>
+		<input type="hidden" name="app" value="AppDataTransfer" />
+		<input type="hidden" name="action" value="uploadDecoTmpltFile" />
+		<input type="hidden" name="product_id" value="%&product_id&%" />
+</form>
+		__IfNotExistsDecoTmpltFile__
+
+
+		<!-- データがあるの場合 -->
+		__IfExistsDecoTmpltFile__
+		<table bgcolor="#000000" cellpadding="3" cellspacing="0" align="center" border="0" width="100%">
+
+		<tr>
+			<th rowspan="6">デコメテンプレートデータ</th>
+			<th rowspan="2"><img src="/images/i.gif" width="19" height="19" /></th>
+			<th>dmt</th>
+			<td style="width:50%;">
+				<form method="post" action="/app.mpl" enctype="multipart/form-data">
+				<input type="file" name="dmt" size="2" />&nbsp;<input type="submit" name=".submit" value="　変　更　" onclick="init();" id="content" />
+				<input type="hidden" name="app" value="AppDataTransfer" />
+				<input type="hidden" name="action" value="uploadDecoTmpltFile" />
+				<input type="hidden" name="product_id" value="%&product_id&%" />
+				<input type="hidden" name="id" value="%&deco_id&%" />
+				</form>
+			</td>
+		</tr>
+		<tr>
+			<th>サイズ</th>
+			<td align="right"><i>%&file_size_docomo&%</i> byte</td>
+		</tr>
+
+		<tr>
+			<th rowspan="2"><img src="/images/v.gif" width="19" height="19" /></th>
+			<th>hmt</th>
+			<td>
+				<form method="post" action="/app.mpl" enctype="multipart/form-data">
+				<input type="file" name="hmt" size="2" />&nbsp;<input type="submit" name=".submit" value="　変　更　" onclick="init();" id="content" />
+				<input type="hidden" name="app" value="AppDataTransfer" />
+				<input type="hidden" name="action" value="uploadDecoTmpltFile" />
+				<input type="hidden" name="product_id" value="%&product_id&%" />
+				<input type="hidden" name="id" value="%&deco_id&%" />
+				</form>
+			</td>
+		</tr>
+		<tr>
+			<th>サイズ</th>
+			<td align="right"><i>%&file_size_softbank&%</i> byte</td>
+		</tr>
+
+		<tr>
+			<th rowspan="2"><img src="/images/e.gif" width="19" height="19" /></th>
+			<th>khm</th>
+			<td>
+				<form method="post" action="/app.mpl" enctype="multipart/form-data">
+				<input type="file" name="khm" size="2" />&nbsp;<input type="submit" name=".submit" value="　変　更　" onclick="init();" id="content" />
+				<input type="hidden" name="app" value="AppDataTransfer" />
+				<input type="hidden" name="action" value="uploadDecoTmpltFile" />
+				<input type="hidden" name="product_id" value="%&product_id&%" />
+				<input type="hidden" name="id" value="%&deco_id&%" />
+				</form>
+			</td>
+		</tr>
+		<tr>
+			<th>サイズ</th>
+			<td align="right"><i>%&file_size_au&%</i> byte</td>
+		</tr>
+
+		<tr><td colspan="4"><br /></td></tr>
+
+		<tr>
+			<th rowspan="3">サンプル画像</th>
+			<td rowspan="3" colspan="2" align="center">
+				60 x 80 s=2
+				<img src="/mod-perl/serveImageDB.mpl?p=%&product_id&%;s=2" border="0" />
+			</td>
+			<td>
+				<a rel="lightbox" href="/mod-perl/serveImageDB.mpl?p=%&product_id&%;s=1" class="hintanchor2" onMouseover="showhint('ﾌﾙｻｲｽﾞ画像を表示', this, event, '80px')">
+				<img src="/images/zoomin16.png" width="16" height="16" border="0" />
+				</a>240 x 320 s=1<br />
+				<a rel="lightbox" href="/mod-perl/serveImageDB.mpl?p=%&product_id&%;s=3">
+				<img src="/images/zoomout16.png" width="16" height="16" border="0" />
+				</a>&nbsp;30 x &nbsp;40 s=3<br />
+			</td>
+		</tr>
+		<tr>
+			<td>
+<form method="post" action="/app.mpl" enctype="multipart/form-data">
+				<input type="file" name="image"  size="2" />&nbsp;<input type="submit" name=".submit" value="　画　像　変　更　" onclick="init();" id="content" />
+				<input type="hidden" name="app" value="AppImage" />
+				<input type="hidden" name="action" value="uploadImageM" />
+				<input type="hidden" name="product_id" value="%&product_id&%" />
+				<!--<input type="hidden" name="category_id" value="" />-->
+				<input type="hidden" name="subcategorym_id" value="%&subcategorym_id&%" />
+				<input type="hidden" name="id" value="%&id&%" />
+</form>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<a onclick="del_msg(); return delimg" href="/app.mpl?app=AppImage;action=deleteImageM;p=%&product_id&%;i=%&id&%" class="hintanchor2" onMouseover="showhint('画像%&id&%の削除', this, event, '80px')">
+				<img border="0" src="/images/icn_file_delete.png" width="16" height="16" />
+				</a>画像の削除
+			</td>
+		</tr>
+		</table>
+		__IfExistsDecoTmpltFile__
+
+__IfDecoTmpltProduct__
+
+	<!-- デコメ商品の場合に表示 END -->
+<!-- +++++++++++++++++ ﾃﾞｺﾒﾃﾝﾌﾟﾚｰﾄFile ++++++++++++++++++++++++++ END -->
+
+		</td>
+	</tr>
+
+<form action="/app.mpl" method="post" name="modifyProduct" id="modifyProduct">
+	<tr>
+	    <th>商品名</th>
+	    <td><input type="text" name="product_name" value="%&product_name&%" size="70" style="ime-mode:active" /></td>
+	</tr>
+	<tr>
+	    <th>商品コード</th>
+	    <td><input type="text" name="product_code" value="%&product_code&%" size="70" style="ime-mode:inactive" /></td>
+	</tr>
+
+
+	<!-- 変更 2009/05/26 BEGIN -->
+
+
+
+	<tr>
+	    <th>カテゴリ／サブカテゴリ</th>
+	    <td>
+	    <select name="allcategory_id">
+	    <option value="" style="color:#0000cc;">カテゴリ名&gt;サブカテゴリ名&gt;&gt;小カテゴリ名</option>
+__LoopAllCategoryList__
+<option value="%&category_id&%;%&subcategory_id&%;%&smallcategory_id&%;%&EncodedCategoryName&%;%&EncodedSubCategoryName&%;%&EncodedSmallCategoryName&%"__IfSelectedSmallCategoryID__ selected__IfSelectedSmallCategoryID__>%&category_name&%&gt;%&subcategory_name&%&gt;&gt;%&smallcategory_name&%</option>
+__LoopAllCategoryList__
+		</select>
+	    </td>
+	</tr>
+	<tr>
+    	<th>テンプレート</th>
+    	<td>
+			<select name="tmplt_id">
+__LoopTmpltMasterList__
+	<option value="%&tmplt_id&%;%&EncodedSummary&%"__IfSelectedMasterID__ selected__IfSelectedMasterID__>%&summary&%【%&tmplt_id&%】</option>
+__LoopTmpltMasterList__
+			</select>
+    	</td>
+	</tr>
+
+	<tr>
+	    <th>状態</th>
+	    <td width="25%">
+__IfStatusFlagIsActive__
+	    <label for="status_flag2">
+	    <input type="radio" name="status_flag" value="2" checked id="status_flag2" /><font style="color:#0000ff;"> 有効</font>
+	    </label> &nbsp;
+	    <label for="status_flag1">
+	    <input type="radio" name="status_flag" value="1" id="status_flag1" /> 無効
+	    </label>
+__IfStatusFlagIsActive__
+__IfStatusFlagIsNotActive__
+	    <label for="status_flag2">
+	    <input type="radio" name="status_flag" value="2" id="status_flag2" /> 有効
+	    </label> &nbsp;
+	    <label for="status_flag1">
+	    <input type="radio" name="status_flag" value="1" checked id="status_flag1" /><font style="color:#ff0000;"> 無効</font>
+	    </label>
+__IfStatusFlagIsNotActive__
+		</td>
+	</tr>
+
+	<tr>
+	    <th>新着表示</th>
+	    <td width="25%">
+__IfLatestFlagIsActive__
+	    <label for="latest_flag2">
+	    <input type="radio" name="latest_flag" value="2" checked id="latest_flag2" /><font style="color:#0000ff;"> 有効</font>
+	    </label> &nbsp;
+	    <label for="latest_flag4">
+	    <input type="radio" name="latest_flag" value="4" id="latest_flag4" /><font style="color:#0000ff;"> Top表示有効</font>
+	    </label> &nbsp;
+	    <label for="latest_flag1">
+	    <input type="radio" name="latest_flag" value="1" id="latest_flag1" /> 無効
+	    </label>
+__IfLatestFlagIsActive__
+__IfLatestOnTopFlagIsActive__
+	    <label for="latest_flag2">
+	    <input type="radio" name="latest_flag" value="2" id="latest_flag2" /> 有効
+	    </label> &nbsp;
+	    <label for="latest_flag4">
+	    <input type="radio" name="latest_flag" value="4" checked id="latest_flag4" /><font style="color:#0000ff;"> Top表示有効</font>
+	    </label> &nbsp;
+	    <label for="latest_flag1">
+	    <input type="radio" name="latest_flag" value="1" id="latest_flag1" /> 無効
+	    </label>
+__IfLatestOnTopFlagIsActive__
+__IfLatestFlagIsNotActive__
+	    <label for="latest_flag2">
+	    <input type="radio" name="latest_flag" value="2" id="latest_flag2" /> 有効
+	    </label> &nbsp;
+	    <label for="latest_flag4">
+	    <input type="radio" name="latest_flag" value="4" id="latest_flag4" /><font style="color:#0000ff;"> Top表示有効</font>
+	    </label> &nbsp;
+	    <label for="latest_flag1">
+	    <input type="radio" name="latest_flag" value="1" checked id="latest_flag1" /><font style="color:#ff0000;"> 無効</font>
+	    </label>
+__IfLatestFlagIsNotActive__
+		</td>
+	</tr>
+
+	<tr>
+	    <th>おすすめ表示</th>
+	    <td width="25%">
+__IfRecommendFlagIsActive__ 
+	    <label for="recommend_flag2"><input type="radio" name="recommend_flag" value="2" checked  id="recommend__flag2" /><font style="color:#0000ff;"> 有効</font></label>
+		 &nbsp;
+	    <label for="recommend_flag1"><input type="radio" name="recommend_flag" value="1" id="recommend_flag1" /> 無効</label>
+__IfRecommendFlagIsActive__
+__IfRecommendFlagIsNotActive__
+	    <label for="recommend_flag2"><input type="radio" name="recommend_flag" value="2" id="recommend__flag2" /> 有効</label>
+		 &nbsp;
+	    <label for="recommend_flag1"><input type="radio" name="recommend_flag" value="1" checked id="recommend_flag1" /><font style="color:#ff0000;"> 無効</font></label>
+__IfRecommendFlagIsNotActive__
+		</td>
+	</tr>
+
+	<tr>
+	    <th>課金形態</th>
+	    <td width="25%">
+__IfChargeFlagIsPoint__
+	    <label for="charge_flag2"><input type="checkbox" name="charge_flag" value="2" checked id="charge_flag2" /><font style="color:#0000ff;">ポイント交換</font></label>
+	    &nbsp;
+		<label for="charge_flag4"><input type="checkbox" name="charge_flag" value="4" id="charge_flag4" /> クレジット・現金</label>
+	    &nbsp;
+	    <label for="charge_flag1"><input type="radio" name="charge_flag" value="1" id="charge_flag1" /> 無料</label>
+__IfChargeFlagIsPoint__
+__IfChargeFlagIsCredit__
+	    <label for="charge_flag2"><input type="checkbox" name="charge_flag" value="2" id="charge_flag2" />ポイント交換</label>
+	    &nbsp;
+		<label for="charge_flag4"><input type="checkbox" name="charge_flag" value="4" checked id="charge_flag4" /><font style="color:#0000ff;"> クレジット・現金</font></label>
+	    &nbsp;
+	    <label for="charge_flag1"><input type="radio" name="charge_flag" value="1" id="charge_flag1" /> 無料</label>
+__IfChargeFlagIsCredit__
+__IfChargeFlagIsPointAndCredit__
+	    <label for="charge_flag2"><input type="checkbox" name="charge_flag" value="2" checked id="charge_flag2" /><font style="color:#0000ff;">ポイント交換</font></label>
+	    &nbsp;
+		<label for="charge_flag4"><input type="checkbox" name="charge_flag" value="4" checked id="charge_flag4" /><font style="color:#0000ff;"> クレジット・現金</font></label>
+	    &nbsp;
+	    <label for="charge_flag1"><input type="radio" name="charge_flag" value="1" id="charge_flag1" /> 無料</label>
+__IfChargeFlagIsPointAndCredit__
+
+__IfChargeFlagIsFree__
+	    <label for="charge_flag1"><input type="radio" name="charge_flag" value="2" id="charge_flag2" /> ポイント交換</label>
+	    &nbsp;
+		<label for="charge_flag4"><input type="checkbox" name="charge_flag" value="4" id="charge_flag4" /> クレジット・現金</label>
+	    &nbsp;
+	    <label for="charge_flag1"><input type="radio" name="charge_flag" value="1" id="charge_flag1" /> 無料</label>
+__IfChargeFlagIsFree__
+		</td>
+	</tr>
+
+	<tr>
+	    <th>ポイント還元</th>
+	    <td width="25%">
+__IfPointFlagIsActive__
+	    <label for="point_flag2">
+	    <input type="radio" name="point_flag" value="2" checked id="point_flag2" /><font style="color:#0000ff;"> 有効</font>
+	    </label> &nbsp;
+	    <label for="point_flag1">
+	    <input type="radio" name="point_flag" value="1" id="point_flag1" /> 無効
+	    </label>
+__IfPointFlagIsActive__
+__IfPointFlagIsNotActive__
+	    <label for="point_flag2">
+	    <input type="radio" name="point_flag" value="2" id="point_flag2" /> 有効
+	    </label> &nbsp;
+	    <label for="point_flag1">
+	    <input type="radio" name="point_flag" value="1" checked id="point_flag1" /><font style="color:#ff0000;"> 無効</font>
+	    </label>
+__IfPointFlagIsNotActive__
+	    </td>
+	</tr>
+	<tr>
+	  <th>ポイント</th>
+	  <td><input type="text" name="point" value="%&point&%" style="ime-mode:disabled;text-align:right;" size="10" maxlength="10" /></td>
+	</tr>
+	<tr>
+    	<th>販売単価税込</th>
+    	<td>
+    		<input type="text" name="tanka" value="%&tanka&%" style="ime-mode:disabled;text-align:right;" size="10" maxlength="10" />
+    	</td>
+	</tr>
+	<tr>
+    	<th>販売単価税抜</th>
+    	<td>
+    		<input type="text" name="tanka_notax" value="%&tanka_notax&%" style="ime-mode:disabled;text-align:right;" size="10" maxlength="10" />
+    	</td>
+	</tr>
+	<tr>
+    	<th>原　　価</td>
+    	<td>
+    	<input type="text" name="genka" value="%&genka&%" style="ime-mode:disabled;text-align:right;" size="10" maxlength="10" /></td>
+	</tr>
+	<tr>
+    	<th>定　　価</th>
+    	<td>
+    		<input type="text" name="teika" value="%&teika&%" style="ime-mode:disabled;text-align:right;" size="10" maxlength="10" />
+    	</td>
+	</tr>
+	<tr>
+    	<th>在　　庫</th>
+	    <td>
+	    	<input type="text" name="stock" value="%&stock&%" maxlength="3" size="10" style="ime-mode:disabled;text-align:right;" />
+	    </td>
+	</tr>
+	<tr><td colspan="2"><div align="center"><input type="submit" name="modifyProduct" value="　確　認　画　面　" onclick="init();" id="content" /></div></td></tr>
+
+	<tr>
+    	<th>
+    		説明<a href="#" class="hintanchor" onMouseover="showhint('htmlのtagが使用出来ます', this, event, '124px')">[?]</a><br />
+    		<img src="/images/tagok.gif" width="21" height="22" />
+    	</th>
+	    <td><textarea cols="60" name="description" rows="10" style="font-size:11px;">%&description&%</textarea></td>
+	</tr>
+	<tr> 
+    	<th>
+    		詳細説明<a href="#" class="hintanchor" onMouseover="showhint('htmlのtagが使用出来ます', this, event, '124px')">[?]</a><br />
+    		<img src="/images/tagok.gif" width="21" height="22" />
+    	</th>
+	    <td><textarea cols="60" name="description_detail" rows="10" style="font-size:11px;">%&description_detail&%</textarea></td>
+	</tr>
+<!--
+	<tr>
+	    <th>登録日</th>
+	    <td>%&registration_date&%</td>
+	</tr>
+-->
+<input type="hidden" name="app" value="AppProduct" />
+<input type="hidden" name="product_id" value="%&product_id&%" />
+<input type="hidden" name="action" value="detailProduct" />
+<input type="hidden" name="md5key" value="%&md5key&%" />
+</form>
+
+</table>
+
+	<!-- 商品詳細編集フォーム END -->
+__IfModifyProductForm__
+
+
+__IfConfirmProductForm__
+	<!-- 更新内容確認フォーム BEGIN -->
+<div id="error">
+<ul>
+<li><font size="-2">下記内容で登録する場合は画面下の「情報更新」ボタンを押下して情報の更新を完了してください。</font></li>
+<li><font size="-2">下記内容を修正する場合は画面下の「修正」ボタンを押下し内容を修正してください。</font></li>
+</ul>
+</div>
+<form action="/app.mpl" method="post">
+
+
+<table border="0" cellspacing="0" cellpadding="2" width="60%" rules="all" class="datagrid">
+	<tr><th align="center" colspan="3"> 商品登録情報確認</th></tr>
+	<tr>
+	    <th>商品ID</th>
+	    <td>%&product_id&%</td>
+	</tr>
+	<tr>
+	    <th>商品名</th>
+	    <td>
+	    	&nbsp;
+	    	%&product_name&%
+	    </td>
+	</tr>
+	<tr>
+	    <th>商品コード</th>
+	    <td>
+	    	&nbsp;
+	    	%&product_code&%
+	    </td>
+	</tr>
+	<tr>
+	    <th>カテゴリ</th>
+	    <td>
+			%&DecodedCategoryName&%
+	    </td>
+	</tr>
+	<tr>
+	    <th>サブカテゴリ</th>
+	    <td>
+			%&DecodedSubCategoryName&%
+	    </td>
+	</tr>
+	<tr>
+	    <th>小カテゴリ</th>
+	    <td>
+			%&DecodedSmallCategoryName&%
+	    </td>
+	</tr>
+	<tr>
+    	<th>テンプレート</th>
+    	<td>%&DecodedSummary&%</td>
+	</tr>
+	<tr>
+	    <th>状態</th>
+	    <td width="25%">
+	     __IfStatusFlagIsActive__ <font style="color:#0000ff;">有効</font>__IfStatusFlagIsActive__
+	     __IfStatusFlagIsNotActive__ <font style="color:#ff0000;">無効</font>__IfStatusFlagIsNotActive__
+		</td>
+	</tr>
+	<tr>
+	    <th>新着表示</th>
+	    <td width="25%">
+	     __IfLatestFlagIsActive__ <font style="color:#0000ff;">有効</font>__IfLatestFlagIsActive__
+	     __IfLatestOnTopFlagIsActive__ <font style="color:#0000ff;">Top表示有効</font>__IfLatestOnTopFlagIsActive__
+	     __IfLatestFlagIsNotActive__ <font style="color:#ff0000;">無効</font>__IfLatestFlagIsNotActive__
+		</td>
+	</tr>
+	<tr>
+	    <th>おすすめ表示</th>
+	    <td width="25%">
+	     __IfRecommendFlagIsActive__ <font style="color:#0000ff;">有効</font>__IfRecommendFlagIsActive__
+	     __IfRecommendFlagIsNotActive__ <font style="color:#ff0000;">無効</font>__IfRecommendFlagIsNotActive__
+		</td>
+	</tr>
+	</tr>
+	    <th>販売形態</th>
+	    <td width="25%">
+		__IfChargeFlagIsPoint__ <font style="color:#0000ff;">ポイント交換</font>__IfChargeFlagIsPoint__
+		__IfChargeFlagIsCredit__ <font style="color:#0000ff;">クレジット・現金</font>__IfChargeFlagIsCredit__
+		__IfChargeFlagIsPointAndCredit__ <font style="color:#0000ff;">ポイント交換・クレジット・現金</font>__IfChargeFlagIsPointAndCredit__
+		__IfChargeFlagIsFree__ <font style="color:#ff0000;">無料</font>__IfChargeFlagIsFree__
+		</td>
+	</tr>
+	<tr> 
+	    <th>ポイント還元</th>
+	    <td width="25%">
+	     __IfPointFlagIsActive__ <font style="color:#0000ff;">有効</font>__IfPointFlagIsActive__
+	     __IfPointFlagIsNotActive__ <font style="color:#ff0000;">無効</font>__IfPointFlagIsNotActive__
+	    </td>
+	<tr>
+	  <th>ポイント</th>
+	  <td>%&point&%</td>
+	</tr>
+	<tr>
+    	<th>販売単価税込</th>
+    	<td>
+    		&nbsp;
+    		%&tanka&%
+    	</td>
+	</tr>
+	<tr>
+    	<th>販売単価税抜</th>
+    	<td>
+    		&nbsp;
+    		%&tanka_notax&%
+    	</td>
+	</tr>
+	<tr>
+    	<th>原　　価</td>
+    	<td>
+    	&nbsp;
+    	%&genka&%
+    	</td>
+	</tr>
+	<tr>
+    	<th>定　　価</th>
+    	<td>
+    		&nbsp;
+    		%&teika&%
+    	</td>
+	</tr>
+	<tr>
+    	<th>在　　庫</th>
+	    <td>
+	    	&nbsp;
+	    	%&stock&%
+	    </td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<div align="center">
+			<input type="submit" name="modifyProduct" value="　情　報　更　新　" onclick="init();" id="content" />
+			<br /><br />
+			<input type="button" value="　修　正　す　る　" onClick="history.back()" />
+			</div>
+		</td>
+	</tr>
+	<tr>
+    	<th>
+    		説明<a href="#" class="hintanchor" onMouseover="showhint('htmlのtagが使用出来ます', this, event, '124px')">[?]</a><br />
+    		<img src="/images/tagok.gif" width="21" height="22" />
+    	</th>
+	    <td><textarea cols="60" name="description" rows="10" style="font-size:11px;" readonly>%&description&%</textarea></td>
+	</tr>
+	<tr> 
+    	<th>
+    		詳細説明<a href="#" class="hintanchor" onMouseover="showhint('htmlのtagが使用出来ます', this, event, '124px')">[?]</a><br />
+    		<img src="/images/tagok.gif" width="21" height="22" />
+    	</th>
+	    <td><textarea cols="60" name="description_detail" rows="10" style="font-size:11px;" readonly>%&description_detail&%</textarea></td>
+	</tr>
+	<tr>
+	    <th>登録日</th>
+	    <td>%&registration_date&%</td>
+	</tr>
+</table>
+<input type="hidden" name="app" value="AppProduct" />
+<input type="hidden" name="action" value="modifyProduct" />
+<input type="hidden" name="md5key" value="%&md5key&%" />
+</form>
+
+	<!-- 更新内容確認フォーム END -->
+__IfConfirmProductForm__
+	
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+
+</body>
+</html>

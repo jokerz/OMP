@@ -1,0 +1,47 @@
+#!/usr/bin/perl
+
+#******************************************************
+# @desc		yahoo newsオブジェクトの生成モジュール
+#
+# @package	md_news
+# @author	Iwahase Ryo
+# @create	2009/12/29
+# @version	
+#******************************************************
+
+use strict;
+use vars qw($include_path $cfg);
+
+BEGIN {
+	## クラスのインクルードパスを取得するための処理
+	require Cwd;
+	my $pwd = Cwd::getcwd();
+	($include_path = $pwd) =~ s!/modules!!;
+	unshift @INC, $include_path;
+
+	my $config = sprintf("%s/conf/envconf.cfg",$include_path);
+
+    require JKZ::Config;
+    $cfg = JKZ::Config->new($config);
+
+}
+
+use MyClass::WebUtil;
+use XML::TreePP;
+
+#*******************************
+# ニュースの取得
+# 集計してデータをシリアライズして保存
+#*******************************
+
+## シリアライズしたデータオブジェクト
+
+my $news_url   = 'http://news.yahooapis.jp/NewsWebService/V1/Topics?appid=XlhEZHaxg66QFCztblvus.KqBf4ov2nXna3oqL.fzAoixvwAZNWK3XPRy7tlAapNwg--&num=5&sort=datetime';
+my $objectfile =  $cfg->param('NEWS_CONTENTS_OBJ');
+#my $news_url   =  $cfg->param('YAHOO_NEWS_URL');
+
+my $tpp = XML::TreePP->new();
+my $obj = $tpp->parsehttp( GET => $news_url );
+MyClass::WebUtil::publishObj({ file=>$objectfile, obj=>$obj });
+
+exit();

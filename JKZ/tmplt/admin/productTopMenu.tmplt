@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>コンテンツ管理</title>
+<link rel="stylesheet" href="/style.css" type="text/css" charset="Shift_JIS" />
+<link rel="stylesheet" type="text/css" href="build/fonts/fonts-min.css" />
+<script src="/js/popuphint.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1>UPSTAIR  </h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞ コンテン/ツ商品管理 ＞<strong>登録状況</strong>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>コンテンツ/商品管理%&BENCH_TIME&%</h2>
+		</div>
+
+		<div id="list">
+
+
+				<table border="0" cellspacing="0" cellpadding="2" width="100%" rules="all" class="datagrid">
+					<tr>
+						<th colspan="5">登録状況</th>
+					</tr>
+					<tr>
+						<th colspan="2">項目</th>
+						<th>有効数</th>
+						<th>無効数</th>
+						<th>合計数</th>
+					</tr>
+					<tr>
+						<th colspan="2">カテゴリ</th>
+						<td align="right"><font style="color:blue;">%&validCategory&%</font></td>
+						<td align="right"><font style="color:red;">%&invalidCategory&%</font></td>
+						<td align="right">%&totalCategory&%</td>
+					</tr>
+					<tr>
+						<th colspan="2">サブカテゴリ</th>
+						<td align="right"><font style="color:blue;">%&validSubCategory&%</font></td>
+						<td align="right"><font style="color:red;">%&invalidSubCategory&%</font></td>
+						<td align="right">%&totalSubCategory&%</td>
+					</tr>
+					<tr>
+						<th colspan="2">コンテンツ/商品</th>
+						<td align="right"><font style="color:blue;">%&validProduct&%</font></td>
+						<td align="right"><font style="color:red;">%&invalidProduct&%</font></td>
+						<td align="right">%&totalProduct&%</td>
+
+					</tr>
+				<!--</table>-->
+				<!--<table border="0" cellspacing="0" width="100%" rules="all" class="datagrid">-->
+					<tr>
+						<th align="center">カテゴリ名</th>
+						<th align="center">サブカテゴリ名[ID]</th>
+						<td colspan="3" width="60%"><br /></td>
+						<!--
+						<th align="center">有効数</th>
+						<th align="center">無効数</th>
+						<th align="center">合計数</th>
+						-->
+					</tr>
+__LoopProductList__
+					<tr class="%&cssstyle&%">
+						<td align="center">%&category_name&%</td>
+						<td align="center">%&subcategory_name&%&nbsp;[ %&subcategory_id&% ]</td>
+					__IfExistsACNT__
+						<td align="right" class="block1">
+							<a href="/app.mpl?app=AppProduct;action=searchProduct;search=1;subcategory_id=%&subcategory_id&%;status_flag=2;" style="text-decoration:none;" onMouseover="showhint('「%&subcategory_name&%」の有効コンテンツ一覧', this, event, '120px')" onclick="init();">
+							%&ACNT&%
+							</a>
+						</td>
+					__IfExistsACNT__
+
+
+					__IfNotExistsACNT__
+						<td align="right">%&ACNT&%</td>
+					__IfNotExistsACNT__
+
+					__IfExistsANCNT__
+						<td align="right" class="block2">
+							<a href="/app.mpl?app=AppProduct;action=searchProduct;search=1;subcategory_id=%&subcategory_id&%;status_flag=1;" style="text-decoration:none;" onMouseover="showhint('「%&subcategory_name&%」の無効コンテンツ一覧', this, event, '120px')" onclick="init();">
+							%&ANCNT&%
+							</a>
+						</td>
+					__IfExistsANCNT__
+
+					__IfNotExistsANCNT__
+						<td align="right">
+							%&ANCNT&%
+						</td>
+					__IfNotExistsANCNT__
+
+						<td align="right">%&CNT&%</td>
+					</tr>
+__LoopProductList__
+				</table>
+
+
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+
+</body>
+</html>

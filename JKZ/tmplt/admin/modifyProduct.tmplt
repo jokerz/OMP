@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>商品管理</title>
+<link rel="stylesheet" href="/style.css" type="text/css" charset="Shift_JIS" />
+</head>
+<body>
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1>UPSTAIR  </h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>
+__IfRegistProduct__
+＞商品新規登録＞ <strong>商品新規登録完了</strong>
+__IfRegistProduct__
+__IfModifyProduct__
+＞<a href="/app.mpl?app=AppProduct;action=detailProduct;product_id=%&product_id_is&%;" onclick="init();" id="content">商品詳細</a>＞更新完了
+__IfModifyProduct__
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>商品管理</h2>
+		</div>
+
+		<div id="list">
+
+__IfSuccessExecuteUpdate__
+
+	<!-- 新規登録の場合 -->
+	__IfRegistProduct__
+	<form method="post" action="/app.mpl" enctype="multipart/form-data">
+
+<table border="0" cellspacing="0" cellpadding="2" width="100%" rules="all" class="datagrid">
+<tr>
+	<td colspan="2">
+		<div id="complete"><ul><li>商品基本情報登録完了</li></ul></div>
+	</td>
+	<td>
+		<div id="error"><ul><li>商品データを登録してください。</ul></li></div>
+	</td>
+</tr>
+<tr>
+    <th>商品ID</th>
+    <td><b>%&product_id_is&%</b></td>
+	<td width="40%" rowspan="3" valign="top">
+
+	<!-- // 新規登録時は基本情報登録後に商品の登録をする ここ BEGIN -->
+		<table border="0" cellspacing="0" cellpadding="2" width="100%" rules="all" class="datagrid">
+
+<!-- // 通常商品の場合に表示 BEGIN -->
+	__IfNormalProdcut__
+			<tr><th colspan="2">商品画像</th></tr>
+			<tr>
+				<td colspan="2" align="center">
+				<input type="hidden" name="app" value="AppImage" />
+				<input type="hidden" name="action" value="uploadImageM" />
+				<input type="file" name="image" size="16" maxlength="100" />
+				</td>
+			</tr>
+	__IfNormalProdcut__
+		<!-- 通常商品の場合に表示 END // -->
+
+		<!-- // デコメ・プチデコ・絵文字商品の場合に表示 BEGIN -->
+	__IfEitherEmojiORDecome__
+		<input type="hidden" name="app" value="AppImage" />
+		<input type="hidden" name="action" value="uploadImageM" />
+
+			<tr><th colspan="2">デコメ・絵文字画像</th></tr>
+			<tr>
+				<td colspan="2" align="center">
+					<input type="file" name="image" size="16" maxlength="100" />
+					<br /><font size="-2" color="red">※サンプル画像は自動生成されます。</font>
+				</td>
+			</tr>
+	__IfEitherEmojiORDecome__
+		<!-- デコメ・プチデコ・絵文字商品の場合に表示 END // -->
+
+		<!-- // 待ち受けFLASH商品の場合に表示 BEGIN -->
+	__IfSwfProduct__
+		<input type="hidden" name="app" value="AppDataTransfer" />
+		<input type="hidden" name="action" value="uploadSwfFile" />
+
+<tr><th colspan="2">フラッシュデータ登録</th></tr>
+<tr>
+	<td colspan="2" align="center">
+		<input type="file" name="swffile" size="16" maxlength="100" />
+	</td>
+</tr>
+<tr><th colspan="2">フラッシュサンプル画像</th></tr>
+<tr>
+	<td colspan="2" align="center">
+		<input type="file" name="image" size="16" maxlength="100" />
+	</td>
+</tr>
+
+	__IfSwfProduct__
+		<!-- 待ち受けFLASH商品の場合に表示 END // -->
+
+		<!-- // デコメ商品の場合に表示 BEGIN -->
+	__IfDecoTmpltProduct__
+		<input type="hidden" name="app" value="AppDataTransfer" />
+		<input type="hidden" name="action" value="uploadDecoTmpltFile" />
+
+<tr><th colspan="2">テンプレートデータ登録</th></tr>
+
+<tr>
+	<th><img src="/images/i.gif" width="19" height="19" />( dmt file )</th>
+	<td><input type="file" name="dmt" size="16" maxlength="100" /></td>
+</tr>
+<tr>
+	<th><img src="/images/v.gif" width="19" height="19" />( hmt file )</th>
+	<td><input type="file" name="hmt" size="16" maxlength="100" /></td>
+</tr>
+<tr>
+	<th><img src="/images/e.gif" width="19" height="19" />( khm file )</th>
+	<td><input type="file" name="khm" size="16" maxlength="100" /></td>
+</tr>
+
+<tr><th colspan="2">テンプレートサンプル画像</th></tr>
+<tr>
+	<td colspan="2" align="center">
+		<input type="file" name="image" size="16" maxlength="100" />
+	</td>
+</tr>
+
+	__IfDecoTmpltProduct__
+		<!-- デコメ商品の場合に表示 END // -->
+
+<tr>
+	<th colspan="2">
+		<input type="submit" name="submit" value="アップロード" style="height:80%;font-size:14px;" />
+		<!-- 全カテゴリ共通属性 -->
+		<input type="hidden" name="product_id" value="%&product_id_is&%" />
+		<input type="hidden" name="categorym_id" value="%&categorym_id&%" />
+		<input type="hidden" name="subcategorym_id" value="%&subcategorym_id&%" />
+		<input type="hidden" name="id" value="%&id&%" />
+	</th>
+</tr>
+</table>
+<!-- 新規登録時は基本情報登録後に商品の登録をする ここ END // -->
+
+	</tr>
+	<tr>
+	    <th>商品名</th>
+	    <td>
+	    	&nbsp;
+	    	%&product_name&%
+	    </td>
+	</tr>
+	<tr>
+	    <th>商品コード</th>
+	    <td>
+	    	&nbsp;
+	    	%&product_code&%
+	    </td>
+	</tr>
+
+	<tr>
+		<td colspan="2">
+			<div id="complete">
+			<ul>
+				<li>上記内容で登録が完了しました。</li>
+				<li>画像その他設定を行う→
+					<a href="/app.mpl?app=AppProduct;action=detailProduct;product_id=%&product_id_is&%;" onclick="init();" id="content">
+					<img src="images/b_browse.png" border="0" class="hintanchor" onMouseover="showhint('%&product_name&%の画像・詳細設定', this, event, '120px')" />
+					</a>
+				</li>
+				<li><a href="/app.mpl?app=AppProduct;">商品登録状況</a></li>
+			</ul>
+			</div>
+		</td>
+	</tr>
+</table>
+
+	</form>
+	__IfRegistProduct__
+
+
+	__IfModifyProduct__
+		<!-- 既存更新の場合 -->
+		<br />
+<div id="complete">
+	<ul>
+		<li>商品ID：%&product_id_is&%　商品名：%&product_name&%　更新完了<br />
+		<a href="/app.mpl?app=AppProduct;action=detailProduct;product_id=%&product_id_is&%;" onclick="init();" id="content">商品詳細に戻る</a>
+		</li>
+		<li><a href="/app.mpl?app=AppProduct;">商品登録状況</a></li>
+	</ul>
+</div>
+	__IfModifyProduct__
+
+__IfSuccessExecuteUpdate__
+
+
+__IfFailExecuteUpdate__
+<div id="error">
+	__IfRegistProduct__
+		<!-- 新規登録の場合 -->
+	<ul><li>%&ERROR_MSG&%</li></ul>
+	__IfRegistProduct__
+
+
+	__IfModifyProduct__
+		<!-- 既存更新の場合 -->
+	<ul><li>%&ERROR_MSG&%</li></ul>
+	__IfModifyProduct__
+</div>
+__IfFailExecuteUpdate__
+
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+
+</body>
+</html>

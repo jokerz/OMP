@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>管理画面</title>
+<link rel="stylesheet" type="text/css" href="/style.css" charset="Shift_JIS" />
+<link rel="stylesheet" type="text/css" href="build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" href="build/container/assets/skins/sam/container.css" />
+<script type="text/javascript" src="/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="/build/connection/connection-min.js"></script>
+<script type="text/javascript" src="/build/animation/animation-min.js"></script>
+<script type="text/javascript" src="/build/dragdrop/dragdrop-min.js"></script>
+<script type="text/javascript" src="/build/container/container-min.js"></script>
+<script src="/js/scriptaculous.js?load=effects" type="text/javascript"></script>
+<script src="/js/popuphint.js" type="text/javascript"></script>
+<script src="/js/jkl-form.js" type="text/JavaScript"></script>
+<script type="text/javascript">//<![CDATA[ 
+
+	var form1 = new JKL.Form("searchMedia"); 
+
+	var form2 = new JKL.Form("searchMediaResult"); 
+
+//]]></script> 
+<script type="text/javascript">//<![CDATA[
+ <!--
+	function NewWindowL(url) { if (url != '') { window.open(url, '_blank', "toolbar=0,menubar=0,scrollbars=1 left=0,top=0,width=640,height=640"); } }
+//-->
+//]]></script>
+<style type="text/css">
+<!--/* <![CDATA[ */
+#scrollable th,td{ font-size:0.9em; }
+
+#main_cont{
+	text-align: left;
+	border: 1px #666666;
+	padding: 10px 0px;
+	width: 100%;
+	background:#F1F4F5;
+	margin: 0px;
+}
+
+#display{
+	background:#F7F8F9;
+	margin-top:12px;
+}
+
+#layer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width:100%;
+	z-index: 90;
+	background-color: #333333;
+	filter:alpha(opacity=60);
+
+	-moz-opacity: 0.6;
+	opacity: 0.6;
+	}
+	
+
+#layer1 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width:100%;
+	z-index: 101;
+	background-color: #333333;
+	filter:alpha(opacity=60);
+
+	-moz-opacity: 0.6;
+	opacity: 0.6;
+	}
+
+main_cont .design_box01{
+	margin:auto 10px 10px;
+	border-top:1px solid #FFFFFF;
+	border-left:1px solid #FFFFFF;
+	border-bottom:1px solid #C0CFD6;
+	border-right:1px solid #C0CFD6;
+	padding:5px;
+	line-height: 12px;
+}
+
+.search_tab {
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-bottom: 0px;
+	margin-left: auto;
+/*	background-image: url(/images/tab_search.jpg);*/
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	font-size: 12px;
+	line-height: 30px;
+	vertical-align: middle;
+	height: 1px;
+	text-align: center;
+	width: 76px;
+	color: #FFFFFF;
+}
+
+.search_tab a {
+	color: #FFFFFF;
+}
+/* ]]> */-->
+</style>
+<script src="/js/admin.js" type="text/JavaScript"></script>
+</head>
+<body class="yui-skin-sam" onload="changeHeight('layer1'); changeHeight('layer');" onresize="changeHeight('layer1'); changeHeight('layer');" onresize="changeHeight('layer1'); changeHeight('layer');">
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1>UPSTAIR  </h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞メディア管理＞<a href="/app.mpl?app=AppMedia;action=mediaTopMenu"><strong>代理店・広告一覧</strong></a>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>代理店・広告一覧%&BENCH_TIME&%</h2>
+		</div>
+
+		<div id="list">
+
+			<div id="content"></div>
+			<script src="/js/myIndicator.js" type="text/javascript"></script>
+
+
+<!-- // 検索フォーム BEGIN -->
+__IfSearchExecuted__
+				<div id="display"> 
+					<a href="javascript:void(0);" onclick="switchObj('search'); changeHeight('layer'); changeHeight('layer1'); changetext();" id="search_tab" class="before">[▼検索フォームの表示▼]</a>
+						<div id="main_cont">
+							<div id="search" style="margin:0px;padding:0px;display:none;">
+								<div class="design_box01" style="margin-top:0px; margin-bottom:0px; background:#ffffff; text-align:left; border:none;">
+__IfSearchExecuted__
+						<form action="/app.mpl" name="setwhere" method="post" id="setwhere">
+									<table border="0" cellpadding="2" cellspacing="0" bgcolor="#999999" rules="all" class="datagrid" width="100%">
+										<tr>
+											<th align="center" colspan="4">代理店・広告 検索条件指定</th>
+										</tr>
+										<tr>
+											<th align="center" width="18%">広告ID
+											<a href="#" class="hintanchor" onMouseover="showhint('<i>複数入力時は広告IDを「スペース」もしくは「カンマ」で区切ってください</i>', this, event, '142px')">[?]</a>
+											</th>
+											<td bgcolor="#ffffff">
+												<input type="text" name="fsad_id" value="" size="40" maxlen="10" style="ime-mode:disabled" />
+											</td>
+											<th align="center" width="18%">広告名・サイト名</th>
+											<td>
+												<input type=text name="ad_name" value="" size="40" maxlen="100" style="ime-mode:enabled" />
+											</td>
+										</tr>
+										<tr>
+											<th align="center">代理店名</th>
+											<td>
+												<input type=text name="agent_name" value="" size="40" maxlen="30" style="ime-mode:enabled" />
+											</td>
+											<th align="center">状態</th>
+											<td>
+												<input type="checkbox" class="box" name="status_flag" value="2" checked id="status_flag2" /><label FOR="status_flag2">&nbsp;公開&nbsp;</label>
+												<input type="checkbox" class="box" name="status_flag" value="1" checked id="status_flag1" /><label FOR="status_flag1">&nbsp;非公開&nbsp;</label>
+												<input type="checkbox" class="box" name="status_flag" value="4" checked id="status_flag4" /><label FOR="status_flag4">&nbsp;有効期限切れ&nbsp;</label>
+											</td>
+										</tr>
+										<tr>
+											<th align="center">ソート</th>
+											<td>
+												<select name="order_by">
+												<option value="1">登録日</option>
+												<option value="2">広告ID</option>
+												<option value="3">付与ポイント</option>
+												<option value="4">登録単価</option>
+												</select>
+											</td>
+											<th align="center">表示件数</th>
+											<td>
+												<select name="limit">
+												<option value="50" selected>50件</option>
+												<option value="60">60件</option>
+												<option value="70">70件</option>
+												<option value="80">80件</option>
+												</select>
+											</td>
+										</tr>
+						<tr>
+						<th align="center">カテゴリ</th>
+						<td>
+							<select name="search_mediacategory_id">
+							<option value="-1"> カテゴリ選択 </option>
+					__LoopSearchMediaCategoryList__
+							<option value="%&search_mediacategory_id&%;%&EncodedSearchMediaCategoryName&%">%&search_mediacategory_name&%</option>
+					__LoopSearchMediaCategoryList__
+							</select>
+						</td>
+						<!--
+						<td align="right" colspan="2"><img src="/images/information.png" width="16" height="16" /><a onclick="NewWindowL('/app.mpl?app=AppMedia;action=viewMyPageMediaList')" href="#">マイページ表示広告</a></td>
+						-->
+						<td align="right" colspan="2"><img src="/images/information.png" width="16" height="16" /><a href="/app.mpl?app=AppMedia;action=viewMyPageMediaList">マイページ表示広告</a></td>
+						</tr>
+										<tr><td colspan="4" bgcolor="#ffffff" align="center"><input type="submit" name="search" value="　検　索　す　る　" onclick="init();" id="content" />
+									</table>
+								<input type="hidden" name="app" value="AppMedia" />
+								<input type="hidden" name="action" value="searchMedia" />
+							</form>
+__IfSearchExecuted__
+								</div>
+							</div>
+						</div>
+				</div>
+
+<div>検索条件　:　%&SEARCHQUERYMESSAGE&%</div>
+<br />
+			<!-- 結果なしの場合 BEGIN -->
+			__IfSearchResultNotExists__
+				<table border="0" cellspacing="0" cellpadding="2" bgcolor="#999999" width="100%">
+					<tr><th>検索結果</th></tr>
+					<tr><td>０件</td></tr>
+				</table>
+			__IfSearchResultNotExists__
+			<!-- 結果なしの場合 END -->
+
+			<!-- 結果ありの場合 BEGIN -->
+			__IfSearchResultExists__
+<!--<table align="left" border="0">
+<tr>
+<td>　<img src="/images/gem_okay.png" width="16" height="16" /></td><td>有効</td>
+<td>　<img src="/images/error_fuck.png" width="16" height="16" /></td><td>無効</td>
+<td>　<img src="/images/refresh.png" width="16" height="16" /></td><td>期間指定</td>
+<td>　<img src="/images/error.png" width="16" height="16" /></td><td>有効期限切れ</td>
+</tr>
+</table>-->
+
+				<form action="/app.mpl" name="searchMediaResult" id="searchMediaResult" method="POST">
+				<table border="0" cellspacing="0" width="100%" rules="all" class="datagrid">
+				<tr><td colspan="11"><img src="/images/gem_okay.png" width="16" height="16" />有効　<img src="/images/error_fuck.png" width="16" height="16" />無効　<img src="/images/refresh.png" width="16" height="16" />期間指定　<img src="/images/error.png" width="16" height="16" />有効期限切れ</td></tr>
+					<tr><td colspan="11">広告の検索結果%&pagenavi&%</td></tr>
+					<tr>
+						<th align="center" colspan="2">広告ID</th>
+						<th align="center">代理店名</th>
+						<th align="center">広告名・サイト名</th>
+						<th align="center">付与ポイント</th>
+						<th align="center">登録単価</th>
+						<th align="center">カテゴリ</th>
+						<th align="center">キャリア</th>
+						<th align="center">状態</th>
+						<th align="center">操作</th>
+					</tr>
+__LoopSearchMediaList__
+					<tr class="focus">
+						<td align="center" width="40"><!-- 現在公開状態の広告だけ -->
+						__IfStatusFlagIsActive__<input type="checkbox" name="ad_id" value="%&ad_id&%" />__IfStatusFlagIsActive__
+						</td>
+						<td align="center">%&ad_id&%</td>
+						<td align="center">%&agent_name&%</td>
+						<td align="center">%&ad_name&%</td>
+						<td align="right">%&point&%</td>
+						<td align="right">%&price_per_regist&%</td>
+						<td align="center">%&mediacategory_name&%</td>
+						<td align="center">
+__IfCarrier2__<img src="/images/i.gif" />__IfCarrier2__
+__IfCarrier4__<img src="/images/v.gif" />__IfCarrier4__
+__IfCarrier6__<img src="/images/ds.gif" width="20" height="20" />__IfCarrier6__
+__IfCarrier8__<img src="/images/e.gif" />__IfCarrier8__
+__IfCarrier10__<img src="/images/da.gif" width="20" height="20" />__IfCarrier10__
+__IfCarrier12__<img src="/images/as.gif" width="20" height="20" />__IfCarrier12__
+__IfCarrier14__<img src="/images/das.gif" width="20" height="20" />__IfCarrier14__
+						</td>
+						<td align="center" width="40"><img src="/images/%&status_flagImages&%" width="16" height="16" /></td>
+						<!--<td align="center">
+							<a href="/app.mpl?app=AppMedia;action=shukeiMedia;ad_id=%&ad_id&%">集計</a>
+						</td>
+						-->
+						<td align="center" width="40">
+							<a href="/app.mpl?app=AppMedia;action=detailMedia;ad_id=%&ad_id&%;" onclick="init();">
+								<img src="/images/icn_file_edit.png" border="0" width="16" height="16" class="hintanchor" onMouseover="showhint('%&ad_name&%の詳細表示', this, event, '120px')" />
+							</a>
+						</td>
+					</tr>
+__LoopSearchMediaList__
+					<tr>
+						<td colspan="11" align="left">
+
+							<div style="margin:0px 0px 0px 10px;"><img src="/images/arrow_ltr.png" />
+							<input value="全チェックする" type="button" class="box" onclick="form2.selectAllOptions('ad_id',true);">／
+							<input value="全チェックを外す" type="button" class="box" onclick="form2.selectAllOptions('ad_id',false);">
+							&nbsp;
+							<select name="setMyPageMediaStatusTo">
+							<option value="-1">--状態変更内容を選択--</option>
+							<option value="2" style="color:#0000cc;">チェックしたIDをマイページ表示を有効にする</option>
+							<option value="1" style="color:#cc0000;">チェックしたIDをマイページ表示を無効にする</option>
+							</select>
+							&nbsp;<input type="submit" value="　一　括　変　更　確　認　" />
+							</div>
+							<input type="hidden" name="app" value="AppMedia" />
+							<input type="hidden" name="action" value="addtoMyPageMedia_UpDateStatus" />
+							<br />
+						</td>
+					</tr>
+					<tr>
+						<td colspan="11" align="left">
+							<!-- ページリンクナビ -->
+							%&pagenavi&%
+						</td>
+					</tr>
+				</table>
+				</form>
+		
+		__IfSearchResultExists__
+		<!-- 結果ありの場合 END -->
+
+__IfSearchExecuted__
+
+
+
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+%&DUMP&%
+</div><!-- ---------------------------------------------------------------------------- -->
+</body>
+</html>

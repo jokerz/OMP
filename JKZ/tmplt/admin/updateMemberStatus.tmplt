@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>会員情報</title>
+<link rel="stylesheet" type="text/css" href="/style.css" charset="Shift_JIS" />
+</head>
+<body>
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1> システム　管理者画面</h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞<a href="/app.mpl?app=AppMember">会員管理</a>＞<strong>会員情報編集</strong>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>　%&BENCH_TIME&%</h2>
+		</div>
+
+		<div id="list">
+
+
+__IfUpdateMemberStatusFail__
+	会員情報変更エラー
+			<div id="error">
+				<ul>
+					<li>強制処理に失敗しました</li>
+					<li>%&ERROR_MSG&%</li>
+				</ul>
+			</div>
+__IfUpdateMemberStatusFail__
+
+
+__IfUpdateMemberStatusSuccess__
+	会員情報変更完了
+		<div id="complete">
+			<ul>
+				<li>強制処理を行いました</li>
+				<li>%&ERROR_MSG&%</li>
+			</ul>
+	</div>
+__IfUpdateMemberStatusSuccess__
+
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+
+</body>
+</html>

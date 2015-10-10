@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>広告管理</title>
+<link rel="stylesheet" href="/style.css" type="text/css" charset="Shift_JIS" />
+<link rel="stylesheet" type="text/css" href="/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" href="/build/container/assets/skins/sam/container.css" />
+<script src="/js/prototype.js" type="text/javascript"></script>
+<script src="/build/utilities/utilities.js" type="text/javascript"></script>
+<script src="/build/container/container.js" type="text/javascript"></script>
+<script src="/js/myIndicator.js" type="text/javascript"></script>
+<script src="/js/popuphint.js" type="text/javascript"></script>
+<script src="/js/scriptaculous.js?load=effects" type="text/javascript"></script>
+</head>
+<body>
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1>UPSTAIR システム　管理者画面</h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞メディア管理＞<strong>アフィリ登録</strong>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>メディア管理</h2>
+		</div>
+
+		<div id="list">
+			<!-- <fieldset> -->
+
+				<div id="content"></div>
+				<script src="/js/myIndicator.js" type="text/javascript"></script>
+
+__IfRegistMedia__
+				<div id="complete">
+					<ul>
+					<!--<li>全ての項目が必須です</li>-->
+						<li>出稿URLはhttp://m.1mp.jp/af.mpl?guid=ON&acd=[<i> 広告コード</i> ]</li>
+						<li>開始日以前は無効扱いになります。また終了日以降は無効扱いになります</li>
+						<li>広告コードは&#37;&amp;acd&amp;&#37;により置換できます。</li>
+						<li>受信パラメータで取得した値は&#37;&amp;afcd&amp;&#37;により置換できます。</li>
+					</ul>
+				</div>
+__IfRegistMedia__
+
+__IfConfirmMedia__
+				<div id="error">
+					<ul>
+						%&ERROR_MSG&%
+					</ul>
+					修正しない場合は「登録する」ボタンを押下してください。
+				</div>
+__IfConfirmMedia__
+
+				<form action="/app.mpl" name="registAffiliate" id="Affiliate" method="POST">
+				<table border="0" cellspacing="0" cellpadding="2" width="100%" rules="all" class="datagrid">
+					<tr><th align="center" colspan="3"> アフィリエイト新規登録フォーム</th></tr>
+__IfRegistMedia__
+					<tr>
+						<th style="width:120px;">広告コード</th>
+						<td><input type="text" name="acd" style="ime-mode:disabled;" size="" maxlength="10" /></td>
+					</tr>
+					<tr>
+						<th style="width:120px;">メディア名</th>
+						<td><input type="text" name="client_name" size="80" maxlength="30" /></td>
+					</tr>
+					<tr>
+						<th style="width:120px;">状態</th>
+						<td><font color="red">無効</font>(<i>テスト完了確認後に変更できます。</i>)</td>
+					</tr>
+					<tr>
+						<th style="width:120px;">受信パラメータ</th>
+						<td><input type="text" name="param_name1" style="ime-mode:disabled;" size="20" maxlength="10" /></td>
+					</tr>
+					<tr>
+						<th style="width:120px;">送信パラメータ</th>
+						<td><input type="text" name="param_name2" style="ime-mode:disabled;" size="20" maxlength="10" /></td>
+					</tr>
+					<tr>
+						<th style="width:120px;">成果送信先URL</th>
+						<td><input type="text" name="return_url" style="ime-mode:disabled;" size="80" maxlength="100" /></td>
+					</tr>
+					<tr>
+						<th style="width:120px;">出稿URL</th>
+						<td><input type="text" name="access_url" style="ime-mode:disabled;" size="80" maxlength="100" /></td>
+					</tr>
+					<tr>
+						<th style="width:120px;">出稿単価</th>
+						<td><input type="text" name="price" style="ime-mode:disabled;" size="20" maxlength="10" /></td>
+					</tr>
+
+					<tr>
+						<th style="width:120px;">開始日</th>
+						<td>%&years&% 年 %&months&% 月 %&dates&% 日 </td>
+					</tr>
+					<tr>
+						<th style="width:120px;">終了日</th>
+						<td>%&toyears&% 年 %&tomonths&% 月 %&todates&% 日</td>
+					</tr>
+					<tr>
+						<th style="width:120px;">補足事項</th>
+						<td><textarea name="comment" cols="60"></textarea><br />※全角100文字まで</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+						<br />
+						<div align="center"><input type="submit" name="registAffiliate" value="　確　認　画　面　" onclick="init();" id="content" /></div>
+						<input type="hidden" name="action" value="registAffiliate" />
+						<br />
+						</td>
+					</tr>
+
+__IfRegistMedia__
+
+__IfConfirmMedia__
+					<tr>
+						<th style="width:120px;">広告コード</th>
+						<td>%&acd&%</td>
+					</tr>
+					<tr>
+						<th style="width:120px;">メディア名</th>
+						<td>%&client_name&%</td>
+					</tr>
+					<tr>
+						<th style="width:120px;">状態</th>
+						<td class="inactivecol">無効(<i>テスト完了確認後に変更できます。</i>)</td>
+					</tr>
+					<tr>
+						<th style="width:120px;">受信パラメータ</th>
+						<td>%&param_name1&%</td>
+					</tr>
+					<tr>
+						<th style="width:120px;">送信パラメータ</th>
+						<td>%&param_name2&%</td>
+					</tr>
+					<tr>
+						<th style="width:120px;">成果送信先URL</th>
+						<td>%&return_url&%</td>
+					</tr>
+					<tr>
+						<th style="width:120px;">出稿URL</th>
+						<td>%&access_url&%</td>
+					</tr>
+					<tr>
+						<th style="width:120px;">出稿単価</th>
+						<td>%&price&%</td>
+					</tr>
+					<tr>
+						<th style="width:120px;">開始日</th>
+						<td>%&years&% 年 %&months&% 月 %&dates&% 日 %&valid_date&%</td>
+					</tr>
+					<tr>
+						<th style="width:120px;">終了日</th>
+						<td>%&toyears&% 年 %&tomonths&% 月 %&todates&% 日 %&expire_date&%</td>
+					</tr>
+					<tr>
+						<th style="width:120px;">補足</th>
+						<td>%&comment&%</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<br />
+							<div align="center">
+							<input type="submit" name="registAffiliate" value="　登　録　す　る　" onclick="init();" id="content" />
+							<br /><br />
+							<input type="button" value="　修　正　す　る　" onClick="history.back()" />
+							</div>
+							<input type="hidden" name="action" value="modifyAffiliate" />
+							<br />
+						</td>
+					</tr>
+__IfConfirmMedia__
+
+				</table>
+				<input type="hidden" name="app" value="AppMedia" />
+				<input type="hidden" name="md5key" value="%&md5key&%" />
+				</form>
+
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+
+</body>
+</html>

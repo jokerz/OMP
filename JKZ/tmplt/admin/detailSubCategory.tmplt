@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+<meta http-equiv="content-type" content="application/xhtml+xml;charset=Shift_JIS" />
+<meta name="Pragma" content="no-cache" />
+<title>商品カテゴリ管理</title>
+<link rel="stylesheet" href="/style.css" type="text/css" charset="Shift_JIS" />
+<link rel="stylesheet" type="text/css" href="/css/lightbox.css" />
+<link rel="stylesheet" type="text/css" href="/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css" href="/build/container/assets/skins/sam/container.css" />
+<script src="/js/prototype.js" type="text/javascript"></script>
+<script src="/build/utilities/utilities.js" type="text/javascript"></script>
+<script src="/build/container/container.js" type="text/javascript"></script>
+<script src="/js/myIndicator.js" type="text/javascript"></script>
+<script type="text/javascript">//<![CDATA[
+	function update_msg () { update = confirm("データを更新します.よろしいですか?"); return update }
+//]]></script>
+<script src="/js/popuphint.js" type="text/javascript"></script>
+<script src="/js/scriptaculous.js?load=effects" type="text/javascript"></script>
+<script src="/js/lightbox.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="base"><!-- ---------------------------------------------------------------------------- -->
+	<!-- ヘッダー -->
+	<div id="head">
+		<h1>UPSTAIR システム　管理者画面</h1>
+	</div>
+
+	<!-- ■■■■■■■■■■■■■■ メニュー BEGIN ■■■■■■■■■■■■■■■■-->
+   	<div id="side">
+		<script src="/js/cms_leftmenu.js" type="text/JavaScript"></script>
+	</div>
+
+	<div id="main"><!-- ---------------------------------------------------------------------------- -->
+		<!-- パンくず -->
+		<div id="pankuzu">
+			<a href="/app.mpl">トップ</a>＞<a href="/app.mpl?app=AppProduct;action=viewSubCategoryList">サブカテゴリ一覧</a>＞<strong>サブカテゴリ詳細</strong>
+		</div>
+		<!-- タイトル -->
+		<div class="screen_title">
+			<h2>サブカテゴリ詳細</h2>
+		</div>
+
+		<div id="list">
+
+
+<br />
+__IfModifySCategoryForm__
+	<!-- サブカテゴリ詳細編集フォーム BEGIN -->
+<form action="/app.mpl" method="post" name="modifyCategory" id="modifyCategory">
+<table border="0" cellspacing="0" cellpadding="2" width="60%" rules="all" class="datagrid">
+<tr><th align="center" colspan="3">サブカテゴリID:<b>%&subcategory_id&%</b>&nbsp;サブカテゴリ名:<b>%&subcategory_name&%</b> 詳細情報</th></tr>
+	<tr>
+		<th width="25%">サブカテゴリID</th>
+		<td><input type="text" name="subcategory_id" value="%&subcategory_id&%" size="26" readonly />&nbsp;(%&bitcode&%)</td>
+	</tr>
+	<tr>
+	    <th>カテゴリ</th>
+	    <td>
+	    <select name="category_id">
+__LoopCategoryList__
+		<option value="%&category_id&%;%&EncodedCategoryName&%"__IfSelectedCategoryID__ selected__IfSelectedCategoryID__>【%&category_name&%】</option>
+__LoopCategoryList__
+		</select>
+	    </td>
+	</tr>
+
+	<tr>
+	    <th>サブカテゴリ名</th>
+	    <td><input type="text" name="subcategory_name" value="%&subcategory_name&%" size="70" style="ime-mode:active" /></td>
+	</tr
+	<tr>
+	    <th>状態</th>
+	    <td width="25%">
+__IfStatusFlagIsActive__
+	    <label for="status_flag2">
+	    <input type="radio" name="status_flag" value="2" checked id="status_flag2" /><font style="color:#0000ff"> 有効</font>
+	    </label> &nbsp;
+	    <label for="status_flag1">
+	    <input type="radio" name="status_flag" value="1" id="status_flag1" /> 無効
+	    </label>
+__IfStatusFlagIsActive__
+__IfStatusFlagIsNotActive__
+	    <label for="status_flag2">
+	    <input type="radio" name="status_flag" value="2" id="status_flag2" /> 有効
+	    </label> &nbsp;
+	    <label for="status_flag1">
+	    <input type="radio" name="status_flag" value="1" checked id="status_flag1" /><font style="color:#ff0000;"> 無効</font>
+	    </label>
+__IfStatusFlagIsNotActive__
+		</td>
+	</tr>
+	<tr>
+    	<th>説明<br /><img src="/images/tagok.gif" width="21" height="22" /></th>
+	    <td><textarea cols="60" name="description" rows="8" style="font-size:11px;">%&description&%</textarea></td>
+	</tr>
+	<tr> 
+    	<th>説明詳細<br /><img src="/images/tagok.gif" width="21" height="22" /></th>
+	    <td><textarea cols="60" name="description_detail" rows="8" style="font-size:11px;">%&description_detail&%</textarea></td>
+	</tr>
+	<tr>
+	    <th>登録日</th>
+	    <td>%&registration_date&%</td>
+	</tr>
+<tr><td colspan="2"><div align="center"><input type="submit" name="modifySubCategory" value="　確　認　画　面　" onclick="init();" id="content" /></div></td></tr>
+<input type="hidden" name="app" value="AppProduct" />
+<input type="hidden" name="subcategory_id" value="%&subcategory_id&%" />
+<input type="hidden" name="action" value="detailSubCategory" />
+<input type="hidden" name="md5key" value="%&md5key&%" />
+
+</table>
+</form>
+	<!-- サブカテゴリ詳細編集フォーム END -->
+__IfModifySCategoryForm__
+
+
+__IfConfirmSubCategoryForm__
+	<!-- 更新内容確認フォーム BEGIN -->
+<div id="error">
+<ul>
+<li><font size="-2">下記内容で登録する場合は画面下の「情報更新」ボタンを押下して情報の更新を完了してください。</font></li>
+<li><font size="-2">下記内容を修正する場合は画面下の「修正」ボタンを押下し内容を修正してください。</font></li>
+</ul>
+</div>
+<form action="/app.mpl" method="post">
+
+<table border="0" cellspacing="0" cellpadding="2" width="60%" rules="all" class="datagrid">
+	<tr><th align="center" colspan="3">カテゴリ登録情報確認</th></tr>
+	<tr>
+	    <th width="25%">サブカテゴリID</th>
+	    <td>%&subcategory_id&%</td>
+	</tr>
+	<tr>
+	    <th>カテゴリ名</th>
+	    <td>
+	    	&nbsp;
+	    	%&category_name&%
+	    </td>
+	</tr>
+	<tr>
+	    <th>サブカテゴリ名</th>
+	    <td>
+	    	&nbsp;
+	    	%&subcategory_name&%
+	    </td>
+	</tr>
+	<tr>
+	    <th>状態</th>
+	    <td width="25%">
+	     __IfStatusFlagIsActive__ <font style="color:#0000ff;">有効</font>__IfStatusFlagIsActive__
+	     __IfStatusFlagIsNotActive__ <font style="color:#ff0000;">無効</font>__IfStatusFlagIsNotActive__
+		</td>
+	</tr>
+	<tr>
+    	<th>説明<br /><img src="/images/tagok.gif" width="21" height="22" /></th>
+	    <td><textarea cols="60" name="description" rows="8" style="font-size:11px;" readonly>%&description&%</textarea></td>
+	</tr>
+	<tr> 
+    	<th>説明詳細<br /><img src="/images/tagok.gif" width="21" height="22" /></th>
+	    <td><textarea cols="60" name="description_detail" rows="8" style="font-size:11px;" readonly>%&description_detail&%</textarea></td>
+	</tr>
+	<tr>
+	    <th>登録日</th>
+	    <td>%&registration_date&%</td>
+	</tr>
+<tr>
+	<td colspan="2">
+		<div align="center">
+		<input type="submit" name="modifySubCategory" value="　情　報　更　新　" onclick="init();" id="content" />
+		<br /><br />
+		<input type="button" value="　修　正　" onClick="history.back()" />
+		</div>
+	</td>
+</tr>
+</table>
+<input type="hidden" name="app" value="AppProduct" />
+<input type="hidden" name="action" value="modifySubCategory" />
+<input type="hidden" name="md5key" value="%&md5key&%" />
+</form>
+
+	<!-- 更新内容確認フォーム END -->
+__IfConfirmSubCategoryForm__
+	
+		</div>
+
+	</div><!-- ---------------------------------------------------------------------------- -->
+
+	<!-- コピーライト -->
+	<div id="copy">
+		<div class="line"><img src="/images/spacer.gif" alt="" width="1" height="1" /></div>
+		(c)UP-STAIR 2009 All Rights Reserved
+	</div>
+
+</div><!-- ---------------------------------------------------------------------------- -->
+
+</body>
+</html>
